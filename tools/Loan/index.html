@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+    <title>Starter Template - Materialize</title>
+
+    <!-- CSS  -->
+    <link href="css/icon.css" rel="stylesheet">
+    <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <script src="https://unpkg.com/javascript-lp-solver/src/solver.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+</head>
+
+<body>
+    <nav class="Maroon" role="navigation">
+        <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Logo</a>
+
+            <ul class="right hide-on-med-and-down">
+                <li><a href="#">CH</a></li>
+                <li class="active"><a href="#">EN</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <br><br>
+
+
+    <div class="row">
+        <div class="col s0 m0 l1">
+        </div>
+
+
+        <div class="col s12 m12 l5">
+            <div class="card white z-depth-3">
+                <div class="card-content black-text">
+                    <span class="card-title">General Introduction</span>
+                    <p>Welcome to this combination energy tool. </p>
+                    <p>Data file input will be shown once you set up threshold setting. <span id="Speed_text"></span></p>
+                    <!--General inro, including equation, description, usage -->
+
+                    <h5>Usage</h5>
+
+                    <h5>Method</h5>
+
+                    <h5>Intro</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s12 m12 l5">
+            <div class="card white z-depth-3">
+                <div class="card-content black-text">
+                    <span class="card-title">Threshold Setting</span>
+                    <p>Adjust setting as you want. Two types are provided. </p>
+                    <span id="notification"></span>
+                </div>
+                <div class="card-action">
+
+                    <form id="login" name="login" method="GET" action="run.html" onsubmit="return checkForm()">
+                        <div class="row">
+                            <p>
+                                <label>
+                              <input class="with-gap" id="radio1" name="group1" type="radio" value="1" onclick="select1()"/>
+                              <span>Manual Set Threshold</span>
+                            </label>
+                            </p>
+
+
+                            <div class="input-field col s6">
+                                <input disabled id="wind" name="wind" type="text" class="validate" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d]/g,'') ">
+                                <label for="wind">Wind(mph)</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <input disabled id="light" name="light" type="text" class="validate" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d]/g,'') ">
+                                <label for="light">Light(LUX)</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <input disabled id="wave" name="wave" type="text" class="validate" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d]/g,'') ">
+                                <label for="wave">Wave</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <input disabled id="current" name="current" type="text" class="validate" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d]/g,'') ">
+                                <label for="current">Ocean Current</label>
+                            </div>
+
+                            <div class="input-field col s6">
+                                <input disabled id="battery" name="battery" type="text" class="validate" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d]/g,'') ">
+                                <label for="battery">Battery capacity(KWH)</label>
+                            </div>
+
+                            <div class="input-field col s6">
+                                <input disabled id="freq" name="freq" type="text" class="validate" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d]/g,'') ">
+                                <label for="freq">Refresh Frequency(ms)</label>
+                            </div>
+                            <p class="col s6"><label>
+                                <input class="with-gap" id="radio2" name="group1" type="radio" checked value="2" onclick="select2()"/>
+                                <span>Use History Data</span>
+                              </label>
+                            </p>
+                            <div class="input-field col s6">
+                                <input id="User" name="User" type="text" class="validate" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d]/g,'') ">
+                                <label for="User">User Usage(kwh/day)</label>
+                            </div>
+
+                            <div class="file-field input-field col s6">
+
+                                <div class="btn">
+                                    <span>File</span>
+                                    <input id="history_data" name="history_data" type="file" accept=".csv,text/csv" onchange="loadFile(this)">
+                                </div>
+                                <div class="file-path-wrapper">
+                                    <input placeholder="History data" id="hist_data" class="file-path validate" type="text">
+                                </div>
+                            </div>
+
+
+                            <p class="col s6"><label>
+                                    <input type="checkbox" onchange="userUsageSwitch(this);" />
+                                    <span>I will provide user data in input file in the next page</span>
+                                  </label></p>
+
+
+
+
+
+
+                            <p class="col s9"></p>
+                            <button class="btn waves-effect waves-light col s3" type="submit" name="action">Submit
+                      
+                      
+                            <i class="material-icons right">send</i>
+                    </button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s0 m0 l1">
+        </div>
+
+    </div>
+
+    <br><br>
+    </div>
+
+    <footer class="page-footer orange">
+        <div class="container">
+            <div class="row">
+                <h5 class="white-text">Info</h5>
+                <p class="grey-text text-lighten-4">efe</p>
+
+
+
+            </div>
+            <div class="footer-copyright">
+                <div class="container">
+                    Made by <a class="orange-text text-lighten-3" href="https://shaokang.ga">Shaokang Jiang</a> using <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+                </div>
+            </div>
+    </footer>
+
+
+    <!--  Scripts-->
+
+    <script src="js/materialize.js"></script>
+    <script>
+        M.AutoInit();
+        var file;
+
+        function loadFile(use) {
+            if (use.files[0] != null && use.files[0].type == 'text/csv')
+                file = use.files[0];
+            else {
+                use.value = '';
+                document.getElementById("notification").innerHTML = '<font color="red">Please select a csv file. </font>';
+            }
+        }
+
+        function userUsageSwitch(use) {
+            if (use.checked) {
+                document.getElementById("User").disabled = true;
+            } else {
+
+                document.getElementById("User").disabled = false;
+            }
+        }
+
+        function checkForm() {
+            if (checkFormValid()) {
+                return false;
+            } else {
+                location.href = "run.html";
+            }
+            return true;
+        }
+
+        function checkFormValid() {
+            if (document.getElementById("radio1").checked == true) {
+                if (document.getElementById("wind").value == "" ||
+                    document.getElementById("light").value == "" || document.getElementById("wave").value == "" ||
+                    document.getElementById("current").value == "" || document.getElementById("battery").value == "" ||
+                    document.getElementById("freq").value == "" || (document.getElementById("User").disabled == false && document.getElementById("User").value == "")) {
+                    document.getElementById("notification").innerHTML = '<font color="red">You need to fill all empty fields. </font>';
+                    return true;
+                };
+                return false;
+            }
+            if (document.getElementById("radio2").checked == true) {
+                if ((document.getElementById("User").disabled == false && document.getElementById("User").value == "") ||
+                    document.getElementById("hist_data").value == "" || document.getElementById("history_data").value == "") {
+                    document.getElementById("notification").innerHTML = '<font color="red">You need to fill all empty fields. </font>';
+                    return true;
+                };
+                //solve some optimization problem at here
+                return false;
+            }
+
+            return true;
+        }
+
+
+        function select2() {
+
+            document.getElementById("wind").disabled = true;
+            document.getElementById("light").disabled = true;
+            document.getElementById("wave").disabled = true;
+            document.getElementById("current").disabled = true;
+            document.getElementById("battery").disabled = true;
+            document.getElementById("freq").disabled = true;
+
+            document.getElementById("hist_data").disabled = false;
+            document.getElementById("history_data").disabled = false;
+
+        }
+
+        function select1() {
+            document.getElementById("wind").disabled = false;
+            document.getElementById("light").disabled = false;
+            document.getElementById("wave").disabled = false;
+            document.getElementById("current").disabled = false;
+            document.getElementById("battery").disabled = false;
+            document.getElementById("freq").disabled = false;
+            document.getElementById("hist_data").disabled = true;
+            document.getElementById("history_data").disabled = true;
+        }
+
+        function optimization() {
+            var results,
+                model = {
+                    "optimize": "capacity",
+                    "opType": "max",
+                    "constraints": {
+                        "plane": {
+                            "max": 44
+                        },
+                        "person": {
+                            "max": 512
+                        },
+                        "cost": {
+                            "max": 300000
+                        },
+                        "brit": {
+                            "max": 5
+                        }
+                    },
+                    "variables": {
+                        "brit": {
+                            "capacity": 20000,
+                            "plane": 1,
+                            "person": 8,
+                            "cost": 5000
+                        },
+                        "yank": {
+                            "capacity": 30000,
+                            "plane": 1,
+                            "person": 16,
+                            "cost": 9000
+                        }
+                    },
+                };
+
+            results = solver.Solve(model);
+            console.log(results);
+            document.getElementById("Speed_text").innerText = "feasible:" + results.feasible + ", result: " + results.result + ", bounded: " + results.bounded + ", brit: " + results.brit + ", yank: " + results.yank;
+        }
+    </script>
+
+</body>
+
+</html>
