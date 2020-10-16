@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+    <title>Capital Two - Quiz</title>
+
+    <!-- CSS  -->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <script src="https://unpkg.com/javascript-lp-solver/src/solver.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <style>
+        body { 
+          background-image: url('./bg_quiz.png');
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          background-position: center bottom;
+          background-size: cover;
+        }
+        </style>
+</head>
+
+<body>
+    <nav class="Maroon" id="navbar" role="navigation" style='background-color: rgba(0,0,0,0);'>
+        <div class="nav-wrapper container center"><a id="logo-container" href="#" class="brand-logo center">Capital Two - Quiz</a>
+        </div>
+    </nav>
+
+    <div id="content">
+
+    </div>
+
+    
+
+
+
+    <!--  Scripts-->
+
+    <script src="../js/materialize.js"></script>
+    <script>
+        M.AutoInit();
+        
+        var request;
+        $(document).ready(function() { 
+            request = {
+                    QueryString: function(val) {
+                        var uri = window.location.search;
+                        var re = new RegExp("" + val + "=([^&?]*)", "ig");
+                        return ((uri.match(re)) ? (uri.match(re)[0].substr(val.length + 1)) : null);
+                    }
+                }
+                var _srcHeight = parseInt(window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight);
+                var result = $("#navbar").height();
+            if(request.QueryString("code") != null && request.QueryString("code") != ""){
+                    document.getElementById("content").innerHTML = '<div class="container row" style="margin-top: '+(_srcHeight*0.43-result)+'px;"><div class="col s3"></div><div class="col s6"><div class="card white z-depth-3"><div class="card-content black-text"><span class="card-title">Quiz Code</span><p>We receive a requiest of quiz number: '+request.QueryString("code")+'</p></div></div></div></div></div>';
+                }else{
+                    document.getElementById("content").innerHTML = '<div class="container row" style="margin-top: '+(_srcHeight*0.4-result)+'px;"><div class="col s3"></div><div class="col s6"><div class="card white z-depth-3"><div class="card-content black-text"><span class="card-title">Look for a quiz?</span><p>Type in the quiz code below and click process to go to related quiz page</p><div class="input-field"><input id="quizcode" type="text" class="validate"><label for="quizcode">Quiz Code</label></div> <div class="row"><div class="col s12 m8"></div> <button class="col s12 m4 btn waves-effect waves-light" type="submit" name="action" onclick="handleExplorer()">Proceed<i class="material-icons right">send</i></button></div></div></div></div></div></div></div>';
+                }
+        });
+
+        function handleExplorer(){
+            window.location.href="https://capitaltwo.ga/quiz/index.html?code="+document.getElementById('quizcode').value;
+        }
+                
+    </script>
+
+</body>
+
+</html>
