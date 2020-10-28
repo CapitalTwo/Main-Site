@@ -14,10 +14,20 @@
 </head>
 
 <body>
-    <nav class="light blue lighten-1" role="navigation">
-        <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Capital Two</a>
+    <nav class="red" role="navigation">
+        <div class="nav-wrapper container">
+          <a id="logo-container" href="#" class="brand-logo">Retirement Calculator</a>
+          <ul class="right hide-on-med-and-down">
+            <li><a href="#">Navigation</a></li>
+          </ul>
+    
+          <ul id="nav-mobile" class="sidenav">
+            <li><a href="#">Navigation</a></li>
+          </ul>
+          <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         </div>
-    </nav>
+      </nav>
+    
 
     <br><br>
 
@@ -30,16 +40,16 @@
         <div class="col s12 m12 l5">
             <div class="card white z-depth-3">
                 <div class="card-content black-text">
-                    <span class="card-title">General Introduction</span>
-                    <p>Welcome to the Loan Calculation Tool. </p>
-                    <p>Enter a loan amount, as well as the term of the loan and expected interest rate. We will then provide you with your expected monthly payment and total interest accrued over the length of the loan.<span id="Speed_text"></span></p>
+                    <h5>General Introduction</h5>
+                    <p>Welcome to the Retirement Calculation Tool. </p>
+                    <p>Enter the amount of money you want when you retire, as well as your monthly contribution and expected growth of investment (APY). We will then provide you with the expected timeframe of your retirement.<span id="Speed_text"></span></p>
                     <!--General inro, including equation, description, usage -->
 
                     <h5>Usage</h5>
-                    <p>This calculator provides the functionality to calculate car, home, and business loans.</p>
+                    <p>This calculator provides users with insights into their trajectory for retirement.</p>
                     <h5>Method</h5>
-                    <p>We begin by calculating the total amount owed over the course of the loan, given by the following formula: Total Payment = Loan Amount * (1 + Rate)^Years</p>
-                    <p>Next, we divide the total payment by the length of the loan in months to determine a monthly payment: Monthly Payment = (Total Payment/(12* years))</p>
+                    <p>We begin by depositing the initial balance into the account. At this point, we simulate waiting a month. Next, we calculate the interest gained during the period, which is represented by: Interest = Balance * (1+ (APY/12)) </p>
+                    <p>Finally, we add the interest earned during the period and check to see if we have reached our retirement goal. If not, we wait another month and check again. </p>
                 </div>
             </div>
         </div>
@@ -47,8 +57,8 @@
         <div class="col s12 m12 l5">
             <div class="card white z-depth-3">
                 <div class="card-content black-text">
-                    <span class="card-title">Threshold Setting</span>
-                    <p>Adjust setting as you want. Two types are provided. </p>
+                    <span class="card-title">User Input</span>
+                    <p>Please provide relevant information below</p>
                 </div>
                 <div class="card-action">
 
@@ -69,12 +79,11 @@
                             </div>
                             
                             <p class="col s9"></p>
-                            <button class="btn waves-effect waves-light col s3" type="submit" name="action">Submit
-                      
-                      
-                            <i class="material-icons right">send</i>
-                    </button>
-
+                        
+                                <button class="btn waves-effect waves-light col s3" type="submit" name="action">Submit
+                                    <i class="material-icons right">send</i>
+                                </button>
+                            
                         </div>
                     </form>
                 </div>
@@ -89,18 +98,14 @@
     <br><br>
     </div>
 
-    <footer class="page-footer orange">
+    <footer class="page-footer light-blue">
         <div class="container">
             <div class="row">
-                <h5 class="white-text">Info</h5>
-                <p class="grey-text text-lighten-4">efe</p>
-
-
-
+            
             </div>
             <div class="footer-copyright">
                 <div class="container">
-                    Made by <a class="orange-text text-lighten-3" href="https://shaokang.ga">Capital Two</a> using <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+                    Made by <a class="white-text text-lighten-3" href="https://capitaltwo.ga">Capital Two</a> using <a class="white-text text-lighten-3" href="http://materializecss.com">Materialize</a>
                 </div>
             </div>
     </footer>
