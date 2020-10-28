@@ -4,7 +4,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
-    <title>Starter Template - Materialize</title>
+    <title>Loan Calculator</title>
 
     <!-- CSS  -->
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -14,8 +14,8 @@
 </head>
 
 <body>
-    <nav class="Maroon" role="navigation">
-        <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Logo</a>
+    <nav class="light blue lighten-1" role="navigation">
+        <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Capital Two</a>
         </div>
     </nav>
 
@@ -31,15 +31,15 @@
             <div class="card white z-depth-3">
                 <div class="card-content black-text">
                     <span class="card-title">General Introduction</span>
-                    <p>Welcome to this XXX tool. </p>
-                    <p>Translate words Sai wrote to here and add anything you want.<span id="Speed_text"></span></p>
+                    <p>Welcome to the Loan Calculation Tool. </p>
+                    <p>Enter a loan amount, as well as the term of the loan and expected interest rate. We will then provide you with your expected monthly payment and total interest accrued over the length of the loan.<span id="Speed_text"></span></p>
                     <!--General inro, including equation, description, usage -->
 
                     <h5>Usage</h5>
-
+                    <p>This calculator provides the functionality to calculate car, home, and business loans.</p>
                     <h5>Method</h5>
-
-                    <h5>Intro</h5>
+                    <p>We begin by calculating the total amount owed over the course of the loan, given by the following formula: Total Payment = Loan Amount * (1 + Rate)^Years</p>
+                    <p>Next, we divide the total payment by the length of the loan in months to determine a monthly payment: Monthly Payment = (Total Payment/(12* years))</p>
                 </div>
             </div>
         </div>
@@ -54,59 +54,20 @@
 
                     <form id="login" name="login" method="GET" action="run.html" onsubmit="return checkForm()">
                         <div class="row">
-                            <p>
-                                <label>
-                              <input class="with-gap" name="group1" type="radio" value="1" onclick="select1()"/>
-                              <span>Manual Set Threshold</span>
-                            </label>
-                            </p>
-
-
+                           
                             <div class="input-field col s6">
-                                <input disabled id="wind" name="wind" type="text" class="validate" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d]/g,'') ">
-                                <label for="wind">Wind(mph)</label>
+                                <input disabled id="loan amount" name="loan amount" type="text" class="validate" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d]/g,'') ">
+                                <label for="loan amount">Loan Amount ($)</label>
                             </div>
                             <div class="input-field col s6">
-                                <input disabled id="light" name="light" type="text" class="validate" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d]/g,'') ">
-                                <label for="light">Light(LUX)</label>
+                                <input disabled id="period" name="period" type="text" class="validate" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d]/g,'') ">
+                                <label for="period">Period (Years)</label>
                             </div>
                             <div class="input-field col s6">
-                                <input disabled id="wave" name="wave" type="text" class="validate" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d]/g,'') ">
-                                <label for="wave">Wave</label>
+                                <input disabled id="rate" name="rate" type="text" class="validate" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d]/g,'') ">
+                                <label for="rate">Interest Rate (%) </label>
                             </div>
-                            <div class="input-field col s6">
-                                <input disabled id="current" name="current" type="text" class="validate" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d]/g,'') ">
-                                <label for="current">Ocean Current</label>
-                            </div>
-
-                            <div class="input-field col s6">
-                                <input disabled id="battary" name="battary" type="text" class="validate" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d]/g,'') ">
-                                <label for="battary">Battery capacity(KWH)</label>
-                            </div>
-
-                            <p class="col s12">
-                                <label>
-                              <input class="with-gap" name="group1" type="radio" checked value="2" onclick="select2()"/>
-                              <span>Use History Data</span>
-                            </label>
-                            </p>
-
-                            <div class="file-field input-field col s6">
-                                <div class="btn">
-                                    <span>File</span>
-                                    <input id="history_data" name="history_data" type="file">
-                                </div>
-                                <div class="file-path-wrapper">
-                                    <input placeholder="History data" id="hist_data" class="file-path validate" type="text">
-                                </div>
-                            </div>
-
-                            <div class="input-field col s6">
-                                <input id="User" name="User" type="text" class="validate" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d]/g,'') ">
-                                <label for="User">User Usage</label>
-                            </div>
-
-
+                            
                             <p class="col s9"></p>
                             <button class="btn waves-effect waves-light col s3" type="submit" name="action">Submit
                       
@@ -139,7 +100,7 @@
             </div>
             <div class="footer-copyright">
                 <div class="container">
-                    Made by <a class="orange-text text-lighten-3" href="https://shaokang.ga">Shaokang Jiang</a> using <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+                    Made by <a class="orange-text text-lighten-3" href="https://shaokang.ga">Capital Two</a> using <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a>
                 </div>
             </div>
     </footer>
@@ -160,28 +121,18 @@
 
         function select2() {
 
-            document.getElementById("wind").disabled = true;
-            document.getElementById("light").disabled = true;
-            document.getElementById("wave").disabled = true;
-            document.getElementById("current").disabled = true;
-            document.getElementById("battary").disabled = true;
-
-            document.getElementById("User").disabled = false;
-            document.getElementById("hist_data").disabled = false;
-            document.getElementById("history_data").disabled = false;
+            document.getElementById("loan amount").disabled = true;
+            document.getElementById("period").disabled = true;
+            document.getElementById("rate").disabled = true;
+            
 
         }
 
         function select1() {
-            document.getElementById("wind").disabled = false;
-            document.getElementById("light").disabled = false;
-            document.getElementById("wave").disabled = false;
-            document.getElementById("current").disabled = false;
-            document.getElementById("battary").disabled = false;
-
-            document.getElementById("User").disabled = true;
-            document.getElementById("hist_data").disabled = true;
-            document.getElementById("history_data").disabled = true;
+            document.getElementById("loan amount").disabled = false;
+            document.getElementById("period").disabled = false;
+            document.getElementById("rate").disabled = false;
+            
         }
 
         function load(source) {
