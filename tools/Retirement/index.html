@@ -4,25 +4,36 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
-    <title>Loan Calculator</title>
+    <meta name="description" content="Online Retirement Calculator">
+    <meta name="keywords" content="HTML, CSS, JavaScript, Calculator, Retirement">
+    <meta name="author" content="Peter Daly">
+    <title>Retirement Calculator</title>
 
     <!-- CSS  -->
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="../../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
     <link href="../../css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+    <style>
+      body {
+        background-image: url(https://i0.wp.com/altoday.com/wp-content/uploads/2016/12/retirement-seniors.jpg?resize=1024%2C683&ssl=1);
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+      </style>
 </head>
 
 <body>
     <nav class="red" role="navigation">
         <div class="nav-wrapper container">
-          <a id="logo-container" href="#" class="brand-logo">Retirement Calculator</a>
+          <a id="logo-container" href="#" class="brand-logo white-text" >Retirement Calculator</a>
           <ul class="right hide-on-med-and-down">
-            <li><a href="#">Navigation</a></li>
+            <li><a href="#" class = "white-text">Navigation</a></li>
           </ul>
     
           <ul id="nav-mobile" class="sidenav">
-            <li><a href="#">Navigation</a></li>
+            <li><a href="#" class = "white-text">Navigation</a></li>
           </ul>
           <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         </div>
@@ -57,7 +68,7 @@
         <div class="col s12 m12 l5">
             <div class="card white z-depth-3">
                 <div class="card-content black-text">
-                    <span class="card-title">User Input</span>
+                    <h5>User Input</h5>
                     <p>Please provide relevant information below</p>
                 </div>
                 <div class="card-action">
@@ -66,16 +77,16 @@
                         <div class="row">
                            
                             <div class="input-field col s6">
-                                <input disabled id="loan amount" name="loan amount" type="text" class="validate" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d]/g,'') ">
-                                <label for="loan amount">Loan Amount ($)</label>
+                                <input disabled id="retire amount" name="retire amount" type="text" class="validate" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d]/g,'') ">
+                                <label for="retire amount">Retirement Amount ($)</label>
                             </div>
                             <div class="input-field col s6">
-                                <input disabled id="period" name="period" type="text" class="validate" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d]/g,'') ">
-                                <label for="period">Period (Years)</label>
+                                <input disabled id="monthly" name="monthly" type="text" class="validate" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d]/g,'') ">
+                                <label for="monthly">Monthly Contribution ($)</label>
                             </div>
                             <div class="input-field col s6">
                                 <input disabled id="rate" name="rate" type="text" class="validate" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d]/g,'') ">
-                                <label for="rate">Interest Rate (%) </label>
+                                <label for="rate">Rate of Return (%) </label>
                             </div>
                             
                             <p class="col s9"></p>
@@ -90,25 +101,47 @@
             </div>
         </div>
 
-        <div class="col s0 m0 l1">
-        </div>
 
     </div>
 
     <br><br>
     </div>
 
-    <footer class="page-footer light-blue">
+    <footer class="page-footer blue">
         <div class="container">
-            <div class="row">
-            
+          <div class="row">
+            <div class="col l6 s12">
+              <h5 class="white-text">Bio</h5>
+              <p class="grey-text text-lighten-4">Created by Shaokang Jiang, Ritika Mittal, Sai Teja Chokkarapu, and Peter Daly</p>
+    
+    
             </div>
-            <div class="footer-copyright">
-                <div class="container">
-                    Made by <a class="white-text text-lighten-3" href="https://capitaltwo.ga">Capital Two</a> using <a class="white-text text-lighten-3" href="http://materializecss.com">Materialize</a>
-                </div>
+            <div class="col l3 s12">
+              <h5 class="white-text">Contacts</h5>
+              <ul>
+                <li><a class="white-text" href="mailto:sjiang97@wisc.edu">Shaokang</a></li>
+                <li><a class="white-text" href="mailto:rmittal6@wisc.edu">Ritika</a></li>
+                <li><a class="white-text" href="mailto:chokkarapu@wisc.edu">Sai</a></li>
+                <li><a class="white-text" href="mailto:pndaly@wisc.edu">Peter</a></li>
+              </ul>
             </div>
-    </footer>
+            <div class="col l3 s12">
+              <h5 class="white-text">Connect</h5>
+              <ul>
+                <li><a class="white-text" href="#!">Shaokang</a></li>
+                <li><a class="white-text" href="https://www.linkedin.com/in/ritika-mittal-011ab2178/">Ritika</a></li>
+                <li><a class="white-text" href="https://www.linkedin.com/in/chokkarapu/">Sai</a></li>
+                <li><a class="white-text" href="https://www.linkedin.com/in/peterdaly13/">Peter</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="footer-copyright">
+          <div class="container">
+          Made by <a class="red-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+          </div>
+        </div>
+      </footer>
 
 
     <!--  Scripts-->
