@@ -54,7 +54,7 @@
             var _srcHeight = parseInt(window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight);
             var result = $("#navbar").height();
             if (request.QueryString("code") != null && request.QueryString("code") != "") {
-                document.getElementById("content").innerHTML = '<div class="container row" style="margin-top: ' + (_srcHeight * 0.2 - result) + 'px;"><div class="col s1"></div><div class="col s6"><div class="card white z-depth-3"><div class="card-content black-text"><span class="card-title">Quiz Code</span><p>We receive a requiest of quiz number: ' + request.QueryString("code") + '</p><div id="holder"><p>    <div class="preloader-wrapper big active">      <div class="spinner-layer spinner-blue">        <div class="circle-clipper left">          <div class="circle"></div>        </div><div class="gap-patch">          <div class="circle"></div>        </div><div class="circle-clipper right">          <div class="circle"></div>        </div></div></p></div></div></div></div></div></div>';
+                document.getElementById("content").innerHTML = '<div class="container row" style="margin-top: ' + (_srcHeight * 0.2 - result) + 'px;"><div class="col s1"></div><div class="col s11"><div class="card white z-depth-3"><div class="card-content black-text"><span class="card-title">Quiz Code</span><p>We receive a requiest of quiz number: ' + request.QueryString("code") + '</p><div id="holder"><p>    <div class="preloader-wrapper big active">      <div class="spinner-layer spinner-blue">        <div class="circle-clipper left">          <div class="circle"></div>        </div><div class="gap-patch">          <div class="circle"></div>        </div><div class="circle-clipper right">          <div class="circle"></div>        </div></div></p></div></div></div></div></div></div>';
                 generateForm();
             } else {
                 document.getElementById("content").innerHTML = '<div class="container row" style="margin-top: ' + (_srcHeight * 0.4 - result) + 'px;"><div class="col s3"></div><div class="col s6"><div class="card white z-depth-3"><div class="card-content black-text"><span class="card-title">Look for a quiz?</span><p>Type in the quiz code below and click process to go to related quiz page</p><div class="input-field"><input id="quizcode" type="text" class="validate"><label for="quizcode">Quiz Code</label></div> <div class="row"><div class="col s12 m8"></div> <button class="col s12 m4 btn waves-effect waves-light" type="submit" name="action" onclick="handleExplorer()">Proceed<i class="material-icons right">send</i></button></div></div></div></div></div></div></div>';
@@ -79,29 +79,40 @@
                     form.setAttribute("action", "#");
 
 
-                    for (let k of data) {
+                    for (let k = 0; k < data.length; k++) {
                         console.log(k);
+                        let Text = document.createElement("p");
+                        Text.innerText = (k + 1) + "." + data[k].QuestionText;
+                        form.appendChild(Text);
+
+                        for (let options of Object.keys(data[k].Choices)) {
+                            // Create an input element for Full Name 
+                            let FN = document.createElement("div");
+                            FN.innerHTML = '<p><label><input class="with-gap" id="radio1" name="group' + k + '" type="radio" value="' + options + '"/><span>' + data[k].Choices[options] + '</span></label></p>';
+
+                            form.appendChild(FN);
+                        }
 
 
-                        // Create an input element for Full Name 
-                        var FN = document.createElement("div");
-                        FN.innerHTML = '<p>                                <label>                              <input class="with-gap" id="radio1" name="group1" type="radio" value="1"/>                              <span>Manual Set Threshold</span>                            </label>                            </p>';
-                        // Append the full name input to the form 
-                        form.appendChild(FN);
-
+                        let HiddenText = document.createElement("input");
+                        HiddenText.setAttribute("type", "hidden");
+                        HiddenText.setAttribute("value", data[i].QNumber);
+                        form.appendChild(HiddenText);
                         // Inserting a line break 
                         form.appendChild(br.cloneNode());
                     }
 
                     // create a submit button 
-                    var s = document.createElement("input");
+                    var s = document.createElement("button");
                     s.setAttribute("type", "submit");
-                    s.setAttribute("value", "Submit");
+                    s.setAttribute("name", "action");
+                    s.setAttribute("class", "btn waves-effect waves-light");
+                    s.innerHTML = '<i class="material-icons right">send</i>';
 
                     // Append the submit button to the form 
                     form.appendChild(s);
 
-                    document.getElementById("holder").appendChild(form);
+                    document.getElementById("holder").replaceChild(form);
                 })
                 .catch(error => {
                     console.error(error)
