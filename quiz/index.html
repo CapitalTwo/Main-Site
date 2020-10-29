@@ -111,8 +111,9 @@
 
                     // Append the submit button to the form 
                     form.appendChild(s);
+                    document.getElementById("holder").innerHTML = '';
 
-                    document.getElementById("holder").replaceChild(form);
+                    document.getElementById("holder").appendChild(form);
                 })
                 .catch(error => {
                     console.error(error)
