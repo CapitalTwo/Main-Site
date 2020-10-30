@@ -98,7 +98,7 @@
                         let HiddenText = document.createElement("p");
                         HiddenText.setAttribute("type", "hidden");
                         HiddenText.setAttribute("id", "number" + k);
-                        HiddenText.setAttribute("value", data[k].QNumber);
+                        HiddenText.innerText = data[k].QNumber;
                         form.appendChild(HiddenText);
                         // Inserting a line break 
                         form.appendChild(br.cloneNode());
