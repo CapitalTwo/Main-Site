@@ -75,14 +75,15 @@
                 .then(data => {
                     // Create a form synamically 
                     var form = document.createElement("form");
-                    form.setAttribute("method", "post");
+                    form.setAttribute("method", "GET");
+                    form.setAttribute("onsubmit", "return checkForm()");
                     form.setAttribute("action", "#");
 
 
                     for (let k = 0; k < data.length; k++) {
                         console.log(k);
                         let Text = document.createElement("p");
-                        Text.innerText = (k + 1) + "." + data[k].QuestionText;
+                        Text.innerText = (k + 1) + ". " + data[k].QuestionText;
                         form.appendChild(Text);
 
                         for (let options of Object.keys(data[k].Choices)) {
@@ -94,8 +95,9 @@
                         }
 
 
-                        let HiddenText = document.createElement("input");
+                        let HiddenText = document.createElement("p");
                         HiddenText.setAttribute("type", "hidden");
+                        HiddenText.setAttribute("id", "number" + k);
                         HiddenText.setAttribute("value", data[k].QNumber);
                         form.appendChild(HiddenText);
                         // Inserting a line break 
@@ -103,11 +105,12 @@
                     }
 
                     // create a submit button 
-                    var s = document.createElement("button");
-                    s.setAttribute("type", "submit");
-                    s.setAttribute("name", "action");
-                    s.setAttribute("class", "btn waves-effect waves-light");
-                    s.innerHTML = 'Check Quiz<i class="material-icons right">send</i>';
+
+
+
+                    var s = document.createElement("div");
+                    s.setAttribute("class", "row");
+                    s.innerHTML = '<div class="col s12 m8"></div> <button class="col s12 m4 btn waves-effect waves-light" type="submit" name="action">Proceed<i class="material-icons right">send</i></button>';
 
                     // Append the submit button to the form 
                     form.appendChild(s);
@@ -122,6 +125,17 @@
                 })
 
 
+        }
+
+        function checkForm() {
+            console.log(document.getElementById('number1').innerText);
+            var ele = document.getElementsByName('group1');
+
+            for (i = 0; i < ele.length; i++) {
+                if (ele[i].checked)
+                    console.log(ele[i].value + ":" + ele[i].innerText);
+            }
+            return false;
         }
     </script>
 
