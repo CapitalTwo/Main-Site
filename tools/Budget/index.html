@@ -10,34 +10,38 @@
     <title>Budget Calculator</title>
 
     <!-- CSS  -->
-      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="../../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
     <link href="../../css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
     <style>
-      body {
-        background-image: url(https://www.workflowmax.com/hubfs/budget%20900x400v2.png);
-      }
-      </style>
+        body {
+            background-image: url(https://www.workflowmax.com/hubfs/budget%20900x400v2.png);
+        }
+    </style>
 
 </head>
 
 <body>
     <nav class="red" role="navigation">
         <div class="nav-wrapper container">
-          <a id="logo-container" href="#" class="brand-logo white-text">Budget Calculator</a>
-          <ul class="right hide-on-med-and-down">
-            <li><a href="#" class = "white-text">Navigation</a></li>
-          </ul>
-    
-          <ul id="nav-mobile" class="sidenav">
-            <li><a href="#" class = "white-text">Navigation</a></li>
-          </ul>
-          <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <a id="logo-container" href="#" class="brand-logo white-text">Budget Calculator</a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="#" class="white-text">Navigation</a></li>
+            </ul>
+
+            <ul id="nav-mobile" class="sidenav">
+                <li><a href="#" class="white-text">Navigation</a></li>
+            </ul>
+            <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         </div>
-      </nav>
-    
+    </nav>
+
 
     <br><br>
 
@@ -74,7 +78,7 @@
 
                     <form id="login" name="login" method="GET" action="run.html" onsubmit="return checkForm()">
                         <div class="row">
-                           
+
                             <div class="input-field col s6">
                                 <input disabled id="retire amount" name="retire amount" type="text" class="validate" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d]/g,'') ">
                                 <label for="retire amount">Field 1</label>
@@ -87,13 +91,13 @@
                                 <input disabled id="rate" name="rate" type="text" class="validate" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d]/g,'') ">
                                 <label for="rate">Field 3 </label>
                             </div>
-                            
+
                             <p class="col s9"></p>
-                        
-                                <button class="btn waves-effect waves-light col s3" type="submit" name="action">Submit
+
+                            <button class="btn waves-effect waves-light col s3" type="submit" name="action">Submit
                                     <i class="material-icons right">send</i>
                                 </button>
-                            
+
                         </div>
                     </form>
                 </div>
@@ -110,39 +114,39 @@
 
     <footer class="page-footer blue">
         <div class="container">
-          <div class="row">
-            <div class="col l6 s12">
-              <h5 class="white-text">Bio</h5>
-              <p class="grey-text text-lighten-4">Created by Shaokang Jiang, Ritika Mittal, Sai Teja Chokkarapu, and Peter Daly</p>
-    
-    
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">Bio</h5>
+                    <p class="grey-text text-lighten-4">Created by Shaokang Jiang, Ritika Mittal, Sai Teja Chokkarapu, and Peter Daly</p>
+
+
+                </div>
+                <div class="col l3 s12">
+                    <h5 class="white-text">Contacts</h5>
+                    <ul>
+                        <li><a class="white-text" href="mailto:sjiang97@wisc.edu">Shaokang</a></li>
+                        <li><a class="white-text" href="mailto:rmittal6@wisc.edu">Ritika</a></li>
+                        <li><a class="white-text" href="mailto:chokkarapu@wisc.edu">Sai</a></li>
+                        <li><a class="white-text" href="mailto:pndaly@wisc.edu">Peter</a></li>
+                    </ul>
+                </div>
+                <div class="col l3 s12">
+                    <h5 class="white-text">Connect</h5>
+                    <ul>
+                        <li><a class="white-text" href="#!">Shaokang</a></li>
+                        <li><a class="white-text" href="https://www.linkedin.com/in/ritika-mittal-011ab2178/">Ritika</a></li>
+                        <li><a class="white-text" href="https://www.linkedin.com/in/chokkarapu/">Sai</a></li>
+                        <li><a class="white-text" href="https://www.linkedin.com/in/peterdaly13/">Peter</a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="col l3 s12">
-              <h5 class="white-text">Contacts</h5>
-              <ul>
-                <li><a class="white-text" href="mailto:sjiang97@wisc.edu">Shaokang</a></li>
-                <li><a class="white-text" href="mailto:rmittal6@wisc.edu">Ritika</a></li>
-                <li><a class="white-text" href="mailto:chokkarapu@wisc.edu">Sai</a></li>
-                <li><a class="white-text" href="mailto:pndaly@wisc.edu">Peter</a></li>
-              </ul>
-            </div>
-            <div class="col l3 s12">
-              <h5 class="white-text">Connect</h5>
-              <ul>
-                <li><a class="white-text" href="#!">Shaokang</a></li>
-                <li><a class="white-text" href="https://www.linkedin.com/in/ritika-mittal-011ab2178/">Ritika</a></li>
-                <li><a class="white-text" href="https://www.linkedin.com/in/chokkarapu/">Sai</a></li>
-                <li><a class="white-text" href="https://www.linkedin.com/in/peterdaly13/">Peter</a></li>
-              </ul>
-            </div>
-          </div>
         </div>
         <div class="footer-copyright">
-          <div class="container">
-          Made by <a class="red-text text-lighten-3" href="http://materializecss.com">Materialize</a>
-          </div>
+            <div class="container">
+                Made by <a class="red-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+            </div>
         </div>
-      </footer>
+    </footer>
 
 
     <!--  Scripts-->
@@ -163,7 +167,7 @@
             document.getElementById("loan amount").disabled = true;
             document.getElementById("period").disabled = true;
             document.getElementById("rate").disabled = true;
-            
+
 
         }
 
@@ -171,7 +175,7 @@
             document.getElementById("loan amount").disabled = false;
             document.getElementById("period").disabled = false;
             document.getElementById("rate").disabled = false;
-            
+
         }
 
         function load(source) {
