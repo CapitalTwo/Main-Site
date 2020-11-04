@@ -89,7 +89,7 @@
                         for (let options of Object.keys(data[k].Choices)) {
                             // Create an input element for Full Name 
                             let FN = document.createElement("div");
-                            FN.innerHTML = '<p><label><input class="with-gap" id="radio1" name="group' + k + '" type="radio" value="' + options + '"/><span>' + data[k].Choices[options] + '</span></label></p>';
+                            FN.innerHTML = '<p><label><input class="with-gap" id="group' + k + '' + options + '" name="group' + k + '" type="radio" value="' + options + '"/><span>' + data[k].Choices[options] + '</span></label></p>';
 
                             form.appendChild(FN);
                         }
