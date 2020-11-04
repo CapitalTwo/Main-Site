@@ -54,7 +54,7 @@
             var _srcHeight = parseInt(window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight);
             var result = $("#navbar").height();
             if (request.QueryString("code") != null && request.QueryString("code") != "") {
-                document.getElementById("content").innerHTML = '<div class="container row" style="margin-top: ' + (_srcHeight * 0.2 - result) + 'px;"><div class="col s12"><div class="card white z-depth-3"><div class="card-content black-text"><span class="card-title">Quiz Code</span><p>We receive a requiest of quiz number: ' + request.QueryString("code") + '</p></div>  <div id="loading"><div class="progress" >      <div class="indeterminate"></div>  </div></div><div class="card-action"><div id="holder"></div></div></div></div></div></div>';
+                document.getElementById("content").innerHTML = '<div class="container row" style="margin-top: ' + (_srcHeight * 0.2 - result) + 'px;"><div class="col s12"><div class="card white z-depth-3"><div class="card-content black-text"><span class="card-title">Quiz Code</span><p>We receive a requiest of quiz number: ' + request.QueryString("code") + '</p><p id="result"></p></div>  <div id="loading"><div class="progress" >      <div class="indeterminate"></div>  </div></div><div class="card-action"><div id="holder"></div></div></div></div></div></div>';
                 generateForm();
             } else {
                 document.getElementById("content").innerHTML = '<div class="container row" style="margin-top: ' + (_srcHeight * 0.4 - result) + 'px;"><div class="col s3"></div><div class="col s6"><div class="card white z-depth-3"><div class="card-content black-text"><span class="card-title">Look for a quiz?</span><p>Type in the quiz code below and click process to go to related quiz page</p><div class="input-field"><input id="quizcode" type="text" class="validate"><label for="quizcode">Quiz Code</label></div> <div class="row"><div class="col s12 m8"></div> <button class="col s12 m4 btn waves-effect waves-light" type="submit" name="action" onclick="handleExplorer()">Proceed<i class="material-icons right">send</i></button></div></div></div></div></div></div></div>';
@@ -67,6 +67,7 @@
         }
 
         var br = document.createElement("br");
+        var nQuiz = 0;
 
         function generateForm() {
 
@@ -75,10 +76,9 @@
                 .then(data => {
                     // Create a form synamically 
                     var form = document.createElement("form");
-                    form.setAttribute("method", "GET");
                     form.setAttribute("onsubmit", "return checkForm()");
                     form.setAttribute("action", "#");
-
+                    nQuiz = data.length;
 
                     for (let k = 0; k < data.length; k++) {
                         console.log(k);
@@ -89,7 +89,7 @@
                         for (let options of Object.keys(data[k].Choices)) {
                             // Create an input element for Full Name 
                             let FN = document.createElement("div");
-                            FN.innerHTML = '<p><label><input class="with-gap" id="group' + k + '' + options + '" name="group' + k + '" type="radio" value="' + options + '"/><span>' + data[k].Choices[options] + '</span></label></p>';
+                            FN.innerHTML = '<p><label><input class="with-gap" id="group' + k + '' + options + '" name="group' + data[k].QNumber + '" type="radio" value="' + options + '"/><span>' + data[k].Choices[options] + '</span></label></p>';
 
                             form.appendChild(FN);
                         }
@@ -100,6 +100,10 @@
                         HiddenText.setAttribute("id", "number" + k);
                         HiddenText.setAttribute("value", data[k].QNumber);
                         form.appendChild(HiddenText);
+                        HiddenText = document.createElement("div");
+                        HiddenText.setAttribute("id", "Explanation" + data[k].QNumber);
+                        form.appendChild(HiddenText);
+
                         // Inserting a line break 
                         form.appendChild(br.cloneNode());
                     }
@@ -123,19 +127,76 @@
                     document.getElementById("loading").innerHTML = '';
                     document.getElementById("holder").innerHTML = "<font style='color: red'>Invalid code</font>"
                 })
-
-
         }
 
         function checkForm() {
             console.log(document.getElementById('number1').value);
-            var ele = document.getElementsByName('group1');
 
-            for (i = 0; i < ele.length; i++) {
-                if (ele[i].checked)
-                    console.log(ele[i].value + ":" + ele[i].innerHTML);
+            let toSend = [];
+            toSend.push({
+                "Task": "aaa"
+            })
+            for (let i = 0; i < nQuiz; i++) {
+                let qnumber = document.getElementById('number' + i).value;
+                let ele = document.getElementsByName('group' + qnumber);
+                let choice = "";
+                for (let i = 0; i < ele.length; i++) {
+                    if (ele[i].checked) {
+                        choice = ele[i].value;
+                        console.log(ele[i].value + ":" + ele[i].innerHTML);
+                    }
+                }
+                toSend.push({
+                    "QNumber": qnumber,
+                    "Selection": qnumber
+                })
             }
+            console.log(toSend);
+            //generateContent(send);
+
             return false;
+        }
+
+        function generateContent(send) {
+            document.getElementById("loading").innerHTML = '<div class="progress" >      <div class="indeterminate"></div>  </div>';
+            fetch('https://cool-forest-d491.1442334619.workers.dev/', {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8'
+                    },
+                    body: JSON.stringify(send)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("result").innerText = data[0].pass;
+                    for (let i = 1; i < data.length; i++) {
+                        if (data[i].Correct) {
+                            let ele = document.getElementsByName('group' + data[i].QNumber);
+                            for (let j = 0; j < ele.length; j++) {
+                                if (ele[j].checked) {
+                                    ele[j].style.backgroundColor = 'lightblue';
+                                    ele[j].style.borderColor = 'blue';
+                                }
+                            }
+                            document.getElementById("Explanation" + data[i].QNumber) = data[i].Explanation;
+                        } else {
+                            let ele = document.getElementsByName('group' + data[i].QNumber);
+                            for (let j = 0; j < ele.length; j++) {
+                                if (ele[j].checked) {
+                                    ele[j].style.backgroundColor = '#ffcccb';
+                                    ele[j].style.borderColor = 'red';
+                                }
+                            }
+                            document.getElementById("Explanation" + data[i].QNumber) = data[i].Explanation;
+                        }
+                    }
+                    document.getElementById("loading").innerHTML = '';
+                })
+                .catch(error => {
+                    console.error(error)
+                    document.getElementById("loading").innerHTML = '';
+                    document.getElementById("holder").innerHTML = "<font style='color: red'>Invalid code</font>"
+                })
         }
     </script>
 
