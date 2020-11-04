@@ -146,6 +146,10 @@
                         console.log(ele[i].value + ":" + ele[i].innerHTML);
                     }
                 }
+                if (choice.localeCompare("") == 0) {
+                    document.getElementById("result").innerText = "Please fill all answer";
+                    return false;
+                }
                 toSend.push({
                     "QNumber": qnumber,
                     "Selection": qnumber
