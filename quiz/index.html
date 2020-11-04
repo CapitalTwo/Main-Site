@@ -134,7 +134,7 @@
 
             let toSend = [];
             toSend.push({
-                "Task": "aaa"
+                "Task": request.QueryString("code")
             })
             for (let i = 0; i < nQuiz; i++) {
                 let qnumber = document.getElementById('number' + i).value;
@@ -152,7 +152,7 @@
                 }
                 toSend.push({
                     "QNumber": qnumber,
-                    "Selection": qnumber
+                    "Selection": choice
                 })
             }
             console.log(toSend);
