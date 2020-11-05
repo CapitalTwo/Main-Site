@@ -71,7 +71,16 @@
 
         function generateForm() {
 
-            fetch('https://cool-forest-d491.1442334619.workers.dev/')
+            fetch('https://tiny-mode-f054.1442334619.workers.dev/', {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8'
+                    },
+                    body: JSON.stringify({
+                        "Task": "GetPreDefinedQuizzes",
+                        "quizcode": request.QueryString("code")
+                    })
+                })
                 .then(response => response.json())
                 .then(data => {
                     // Create a form synamically 
@@ -134,7 +143,8 @@
 
             let toSend = [];
             toSend.push({
-                "Task": request.QueryString("code")
+                "Task": "Validation",
+                "quizcode": request.QueryString("code")
             })
             for (let i = 0; i < nQuiz; i++) {
                 let qnumber = document.getElementById('number' + i).value;
@@ -156,14 +166,14 @@
                 })
             }
             console.log(toSend);
-            //generateContent(send);
+            generateContent(send);
 
             return false;
         }
 
         function generateContent(send) {
             document.getElementById("loading").innerHTML = '<div class="progress" >      <div class="indeterminate"></div>  </div>';
-            fetch('https://cool-forest-d491.1442334619.workers.dev/', {
+            fetch('https://tiny-mode-f054.1442334619.workers.dev/', {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json;charset=utf-8'
@@ -172,6 +182,7 @@
                 })
                 .then(response => response.json())
                 .then(data => {
+                    console.log(data)
                     document.getElementById("result").innerText = data[0].pass;
                     for (let i = 1; i < data.length; i++) {
                         if (data[i].Correct) {
