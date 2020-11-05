@@ -79,7 +79,8 @@
                     body: JSON.stringify({
                         "Task": "GetPreDefinedQuizzes",
                         "quizcode": request.QueryString("code")
-                    })
+                    }),
+                    mode: 'no-cors'
                 })
                 .then(response => response.json())
                 .then(data => {
@@ -178,7 +179,8 @@
                     headers: {
                         'Content-Type': 'application/json;charset=utf-8'
                     },
-                    body: JSON.stringify(send)
+                    body: JSON.stringify(send),
+                    mode: 'no-cors'
                 })
                 .then(response => response.json())
                 .then(data => {
