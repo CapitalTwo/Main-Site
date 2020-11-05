@@ -171,49 +171,37 @@
         async function generateContent(send) {
             document.getElementById("loading").innerHTML = '<div class="progress" >      <div class="indeterminate"></div>  </div>';
 
-            let a = await (await fetch('https://cool-forest-d491.1442334619.workers.dev', {
+            let data = await (await fetch('https://cool-forest-d491.1442334619.workers.dev', {
                 method: "POST",
                 body: JSON.stringify(send)
             }).json());
 
-            console.log(a);
+            console.log(data);
 
-            fetch('https://cool-forest-d491.1442334619.workers.dev', {
-                    method: "POST",
-                    body: JSON.stringify(send)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data)
-                    document.getElementById("result").innerText = data[0].pass;
-                    for (let i = 1; i < data.length; i++) {
-                        if (data[i].Correct) {
-                            let ele = document.getElementsByName('group' + data[i].QNumber);
-                            for (let j = 0; j < ele.length; j++) {
-                                if (ele[j].checked) {
-                                    ele[j].style.backgroundColor = 'lightblue';
-                                    ele[j].style.borderColor = 'blue';
-                                }
-                            }
-                            document.getElementById("Explanation" + data[i].QNumber) = data[i].Explanation;
-                        } else {
-                            let ele = document.getElementsByName('group' + data[i].QNumber);
-                            for (let j = 0; j < ele.length; j++) {
-                                if (ele[j].checked) {
-                                    ele[j].style.backgroundColor = '#ffcccb';
-                                    ele[j].style.borderColor = 'red';
-                                }
-                            }
-                            document.getElementById("Explanation" + data[i].QNumber) = data[i].Explanation;
+            document.getElementById("result").innerText = data[0].pass;
+            for (let i = 1; i < data.length; i++) {
+                if (data[i].Correct) {
+                    let ele = document.getElementsByName('group' + data[i].QNumber);
+                    for (let j = 0; j < ele.length; j++) {
+                        if (ele[j].checked) {
+                            ele[j].style.backgroundColor = 'lightblue';
+                            ele[j].style.borderColor = 'blue';
                         }
                     }
-                    document.getElementById("loading").innerHTML = '';
-                })
-                .catch(error => {
-                    console.error(error)
-                    document.getElementById("loading").innerHTML = '';
-                    document.getElementById("holder").innerHTML = "<font style='color: red'>Invalid code</font>"
-                })
+                    document.getElementById("Explanation" + data[i].QNumber) = data[i].Explanation;
+                } else {
+                    let ele = document.getElementsByName('group' + data[i].QNumber);
+                    for (let j = 0; j < ele.length; j++) {
+                        if (ele[j].checked) {
+                            ele[j].style.backgroundColor = '#ffcccb';
+                            ele[j].style.borderColor = 'red';
+                        }
+                    }
+                    document.getElementById("Explanation" + data[i].QNumber) = data[i].Explanation;
+                }
+            }
+            document.getElementById("loading").innerHTML = '';
+
         }
     </script>
 
