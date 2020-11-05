@@ -82,8 +82,8 @@
                 .then(data => {
                     // Create a form synamically 
                     var form = document.createElement("form");
-                    //form.setAttribute("onsubmit", "return checkForm()");
-                    //form.setAttribute("action", "#");
+                    form.setAttribute("onsubmit", "return checkForm()");
+                    form.setAttribute("action", "#");
                     nQuiz = data.length;
 
                     for (let k = 0; k < data.length; k++) {
@@ -120,8 +120,7 @@
 
                     var s = document.createElement("div");
                     s.setAttribute("class", "row");
-
-                    s.innerHTML = '<div class="col s12 m8"></div> <button class="col s12 m4 btn waves-effect waves-light" type="submit" name="action" onclick="checkForm()">Proceed<i class="material-icons right">send</i></button>';
+                    s.innerHTML = '<div class="col s12 m8"></div> <button class="col s12 m4 btn waves-effect waves-light" type="submit" name="action">Proceed<i class="material-icons right">send</i></button>';
 
                     // Append the submit button to the form 
                     form.appendChild(s);
@@ -165,6 +164,8 @@
             }
             console.log(toSend);
             generateContent(toSend);
+
+            return false;
         }
 
         function generateContent(send) {
