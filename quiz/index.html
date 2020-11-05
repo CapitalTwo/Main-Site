@@ -73,9 +73,6 @@
 
             fetch('https://cool-forest-d491.1442334619.workers.dev', {
                     method: "POST",
-                    headers: {
-                        'Content-Type': 'application/json;charset=utf-8'
-                    },
                     body: JSON.stringify({
                         "Task": "GetPreDefinedQuizzes",
                         "quizcode": request.QueryString("code")
@@ -175,9 +172,6 @@
             document.getElementById("loading").innerHTML = '<div class="progress" >      <div class="indeterminate"></div>  </div>';
             fetch('https://cool-forest-d491.1442334619.workers.dev', {
                     method: "POST",
-                    headers: {
-                        'Content-Type': 'application/json;charset=utf-8'
-                    },
                     body: JSON.stringify(send)
                 })
                 .then(response => response.json())
