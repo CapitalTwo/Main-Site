@@ -82,8 +82,8 @@
                 .then(data => {
                     // Create a form synamically 
                     var form = document.createElement("form");
-                    form.setAttribute("onsubmit", "return checkForm()");
-                    form.setAttribute("action", "#");
+                    //form.setAttribute("onsubmit", "return checkForm()");
+                    //form.setAttribute("action", "#");
                     nQuiz = data.length;
 
                     for (let k = 0; k < data.length; k++) {
@@ -165,8 +165,6 @@
             }
             console.log(toSend);
             generateContent(toSend);
-
-            return false;
         }
 
         function generateContent(send) {
