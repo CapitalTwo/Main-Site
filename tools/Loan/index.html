@@ -1,74 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, maximum-scale=1.0"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
     <meta name="description" content="Online Loan Calculator" />
-    <meta
-      name="keywords"
-      content="HTML, CSS, JavaScript, Calculator, Student Loan, Car Loan, Home Loan, Loan"
-    />
+    <meta name="keywords" content="HTML, CSS, JavaScript, Calculator, Student Loan, Car Loan, Home Loan, Loan" />
     <meta name="author" content="Peter Daly and Ritika Mittal" />
     <title>Loan Calculator</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css"
-    />
-    <script
-      defer
-      src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"
-    ></script>
 
     <!-- CSS  -->
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
-    <link
-      href="../../css/materialize.css"
-      type="text/css"
-      rel="stylesheet"
-      media="screen,projection"
-    />
-    <link
-      href="../../css/style.css"
-      type="text/css"
-      rel="stylesheet"
-      media="screen,projection"
-    />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link href="../../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="../../css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
     </script>
-    <script
-      type="text/javascript"
-      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
-    ></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <style>
-      body {
-        background-image: url(https://cdn.hswstatic.com/gif/loan-personal.jpg);
-      }
+        body {
+            background-image: url(https://cdn.hswstatic.com/gif/loan-personal.jpg);
+        }
     </style>
-  </head>
+</head>
 
-  <body>
+<body>
     <nav class="red" role="navigation">
-      <div class="nav-wrapper container">
-        <a id="logo-container" href="#" class="brand-logo white-text"
-          >Loan Calculator</a
+        <div class="nav-wrapper container">
+            <a id="logo-container" href="#" class="brand-logo white-text">Loan Calculator</a
         >
         <ul class="right hide-on-med-and-down">
           <li><a href="#" class="white-text">Navigation</a></li>
-        </ul>
+            </ul>
 
-        <ul id="nav-mobile" class="sidenav">
-          <li><a href="#">Navigation</a></li>
-        </ul>
-        <a href="#" data-target="nav-mobile" class="sidenav-trigger"
-          ><i class="material-icons">menu</i></a
+            <ul id="nav-mobile" class="sidenav">
+                <li><a href="#">Navigation</a></li>
+            </ul>
+            <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a
         >
       </div>
     </nav>
@@ -103,7 +72,7 @@
             <p>
               Next, we divide the total payment by the length of the loan in
               months to determine a monthly payment: Monthly Payment =
-              $\frac{Total Payment}{12*years}$
+              $\frac{Total Payment}{12*years}$ 
             </p>
           </div>
         </div>
@@ -146,76 +115,85 @@
     </div>
 
 </div>
-<div class="col s12 m12 l5"></div>
-<div class="card white z-depth-3">
-    <h1 class="title ">Calculated Results</h1>
-<div class="columns is-multiline">
 
-<div class="column is-12-tablet is-6-desktop is-3-widescreen">
-  <div class="notification is-primary has-text">
-    <p id="monthlyPayment" class="title is-1">$</p>
-    <p class="subtitle is-4">Monthly Payments</p>
-  </div>
-</div>
-
-  <div class="column is-12-tablet is-6-desktop is-3-widescreen">
-      <div class="notification is-info has-text">
-        <p id="totalInterest" class="title is-1">%</p>
-        <p class="subtitle is-4">Total Interest</p>
-      </div>
+<div class="container">
+  <div class="card white z-depth-3">
+    <div class="card-content black-text">
+      <h5 class="title ">Calculated Results</h5>
     </div>
+    <div class="card-action black-text">
+      <div class="row">
+        <div class="col s12 m4">
+          <div class="card light-blue darken-1">
+            <div class="card-content white-text">
+              <span class="card-title">Monthly Payments</span>
+              <p id="monthlyPayment" >$</p>
+            </div>
+        </div>
+        </div>
 
-    <div class="column is-12-tablet is-6-desktop is-3-widescreen">
-      <div class="notification is-link has-text">
-        <p id="totalPayment" class="title is-1">$</p>
-        <p class="subtitle is-4">Total Amount</p>
-      </div>
-    </div>
+        <div class="col s12 m4">
+          <div class="card light-blue darken-1">
+            <div class="card-content white-text">
+              <span class="card-title">Total Interest</span>
+              <p id="totalInterest" >%</p>
+            </div>
+        </div>
+        </div>
+        <div class="col s12 m4">
+          <div class="card light-blue darken-1">
+            <div class="card-content white-text">
+              <span class="card-title">Total Amount</span>
+              <p id="totalPayment">$</p>
+            </div>
+        </div>
+        </div>
+        </div>
 
-</div>
-</div>
-</div>
+        </div>
 
-<br><br>
-</div>
-    <footer class="page-footer blue">
-      <div class="container">
-        <div class="row">
-          <div class="col l6 s12">
-            <h5 class="white-text">Bio</h5>
-            <p class="grey-text text-lighten-4">
-              Created by Shaokang Jiang, Ritika Mittal, Sai Teja Chokkarapu, and
-              Peter Daly
-            </p>
-          </div>
-          <div class="col l3 s12">
-            <h5 class="white-text">Contacts</h5>
-            <ul>
-              <li>
-                <a class="white-text" href="mailto:sjiang97@wisc.edu"
-                  >Shaokang</a
+        </div>
+
+
+        </div>
+
+
+        <br><br>
+
+
+        <footer class="page-footer blue">
+            <div class="container">
+                <div class="row">
+                    <div class="col l6 s12">
+                        <h5 class="white-text">Bio</h5>
+                        <p class="grey-text text-lighten-4">
+                            Created by Shaokang Jiang, Ritika Mittal, Sai Teja Chokkarapu, and Peter Daly
+                        </p>
+                    </div>
+                    <div class="col l3 s12">
+                        <h5 class="white-text">Contacts</h5>
+                        <ul>
+                            <li>
+                                <a class="white-text" href="mailto:sjiang97@wisc.edu">Shaokang</a
                 >
               </li>
               <li>
                 <a class="white-text" href="mailto:rmittal6@wisc.edu">Ritika</a>
-              </li>
-              <li>
+            </li>
+            <li>
                 <a class="white-text" href="mailto:chokkarapu@wisc.edu">Sai</a>
-              </li>
-              <li>
+            </li>
+            <li>
                 <a class="white-text" href="mailto:pndaly@wisc.edu">Peter</a>
-              </li>
+            </li>
             </ul>
-          </div>
-          <div class="col l3 s12">
+        </div>
+        <div class="col l3 s12">
             <h5 class="white-text">Connect</h5>
             <ul>
-              <li><a class="white-text" href="#!">Shaokang</a></li>
-              <li>
-                <a
-                  class="white-text"
-                  href="https://www.linkedin.com/in/ritika-mittal-011ab2178/"
-                  >Ritika</a
+                <li><a class="white-text" href="#!">Shaokang</a></li>
+                <li>
+                    <a class="white-text" href="https://www.linkedin.com/in/ritika-mittal-011ab2178/">Ritika</a
                 >
               </li>
               <li>
