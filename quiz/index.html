@@ -174,7 +174,7 @@
             let data = await (await fetch('https://cool-forest-d491.1442334619.workers.dev', {
                 method: "POST",
                 body: JSON.stringify(send)
-            }).json());
+            })).json();
 
             console.log(data);
 
