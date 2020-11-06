@@ -106,7 +106,7 @@
                         HiddenText.setAttribute("id", "number" + k);
                         HiddenText.setAttribute("value", data[k].QNumber);
                         form.appendChild(HiddenText);
-                        HiddenText = document.createElement("div");
+                        HiddenText = document.createElement("p");
                         HiddenText.setAttribute("id", "Explanation" + data[k].QNumber);
                         form.appendChild(HiddenText);
 
@@ -188,7 +188,7 @@
                             ele[j].style.borderColor = 'blue';
                         }
                     }
-                    document.getElementById("Explanation" + data[i].QNumber) = data[i].Explanation;
+                    document.getElementById("Explanation" + data[i].QNumber).innerHTML = data[i].Explanation;
                 } else {
                     let ele = document.getElementsByName('group' + data[i].QNumber);
                     for (let j = 0; j < ele.length; j++) {
@@ -197,7 +197,7 @@
                             ele[j].style.borderColor = 'red';
                         }
                     }
-                    document.getElementById("Explanation" + data[i].QNumber) = data[i].Explanation;
+                    document.getElementById("Explanation" + data[i].QNumber).innerHTML = data[i].Explanation;
                 }
             }
             document.getElementById("loading").innerHTML = '';
