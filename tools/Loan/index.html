@@ -1,43 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1.0"
+    />
     <meta name="description" content="Online Loan Calculator" />
-    <meta name="keywords" content="HTML, CSS, JavaScript, Calculator, Student Loan, Car Loan, Home Loan, Loan" />
+    <meta
+      name="keywords"
+      content="HTML, CSS, JavaScript, Calculator, Student Loan, Car Loan, Home Loan, Loan"
+    />
     <meta name="author" content="Peter Daly and Ritika Mittal" />
     <title>Loan Calculator</title>
 
     <!-- CSS  -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-    <link href="../../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
-    <link href="../../css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      href="../../css/materialize.css"
+      type="text/css"
+      rel="stylesheet"
+      media="screen,projection"
+    />
+    <link
+      href="../../css/style.css"
+      type="text/css"
+      rel="stylesheet"
+      media="screen,projection"
+    />
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
     </script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    ></script>
     <style>
-        body {
-            background-image: url(https://cdn.hswstatic.com/gif/loan-personal.jpg);
-        }
+      body {
+        background-image: url(https://cdn.hswstatic.com/gif/loan-personal.jpg);
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <nav class="red" role="navigation">
-        <div class="nav-wrapper container">
-            <a id="logo-container" href="#" class="brand-logo white-text">Loan Calculator</a
+      <div class="nav-wrapper container">
+        <a id="logo-container" href="#" class="brand-logo white-text"
+          >Loan Calculator</a
         >
         <ul class="right hide-on-med-and-down">
           <li><a href="#" class="white-text">Navigation</a></li>
-            </ul>
+        </ul>
 
-            <ul id="nav-mobile" class="sidenav">
-                <li><a href="#">Navigation</a></li>
-            </ul>
-            <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a
+        <ul id="nav-mobile" class="sidenav">
+          <li><a href="#">Navigation</a></li>
+        </ul>
+        <a href="#" data-target="nav-mobile" class="sidenav-trigger"
+          ><i class="material-icons">menu</i></a
         >
       </div>
     </nav>
@@ -72,7 +95,7 @@
             <p>
               Next, we divide the total payment by the length of the loan in
               months to determine a monthly payment: Monthly Payment =
-              $\frac{Total Payment}{12*years}$ 
+              $\frac{Total Payment}{12*years}$
             </p>
           </div>
         </div>
@@ -80,120 +103,141 @@
 
       <div class="col s12 m12 l5">
         <div class="card white z-depth-3">
-            <div class="card-content black-text">
-                <h5>User Input</h5>
-                <p>Please provide relevant information below </p>
-            </div>
-            <div class="card-action">
+          <div class="card-content black-text">
+            <h5>User Input</h5>
+            <p>Please provide relevant information below</p>
+          </div>
+          <div class="card-action">
+            <form id="loan-form">
+              <div class="row">
+                <div class="input-field col s6">
+                  <input
+                    id="amount"
+                    name="amount"
+                    type="text"
+                    class="validate"
+                    onkeyup="this.value=this.value.replace(/[^\d]/g,'') "
+                    onafterpaste="this.value=this.value.replace(/[^\d]/g,'') "
+                  />
+                  <label for="loan amount">Loan Amount ($)</label>
+                </div>
+                <div class="input-field col s6">
+                  <input
+                    id="years"
+                    name="years"
+                    type="text"
+                    class="validate"
+                    onkeyup="this.value=this.value.replace(/[^\d]/g,'') "
+                    onafterpaste="this.value=this.value.replace(/[^\d]/g,'') "
+                  />
+                  <label for="period">Period (Years)</label>
+                </div>
+                <div class="input-field col s6">
+                  <input
+                    id="interest"
+                    name="interest"
+                    type="text"
+                    class="validate"
+                    onkeyup="this.value=this.value.replace(/[^\d]/g,'') "
+                    onafterpaste="this.value=this.value.replace(/[^\d]/g,'') "
+                  />
+                  <label for="rate">Interest Rate (%) </label>
+                </div>
 
-                <form id="loan-form">
-                    <div class="row">
+                <p class="col s9"></p>
 
-                        <div class="input-field col s6">
-                            <input id="amount" name="amount" type="text" class="validate" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d]/g,'') ">
-                            <label for="loan amount">Loan Amount ($)</label>
-                        </div>
-                        <div class="input-field col s6">
-                            <input  id="years" name="years" type="text" class="validate" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d]/g,'') ">
-                            <label for="period">Period (Years)</label>
-                        </div>
-                        <div class="input-field col s6">
-                            <input  id="interest" name="interest" type="text" class="validate" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d]/g,'') ">
-                            <label for="rate">Interest Rate (%) </label>
-                        </div>
-
-                        <p class="col s9"></p>
-
-                        <button class="btn waves-effect waves-light col s3" type="submit" name="action">Submit
-                                <i class="material-icons right">send</i>
-                            </button>
-
-                    </div>
-                </form>
-            </div>
+                <button
+                  class="btn waves-effect waves-light col s3"
+                  type="submit"
+                  name="action"
+                >
+                  Submit
+                  <i class="material-icons right">send</i>
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
+      </div>
     </div>
 
-</div>
+    <div class="container">
+      <div class="card white z-depth-3">
+        <div class="card-content black-text">
+          <h5 class="title">Calculated Results</h5>
+        </div>
+        <div class="card-action black-text">
+          <div class="row">
+            <div class="col s12 m4">
+              <div class="card teal darken-1">
+                <div class="card-content white-text">
+                  <span class="card-title">Monthly Payment</span>
+                  <p id="monthlyPayment">$</p>
+                </div>
+              </div>
+            </div>
 
-<div class="container">
-  <div class="card white z-depth-3">
-    <div class="card-content black-text">
-      <h5 class="title ">Calculated Results</h5>
+            <div class="col s12 m4">
+              <div class="card teal darken-1">
+                <div class="card-content white-text">
+                  <span class="card-title">Total Interest</span>
+                  <p id="totalInterest">%</p>
+                </div>
+              </div>
+            </div>
+            <div class="col s12 m4">
+              <div class="card teal darken-1">
+                <div class="card-content white-text">
+                  <span class="card-title">Total Amount</span>
+                  <p id="totalPayment">$</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="card-action black-text">
-      <div class="row">
-        <div class="col s12 m4">
-          <div class="card light-blue darken-1">
-            <div class="card-content white-text">
-              <span class="card-title">Monthly Payments</span>
-              <p id="monthlyPayment" >$</p>
-            </div>
-        </div>
-        </div>
 
-        <div class="col s12 m4">
-          <div class="card light-blue darken-1">
-            <div class="card-content white-text">
-              <span class="card-title">Total Interest</span>
-              <p id="totalInterest" >%</p>
-            </div>
-        </div>
-        </div>
-        <div class="col s12 m4">
-          <div class="card light-blue darken-1">
-            <div class="card-content white-text">
-              <span class="card-title">Total Amount</span>
-              <p id="totalPayment">$</p>
-            </div>
-        </div>
-        </div>
-        </div>
+    <br /><br />
 
-        </div>
-
-        </div>
-
-
-        </div>
-
-
-        <br><br>
-
-
-        <footer class="page-footer blue">
-            <div class="container">
-                <div class="row">
-                    <div class="col l6 s12">
-                        <h5 class="white-text">Bio</h5>
-                        <p class="grey-text text-lighten-4">
-                            Created by Shaokang Jiang, Ritika Mittal, Sai Teja Chokkarapu, and Peter Daly
-                        </p>
-                    </div>
-                    <div class="col l3 s12">
-                        <h5 class="white-text">Contacts</h5>
-                        <ul>
-                            <li>
-                                <a class="white-text" href="mailto:sjiang97@wisc.edu">Shaokang</a
+    <footer class="page-footer blue">
+      <div class="container">
+        <div class="row">
+          <div class="col l6 s12">
+            <h5 class="white-text">Bio</h5>
+            <p class="grey-text text-lighten-4">
+              Created by Shaokang Jiang, Ritika Mittal, Sai Teja Chokkarapu, and
+              Peter Daly
+            </p>
+          </div>
+          <div class="col l3 s12">
+            <h5 class="white-text">Contacts</h5>
+            <ul>
+              <li>
+                <a class="white-text" href="mailto:sjiang97@wisc.edu"
+                  >Shaokang</a
                 >
               </li>
               <li>
                 <a class="white-text" href="mailto:rmittal6@wisc.edu">Ritika</a>
-            </li>
-            <li>
+              </li>
+              <li>
                 <a class="white-text" href="mailto:chokkarapu@wisc.edu">Sai</a>
-            </li>
-            <li>
+              </li>
+              <li>
                 <a class="white-text" href="mailto:pndaly@wisc.edu">Peter</a>
-            </li>
+              </li>
             </ul>
-        </div>
-        <div class="col l3 s12">
+          </div>
+          <div class="col l3 s12">
             <h5 class="white-text">Connect</h5>
             <ul>
-                <li><a class="white-text" href="#!">Shaokang</a></li>
-                <li>
-                    <a class="white-text" href="https://www.linkedin.com/in/ritika-mittal-011ab2178/">Ritika</a
+              <li><a class="white-text" href="#!">Shaokang</a></li>
+              <li>
+                <a
+                  class="white-text"
+                  href="https://www.linkedin.com/in/ritika-mittal-011ab2178/"
+                  >Ritika</a
                 >
               </li>
               <li>
@@ -227,42 +271,49 @@
     <!--  Scripts-->
     <script src="../../js/materialize.js"></script>
     <script>
-          document.getElementById("loan-form").addEventListener("submit",computeResults);
-          function computeResults(e) {
-            const UIamount = document.getElementById("amount").value;
-            const UIinterest = document.getElementById("interest").value;
-            const UIyears = document.getElementById("years").value;
+      document
+        .getElementById("loan-form")
+        .addEventListener("submit", computeResults);
+      function computeResults(e) {
+        const UIamount = document.getElementById("amount").value;
+        const UIinterest = document.getElementById("interest").value;
+        const UIyears = document.getElementById("years").value;
 
-      // Calculate
+        // Calculate
 
-            const principal = parseFloat(UIamount);
-            const CalculateInterest = parseFloat(UIinterest) / 100 / 12;
-            const calculatedPayments = parseFloat(UIyears) * 12;
+        const principal = parseFloat(UIamount);
+        const CalculateInterest = parseFloat(UIinterest) / 100 / 12;
+        const calculatedPayments = parseFloat(UIyears) * 12;
 
-            //Compute monthly Payment
+        //Compute monthly Payment
 
-            const x = Math.pow(1 + CalculateInterest, calculatedPayments);
-            const monthly = (principal * x * CalculateInterest) / (x - 1);
-            const monthlyPayment = monthly.toFixed(2);
+        const x = Math.pow(1 + CalculateInterest, calculatedPayments);
+        const monthly = (principal * x * CalculateInterest) / (x - 1);
+        const monthlyPayment = monthly.toFixed(2);
 
-      //Compute Interest
+        //Compute Interest
 
-            const totalInterest = (monthly * calculatedPayments - principal).toFixed(2);
+        const totalInterest = (
+          monthly * calculatedPayments -
+          principal
+        ).toFixed(2);
 
-            //Compute Total Payment
+        //Compute Total Payment
 
-            const totalPayment = (monthly * calculatedPayments).toFixed(2);
+        const totalPayment = (monthly * calculatedPayments).toFixed(2);
 
-      //Show results
+        //Show results
 
-            document.getElementById("monthlyPayment").innerHTML = "$" + monthlyPayment;
+        document.getElementById("monthlyPayment").innerHTML =
+          "$" + monthlyPayment;
 
-            document.getElementById("totalInterest").innerHTML = "%" + totalInterest;
+        document.getElementById("totalInterest").innerHTML =
+          "%" + totalInterest;
 
-            document.getElementById("totalPayment").innerHTML = "$" + totalPayment;
+        document.getElementById("totalPayment").innerHTML = "$" + totalPayment;
 
-      e.preventDefault();
-    }
+        e.preventDefault();
+      }
     </script>
   </body>
 </html>
