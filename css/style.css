@@ -94,3 +94,28 @@ footer.page-footer {
 .showBlack {
   color: var(--mainDark);
 }
+.list-item {
+  flex: 0 0 33.33%;
+  text-align: center;
+}
+.expense-item {
+  height: 2rem;
+}
+.edit-icon {
+  color: var(--mainBlue);
+  cursor: pointer;
+  font-size: 1rem;
+  text-decoration: none !important;
+}
+.delete-icon {
+  color: var(--mainRed);
+  cursor: pointer;
+  font-size: 1rem;
+  text-decoration: none !important;
+}
+.edit-icon:hover {
+  color: var(--mainBlue);
+}
+.delete-icon:hover {
+  color: var(--mainRed);
+}
