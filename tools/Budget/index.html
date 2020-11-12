@@ -88,6 +88,25 @@
             <p></p>
             <p></p>
           </div>
+<div class="card-action">
+
+  <div class = "row">
+    <div class="expense-list">
+        <div class="col s12 m4">
+            <h5 class="list-item">Expense Title</h5>
+        </div>
+        <div class="col s12 m4">
+            <h5 class="list-item">Expense Value</h5>
+        </div>
+    </div>
+</div>
+<div id="expense-list"> </div>
+
+
+</div>
+
+
+
         </div>
       </div>
 
@@ -169,21 +188,8 @@
         </div>
       </div>
     </div>
-    <div class="container">
-        <div class="card white z-depth-3">
-            <div class = "row">
-            <div class="expense-list" id="expense-list">
-                <div class="col s12 m4">
-                    <h5 class="list-item">Expense Title</h5>
-                </div>
-                <div class="col s12 m4">
-                    <h5 class="list-item">Expense Value</h5>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
-
+    
+    
       <div class="container">
         <div class="card white z-depth-3">
           <div class="card-content black-text">
@@ -329,6 +335,7 @@
           this.expenseList = document.getElementById("expense-list");
           this.itemList = [];
           this.itemID = 0;
+		  this.listID = 0;
         }
             submitBudgetForm(){
                const value = this.budgetInput.value;
@@ -381,15 +388,28 @@
                }
             }
 
+
             addExpense(expense){
-                const div = document.createElement("div");
-                div.classList.add("expense");
-                div.innerHTML = `
-                <div class="card-action black-text">
-                 <div class="row">
-                        <h6>${expense.title}</h6>
-                        <h6>${expense.amount}</h6>
-                        <div class="list-item">
+                let div = document.createElement("div");
+				div.setAttribute("id", "acc"+this.listID);
+				div.innerHTML = `
+				<div class='row' ">
+                        <div class="col s12 m4" id="edittitle">
+                <p style="text-align: center">${expense.title}</p>
+                </div>
+        <div class="col s12 m4">
+                                
+				<p style="text-align: center">${expense.amount}</p>
+</div>                
+		<div class="col s12 m4">
+        					<p style="text-align: center"><a href="javascript: void(0);" onclick="onEdit(event)"><i class="material-icons" style="font-size: 25px;color: blue;" >edit</i></a><a href="javascript: void(0);" onclick="onRemove('acc`+this.listID+`')"><i class="material-icons" style="font-size: 25px;color: red;">delete</i></a></p>
+				
+        </div>          </div>  `;
+                this.expenseList.appendChild(div)
+this.listID++;
+            }
+/*
+<div class="list-item">
                             <a href="#" class="edit-icon" data-id="${expense.id}">
                             <i class="fa fa-edit"></i>
                             </a>
@@ -397,19 +417,24 @@
                             <i class="fa fa-trash"></i>
                             </a>
                         </div>
-                    </div>
-                    <div>
-                    `;
-                this.expenseList.appendChild(div)
-
-            }
-
+*/
             totalExpense(){
                 let total = 400;
                 return total;
 
             }
       }
+	  
+	  function onEdit(event){
+	  console.log(event);
+	  }
+	  
+	  function onRemove(lll){
+      document.getElementById("expense-list").removeChild(document.getElementById(lll));
+		console.log(lll);
+    
+	  }
+	  
       function eventListeners(){
         const budgetForm = document.getElementById('budget-form');
         const expenseForm = document.getElementById('expense-form');
@@ -433,7 +458,7 @@ document.addEventListener('DOMContentLoaded', function(){
        
 
     </script>
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="./jquery-3.3.1.min.js"></script>
+    <script src="./bootstrap.bundle.min.js"></script>
   </body>
 </html>
