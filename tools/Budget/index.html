@@ -2,413 +2,124 @@
 <html lang="en">
 
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
-  <meta name="description" content="Online Budgeting Tool" />
-  <meta name="keywords" content="HTML, CSS, JavaScript, Calculator, Budget" />
-  <meta name="author" content="Peter Daly" />
-  <title>Budget Calculator</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+    <title>Starter Template - Materialize</title>
 
-  <!-- CSS  -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-  <link href="../../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
-  <link href="../../css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
-  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
-    </script>
-  <script type="text/javascript"
-    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-  <style>
-    body {
-      background-image: url(https://www.workflowmax.com/hubfs/budget%20900x400v2.png);
-    }
-  </style>
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="../../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="../../css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <style>
+        body {
+            background-size: cover;
+            background-position: center;
+            background-position-y: -100px;
+            background-repeat: no-repeat;
+            background-image: linear-gradient(to top, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.3)), url(https://www.workflowmax.com/hubfs/budget%20900x400v2.png);
+        }
+    </style>
 </head>
 
 <body>
-  <nav class="red" role="navigation">
-    <div class="nav-wrapper container">
-      <a id="logo-container" href="#" class="brand-logo white-text">Budget Calculator</a>
-      <ul class="right hide-on-med-and-down">
-        <li><a href="#" class="white-text">Navigation</a></li>
-      </ul>
-
-      <ul id="nav-mobile" class="sidenav">
-        <li><a href="#" class="white-text">Navigation</a></li>
-      </ul>
-      <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-    </div>
-  </nav>
-
-  <br /><br />
-
-  <div class="row">
-    <div class="col s0 m0 l1"></div>
-
-    <div class="col s12 m12 l5">
-      <div class="card white z-depth-3">
-        <div class="card-content black-text">
-          <h5>General Introduction</h5>
-          <p>Welcome to the Budget Calculation Tool.</p>
-          <p><span id="Speed_text"></span></p>
-          <!--General inro, including equation, description, usage -->
-
-          <h5>Usage</h5>
-          <p>
-            This calculator will give you a clear view of your monthly finances and help you make the most of your
-            income.
-          </p>
-          <h5>Method</h5>
-          <p>
-            Submit your total monthly budget/allowance and then add your monthly expenses.
-            You can edit or delete your expenses from the list below and visualize how they affect your budget.<br>
-            Balance = Budget - total(Expenses)
-          </p>
+    <nav class="Maroon" role="navigation">
+        <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Logo</a>
         </div>
-        <div class="card-action">
+    </nav>
 
-          <div class="row">
-            <div class="expense-list">
-              <div class="col s12 m4">
-                <h5 class="list-item">Expense Title</h5>
-              </div>
-              <div class="col s12 m4">
-                <h5 class="list-item">Expense Value</h5>
-              </div>
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+            <br><br>
+            <h1 class="header center black-text">Budgeting Tools</h1>
+            <div class="row center">
+                <h5 class="header col s12 light"><span style="color: black;">We provide two tools, monthly and yearly tools. Pick the one you like. </h5>
             </div>
-          </div>
-          <div id="expense-list"> </div>
+
         </div>
-      </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col s0 m0 l1">
+        </div>
+
+
+        <div class="col s12 m12 l5">
+            <div class="card white z-depth-3">
+                <div class="card-content black-text">
+                    <span class="card-title">Monthly Budgeting Tool</span>
+                    <p>This Budgeting tools allows you to create a spending plan for your money, it ensures that you will have enough money for your top priorities which you can assign in the app. Budget plan will also keep you out of debt or help you work
+                        your way out of debt if you currently in debt.</p>
+                    <h5><span lang="en-US">Key terms for the tool:</span></h5>
+                    <ul>
+                        <li>
+                            <p><span lang="en-US"><strong>Priority expenses: </strong></span><span lang="en-US">Expenses that are mandatory for every month.</span></p>
+                        </li>
+                        <li>
+                            <p><span lang="en-US"><strong>Level of necessary: </strong></span><span lang="en-US">Each expense can be divided in terms of the level of necessary.</span></p>
+                        </li>
+                        <li>
+                            <p><span lang="en-US"><strong>Monthly available capital: </strong></span><span lang="en-US">Amount available every month.</span></p>
+                        </li>
+                        <li>
+                            <p><span lang="en-US"><strong>&shy;Excepted savings every month: </strong></span><span lang="en-US">Total money goes into savings from every month.</span></p>
+                        </li>
+                    </ul>
+                    <center>
+                        <a href="https://capitaltwo.ga/tools/Budget/index1.html" class="waves-effect waves-light btn" style="text-transform: none;">Access monthly budgeting tool<i class="material-icons right">cloud</i></a>
+                    </center>
+            </div>
+        </div>
     </div>
 
     <div class="col s12 m12 l5">
-      <div class="card white z-depth-3">
-        <div class="card-content black-text">
-          <h5>User Input</h5>
-          <p>Please provide relevant information below</p>
+        <div class="card white z-depth-3">
+            <div class="card-content black-text">
+                <span class="card-title">Yearly Budgeting Tool</span>
+                <p>This Budgeting tools allows you to create a spending plan for your money, it ensures that you will have enough money for your top priorities which you can assign in the app. Budget plan will also keep you out of debt or help you work your
+                    way out of debt if you currently in debt.</p>
+                <h5><span lang="en-US">Organize your expense and income:</span></h5>
+                <p>I realize it is hard to input everything in one time. So I also made an app to help you organize daily spending. This app is still in developing. Check <a href="https://github.com/CapitalTwo/CapitalTwo-Financial">here</a> for source code.
+                    Or <a href="https://expo.io/@huangsk100/projects/CapitalTwo-Financial">here</a> for an expo runable version. </p>
+                <center>
+                    <a onclick="alert('sorry, still working on')" href="https://expo.io/@huangsk100/projects/CapitalTwo-Financial" class="waves-effect waves-light btn" style="text-transform: none;">Access yearly budgeting tool<i class="material-icons right">cloud</i></a>
+                </center>
+            </div>
         </div>
-        <div class="card-action">
-          <form id="budget-form" class="budget-form">
+    </div>
+    <div class="col s0 m0 l1">
+    </div>
+
+    </div>
+
+    <br><br>
+    </div>
+
+    <footer class="page-footer orange">
+        <div class="container">
             <div class="row">
-              <div class="budget-feedback alert alert-danger text-capitalize">
-                Budget Feedback
-              </div>
-              <div class="input-field col s6">
-                <input id="budget-input" name="budget-input" type="number" class="validate"
-                  onkeyup="this.value=this.value.replace(/[^\d]/g,'') "
-                  onafterpaste="this.value=this.value.replace(/[^\d]/g,'') " />
-                <label for="budget-input">Enter Your Budget</label>
-              </div>
-              <p class="col s9"></p>
-              <button id="budget-submit" class="btn waves-effect waves-light col s3" type="submit" name="action">
-                Submit
-                <i class="material-icons right">Submit</i>
-              </button>
+                <h5 class="white-text">Info</h5>
+                <p class="grey-text text-lighten-4">efe</p>
+
+
+
             </div>
-          </form>
-          <form id="expense-form" class="expense-form">
-            <div class="row">
-              <div class="expense-feedback alert alert-danger text-capitalize">
-                Expense Feedback
-              </div>
-              <div class="input-field col s6">
-                <input id="expense-input" name="expense-input" type="text" class="validate" />
-                <label for="expense-input">Describe Expense</label>
-              </div>
-              <div class="input-field col s6">
-                <input id="amount-input" name="amount-input" type="number" class="validate"
-                  onkeyup="this.value=this.value.replace(/[^\d]/g,'') "
-                  onafterpaste="this.value=this.value.replace(/[^\d]/g,'') " />
-                <label for="amount-input">Enter Expense Amount</label>
-              </div>
-              <p class="col s9"></p>
-              <button id="expense-submit" class="btn waves-effect waves-light col s3" type="submit" name="action">
-                Calculate
-                <i class="material-icons right">Submit</i>
-              </button>
+            <div class="footer-copyright">
+                <div class="container">
+                    Made by <a class="orange-text text-lighten-3" href="https://shaokang.ga">Shaokang Jiang</a> using <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+                </div>
             </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
+    </footer>
 
 
-  <div class="container">
-    <div class="card white z-depth-3">
-      <div class="card-content black-text">
-        <h5 class="title">Your Budget Plan</h5>
-      </div>
-      <div class="card-action black-text">
-        <div class="row">
-          <div class="col s12 m4">
-            <div class="card white lighten-5">
-              <div class="card-content black-text">
-                <span class="card-title">Budget</span>
-                <span class="budget-icon"><i class="fa fa-money fa-2x"
-                    style="font-size: 35px;color: #85bb65"></i></span>
-                <h5 id="budget">
-                  <span style=color:var(--mainGreen)>$ </span><span id="budget-amount"
-                    style=color:var(--mainGreen)>0</span>
-                </h5>
-              </div>
-            </div>
-          </div>
+    <!--  Scripts-->
 
-          <div class="col s12 m4">
-            <div class="card white lighten-5">
-              <div class="card-content black-text">
-                <span class="card-title">Expenses</span>
-                <span class="expense-icon"><i class="fa fa-credit-card fa-2x"
-                    style="font-size: 35px;color:#535350"></i></span>
-                <h5 id="expense">
-                  <span style=color:var(--mainRed)>$ </span><span id="expense-amount"
-                    style=color:var(--mainRed)>0</span>
-                </h5>
-              </div>
-            </div>
-          </div>
-          <div class="col s12 m4">
-            <div class="card white lighten-5">
-              <div class="card-content black-text">
-                <span class="card-title">Balance</span>
-                <span class="balance-icon"><i class="fa fa-dollar fa-2x"
-                    style="font-size: 35px;color:#228D57"></i></span>
-                <h5 id="balance">
-                  <span>$ </span><span id="balance-amount">0</span>
-                </h5>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+    <script src="../../js/materialize.js"></script>
+    <script>
+        M.AutoInit();
+    </script>
 
-  <br /><br />
-  </div>
-
-  <footer class="page-footer blue">
-    <div class="container">
-      <div class="row">
-        <div class="col l6 s12">
-          <h5 class="white-text">Bio</h5>
-          <p class="grey-text text-lighten-4">
-            Created by Shaokang Jiang, Ritika Mittal, Sai Teja Chokkarapu, and
-            Peter Daly
-          </p>
-        </div>
-        <div class="col l3 s12">
-          <h5 class="white-text">Contacts</h5>
-          <ul>
-            <li>
-              <a class="white-text" href="mailto:sjiang97@wisc.edu">Shaokang</a>
-            </li>
-            <li>
-              <a class="white-text" href="mailto:rmittal6@wisc.edu">Ritika</a>
-            </li>
-            <li>
-              <a class="white-text" href="mailto:chokkarapu@wisc.edu">Sai</a>
-            </li>
-            <li>
-              <a class="white-text" href="mailto:pndaly@wisc.edu">Peter</a>
-            </li>
-          </ul>
-        </div>
-        <div class="col l3 s12">
-          <h5 class="white-text">Connect</h5>
-          <ul>
-            <li><a class="white-text" href="#!">Shaokang</a></li>
-            <li>
-              <a class="white-text" href="https://www.linkedin.com/in/ritika-mittal-011ab2178/">Ritika</a>
-            </li>
-            <li>
-              <a class="white-text" href="https://www.linkedin.com/in/chokkarapu/">Sai</a>
-            </li>
-            <li>
-              <a class="white-text" href="https://www.linkedin.com/in/peterdaly13/">Peter</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="footer-copyright">
-      <div class="container">
-        Made by
-        <a class="red-text text-lighten-3" href="http://materializecss.com">Materialize</a>
-      </div>
-    </div>
-  </footer>
-
-  <!--  Scripts-->
-  <script src="../../js/materialize.js"></script>
-  <script>
-    class UI {
-      constructor() {
-        this.budgetFeedback = document.querySelector(".budget-feedback");
-        this.expenseFeedback = document.querySelector(".expense-feedback");
-        this.budgetForm = document.getElementById("budget-form");
-        this.budgetInput = document.getElementById("budget-input");
-        this.budgetAmount = document.getElementById("budget-amount");
-        this.expenseAmount = document.getElementById("expense-amount");
-        this.balance = document.getElementById("balance");
-        this.balanceAmount = document.getElementById("balance-amount");
-        this.expenseForm = document.getElementById("expense-form");
-        this.expenseInput = document.getElementById("expense-input");
-        this.amountInput = document.getElementById("amount-input");
-        this.expenseList = document.getElementById("expense-list");
-        this.itemList = [];
-        this.itemID = 0;
-        this.listID = 0;
-      }
-      submitBudgetForm() {
-        const value = this.budgetInput.value;
-        if (value === "" || value < 0) {
-          alert("value cannot be empty or negative");
-        }
-        else {
-          this.budgetAmount.textContent = value;
-          this.budgetInput.value = '';
-          this.showBalance();
-        }
-      }
-
-      showBalance() {
-        const expense = this.totalExpense();
-        const total = parseInt(this.budgetAmount.textContent) - expense;
-        this.balanceAmount.textContent = total;
-        if (total < 0) {
-          this.balance.classList.remove("showGreen", "showBlack");
-          this.balance.classList.add("showRed");
-        }
-        else if (total > 0) {
-          this.balance.classList.remove("showRed", "showBlack");
-          this.balance.classList.add("showGreen");
-        }
-        else if (total === 0) {
-          this.balance.classList.remove("showRed", "showGreen");
-          this.balance.classList.add("showBlack");
-        }
-
-      }
-
-      submitExpenseForm() {
-        const expenseValue = this.expenseInput.value;
-        const amountValue = this.amountInput.value;
-        if (expenseValue === "" || amountValue === "" || amountValue < 0) {
-          alert("value cannot be empty or negative");
-        }
-        else {
-          let amount = parseInt(amountValue);
-          this.expenseInput.value = "";
-          this.amountInput.value = "";
-          let expense = {
-            id: this.itemID, title: expenseValue, amount: amount,
-          };
-          this.itemID++;
-          this.itemList.push(expense);
-          this.addExpense(expense);
-          this.showBalance();
-        }
-      }
-
-
-      addExpense(expense) {
-
-        let div = document.createElement("div");
-        div.classList.add("expense");
-        div.innerHTML = `
-				<div class='row' ">
-          <div class="col s12 m4" id="edittitle">
-              <p style="text-align: center">${expense.title}</p>
-          </div>
-          <div class="col s12 m4">
-            <p style="text-align: center">${expense.amount}</p>
-          </div>                
-          <div class="col s12 m4">
-            <p style="text-align: center">
-              <a href="#" class="edit-icon mx-2" data-id="${expense.id}">
-                <i class="material-icons" style="font-size: 25px;color: #3C87F2;" >edit</i>
-              </a>
-              <a href="#" class="delete-icon" data-id="${expense.id}">
-                <i class="material-icons" style="font-size: 25px;color: #D51F1F;">delete</i>
-              </a>
-            </p>
-          </div>          
-        </div> `;
-        this.expenseList.appendChild(div)
-      }
-
-      totalExpense() {
-        let total = 0;
-        if (this.itemList.length > 0) {
-          total = this.itemList.reduce(function (acc, curr) {
-            acc += curr.amount;
-            return acc;
-          }, 0);
-        }
-        this.expenseAmount.textContent = total;
-        return total;
-
-      }
-      editExpense(element) {
-        let id = parseInt(element.dataset.id);
-        let parent = element.parentElement.parentElement.parentElement.parentElement;
-        document.getElementById("expense-list").removeChild(parent);
-        let expense = this.itemList.filter(function (item) {
-          return item.id === id;
-        })
-        this.expenseInput.value = expense[0].title;
-        this.amountInput.value = expense[0].amount;
-        let tempList = this.itemList.filter(function (item) {
-          return item.id !== id;
-        })
-        this.itemList = tempList;
-        this.showBalance();
-
-      }
-      onRemove(element) {
-        let id = parseInt(element.dataset.id);
-        let parent = element.parentElement.parentElement.parentElement.parentElement;
-        document.getElementById("expense-list").removeChild(parent);
-        let tempList = this.itemList.filter(function (item) {
-          return item.id !== id;
-        })
-        this.itemList = tempList;
-        this.showBalance();
-      }
-
-    }
-
-    function eventListeners() {
-      const budgetForm = document.getElementById('budget-form');
-      const expenseForm = document.getElementById('expense-form');
-      const expenseList = document.getElementById('expense-list');
-      const ui = new UI();
-      budgetForm.addEventListener("submit", function (event) {
-        event.preventDefault();
-        ui.submitBudgetForm();
-      })
-      expenseForm.addEventListener("submit", function (event) {
-        event.preventDefault();
-        ui.submitExpenseForm();
-      })
-      expenseList.addEventListener("click", function (event) {
-        if (event.target.parentElement.classList.contains('edit-icon')) {
-          ui.editExpense(event.target.parentElement)
-        }
-        if (event.target.parentElement.classList.contains('delete-icon')) {
-          ui.onRemove(event.target.parentElement)
-        }
-
-      });
-    }
-    document.addEventListener('DOMContentLoaded', function () {
-      eventListeners();
-    })
-  </script>
 </body>
+
 </html>

@@ -189,7 +189,7 @@
 
             console.log(data);
 
-            document.getElementById("result").innerText = data[0].pass;
+            document.getElementById("result").innerHTML = "<p>You get " + data[0].pass + " <span style='color:green'>Green means correct</span> <span style='color:red'>Red means wrong</span>. Explanation is shown below.</p>";
 
 
             if (data[0].pass) {
