@@ -33,6 +33,17 @@
     </div>
 
 
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <h4 id="modal1header">Modal Header</h4>
+            <p id="hintText">A bunch of text</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat" id="modalaction"></a>
+        </div>
+    </div>
+
 
 
 
@@ -179,6 +190,20 @@
             console.log(data);
 
             document.getElementById("result").innerText = data[0].pass;
+
+
+            if (data[0].pass) {
+                document.getElementById("modal1header").innerText = "Congraduate! You passed";
+                document.getElementById("hintText").innerText = "You could click the button to go next or copy and save the text below. And when you go back, just type those stuff in the home page. It will guide you to the next chapter automatically. You may also click empty (dash) area to go back and see your result as well as explanation"
+                document.getElementById("modalaction").innerText = "Next"
+            } else {
+                document.getElementById("modal1header").innerText = "Sorry! Try again";
+                document.getElementById("hintText").innerText = "Click go back to see your result and the solution. Then try again by refreshing this page or go through the passage again. ";
+                document.getElementById("modalaction").innerText = "Go Back"
+            }
+
+            $('.modal').modal('open');
+
             for (let i = 1; i < data.length; i++) {
                 if (data[i].Correct) {
                     let ele = document.getElementsByName('group' + data[i].QNumber);
