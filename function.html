@@ -1,58 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="College Personal Finance Site" />
-    <meta
-      name="keywords"
-      content="HTML, CSS, JavaScript, Calculator, Quiz, Budget, Retirement, Loan, Cryptocurrency"
-    />
+    <meta name="keywords" content="HTML, CSS, JavaScript, Calculator, Quiz, Budget, Retirement, Loan, Cryptocurrency" />
     <title>Capital Two -- Function Page</title>
 
     <!-- CSS  -->
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
-    <link
-      href="css/materialize.css"
-      type="text/css"
-      rel="stylesheet"
-      media="screen,projection"
-    />
-    <link
-      href="css/style.css"
-      type="text/css"
-      rel="stylesheet"
-      media="screen,projection"
-    />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
     <style>
-      body {
-        background-image: url("./bg_fun.png");
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        background-position: center bottom;
-        background-size: cover;
-      }
+        body {
+            background-image: url("./bg_fun.png");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center bottom;
+            background-size: cover;
+        }
     </style>
-  </head>
+</head>
 
-  <body>
+<body>
     <nav class="red" role="navigation">
-      <div class="nav-wrapper container">
-        <a id="logo-container" href="#" class="brand-logo white-text"
-          >Function Page</a
+        <div class="nav-wrapper container">
+            <a id="logo-container" href="#" class="brand-logo white-text">Function Page</a
         >
         <ul class="right hide-on-med-and-down">
           <li><a href="https://capitaltwo.ga">Home Page</a></li>
-        </ul>
+            </ul>
 
-        <ul id="nav-mobile" class="sidenav">
-          <li><a href="https://capitaltwo.ga">Home Page</a></li>
-        </ul>
-        <a href="#" data-target="nav-mobile" class="sidenav-trigger"
-          ><i class="material-icons">menu</i></a
+            <ul id="nav-mobile" class="sidenav">
+                <li><a href="https://capitaltwo.ga">Home Page</a></li>
+            </ul>
+            <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a
         >
       </div>
     </nav>
@@ -68,7 +51,7 @@
             </div>
             <div class="card-action">
               <div class="row">
-                <div class="col s12 m4">
+                <div class="col s12 m6 l4">
                   <div
                     class="card"
                     onmouseover="this.classList.add('z-depth-3')"
@@ -119,7 +102,7 @@
                   </div>
                 </div>
 
-                <div class="col s12 m4">
+                <div class="col s12 m6 l4">
                   <div
                     class="card"
                     onmouseover="this.classList.add('z-depth-3')"
@@ -165,7 +148,7 @@
                   </div>
                 </div>
 
-                <div class="col s12 m4">
+                <div class="col s12 m6 l4">
                   <div
                     class="card"
                     onmouseover="this.classList.add('z-depth-3')"
@@ -208,41 +191,8 @@
                     </div>
                   </div>
                 </div>
-                <div class="col s12 m8">
-                  <div
-                    class="card white"
-                    onmouseover="this.classList.add('z-depth-3')"
-                    onmouseout="this.classList.remove('z-depth-3')"
-                  >
-                    <div class="card-content black-text">
-                      <span class="card-title">Look for a quiz?</span>
-                      <p>
-                        Type in the quiz code below and click process to go to
-                        related quiz page
-                      </p>
-                      <div class="input-field">
-                        <input
-                          id="quizcode"
-                          type="text"
-                          class="validate"
-                        /><label for="quizcode">Quiz Code</label>
-                      </div>
-                      <div class="row">
-                        <div class="col s12 m8"></div>
-                        <button
-                          class="col s12 m4 btn waves-effect waves-light"
-                          type="submit"
-                          name="action"
-                          onclick="handleExplorer()"
-                        >
-                          Proceed<i class="material-icons right">send</i>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
 
-                <div class="col s12 m4">
+                <div class="col s12 m6 l4">
                   <div
                     class="card"
                     onmouseover="this.classList.add('z-depth-3')"
@@ -289,6 +239,40 @@
                     </div>
                   </div>
                 </div>
+                <div class="col s12 m12 l8">
+                  <div
+                    class="card white"
+                    onmouseover="this.classList.add('z-depth-3')"
+                    onmouseout="this.classList.remove('z-depth-3')"
+                  >
+                    <div class="card-content black-text">
+                      <span class="card-title">Look for a quiz?</span>
+                      <p>
+                        Type in the quiz code below and click process to go to
+                        related quiz page
+                      </p>
+                      <div class="input-field">
+                        <input
+                          id="quizcode"
+                          type="text"
+                          class="validate"
+                        /><label for="quizcode">Quiz Code</label>
+                      </div>
+                      <div class="row">
+                        <div class="col s12 m8"></div>
+                        <button
+                          class="col s12 m4 btn waves-effect waves-light"
+                          type="submit"
+                          name="action"
+                          onclick="handleExplorer()"
+                        >
+                          Proceed<i class="material-icons right">send</i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
@@ -303,11 +287,11 @@
             </div>
             <div class="card-action">
               <div class="row">
+                <a href="https://knowledge.capitaltwo.ga/Loan/" style="text-transform: none;">
                 <div
                   class="card white"
                   onmouseover="this.classList.add('z-depth-3')"
                   onmouseout="this.classList.remove('z-depth-3')"
-                  onclick="self.location = 'https://knowledge.capitaltwo.ga/Loan/';"
                 >
                   <div class="card-content black-text">
                     <span class="card-title">Loan</span>
@@ -318,84 +302,105 @@
                     </p>
                   </div>
                 </div>
+              </a>
 
-                <div
-                  class="card white"
-                  onmouseover="this.classList.add('z-depth-3')"
-                  onmouseout="this.classList.remove('z-depth-3')"
-                  onclick="self.location = 'https://knowledge.capitaltwo.ga/crypto/';"
-                >
-                  <div class="card-content black-text">
-                    <span class="card-title">Cryptocurrency</span>
-                    <p>
-                      Click here to learn more about cryptocurrency. <br />You
-                      will learn more about Bitcoins, Altcoins, Tokens, Wallet,
-                      etc.
-                    </p>
-                  </div>
+            <a href="https://knowledge.capitaltwo.ga/crypto/" style="text-transform: none;">
+                <div class="card white" onmouseover="this.classList.add('z-depth-3')" onmouseout="this.classList.remove('z-depth-3')">
+                    <div class="card-content black-text">
+                        <span class="card-title">Cryptocurrency</span>
+                        <p>
+                            Click here to learn more about cryptocurrency. <br />You will learn more about Bitcoins, Altcoins, Tokens, Wallet, etc.
+                        </p>
+                    </div>
                 </div>
+            </a>
 
-                <div
-                  class="card white"
-                  onmouseover="this.classList.add('z-depth-3')"
-                  onmouseout="this.classList.remove('z-depth-3')"
-                  onclick="self.location = 'https://knowledge.capitaltwo.ga/Budget/';"
-                >
-                  <div class="card-content black-text">
-                    <span class="card-title">Budget</span>
-                    <p>
-                      Click here to learn about Budgeting. <br />You will learn
-                      more about Wants, Needs, SMART goals, etc.
-                    </p>
-                  </div>
+            <a href="https://knowledge.capitaltwo.ga/Budget/" style="text-transform: none;">
+                <div class="card white" onmouseover="this.classList.add('z-depth-3')" onmouseout="this.classList.remove('z-depth-3')">
+                    <div class="card-content black-text">
+                        <span class="card-title">Budget</span>
+                        <p>
+                            Click here to learn about Budgeting. <br />You will learn more about Wants, Needs, SMART goals, etc.
+                        </p>
+                    </div>
                 </div>
-              </div>
-            </div>
-          </div>
+            </a>
+
+            <a href="https://knowledge.capitaltwo.ga/Budget/" style="text-transform: none;">
+                <div class="card white" onmouseover="this.classList.add('z-depth-3')" onmouseout="this.classList.remove('z-depth-3')">
+                    <div class="card-content black-text">
+                        <span class="card-title">Budget</span>
+                        <p>
+                            Click here to learn about Budgeting. <br />You will learn more about Wants, Needs, SMART goals, etc.
+                        </p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="https://knowledge.capitaltwo.ga/Retirement/" style="text-transform: none;">
+                <div class="card white" onmouseover="this.classList.add('z-depth-3')" onmouseout="this.classList.remove('z-depth-3')">
+                    <div class="card-content black-text">
+                        <span class="card-title">Budget</span>
+                        <p>
+                            Click here to learn about Retirement. <br />You will learn more about Wants, Needs, SMART goals, etc.
+                        </p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="https://knowledge.capitaltwo.ga/Investing/" style="text-transform: none;">
+                <div class="card white" onmouseover="this.classList.add('z-depth-3')" onmouseout="this.classList.remove('z-depth-3')">
+                    <div class="card-content black-text">
+                        <span class="card-title">Budget</span>
+                        <p>
+                            Click here to learn about Investing. <br />You will learn more about Wants, Needs, SMART goals, etc.
+                        </p>
+                    </div>
+                </div>
+            </a>
+
         </div>
-      </div>
+        </div>
+        </div>
+        </div>
+        </div>
 
-      <br /><br />
-    </div>
+        <br /><br />
+        </div>
 
-    <footer class="page-footer blue">
-      <div class="container">
-        <div class="row">
-          <div class="col l6 s12">
-            <h5 class="white-text">Bio</h5>
-            <p class="grey-text text-lighten-4">
-              Created by Shaokang Jiang, Ritika Mittal, Sai Teja Chokkarapu, and
-              Peter Daly
-            </p>
-          </div>
-          <div class="col l3 s12">
-            <h5 class="white-text">Contacts</h5>
-            <ul>
-              <li>
-                <a class="white-text" href="mailto:sjiang97@wisc.edu"
-                  >Shaokang</a
+        <footer class="page-footer blue">
+            <div class="container">
+                <div class="row">
+                    <div class="col l6 s12">
+                        <h5 class="white-text">Bio</h5>
+                        <p class="grey-text text-lighten-4">
+                            Created by Shaokang Jiang, Ritika Mittal, Sai Teja Chokkarapu, and Peter Daly
+                        </p>
+                    </div>
+                    <div class="col l3 s12">
+                        <h5 class="white-text">Contacts</h5>
+                        <ul>
+                            <li>
+                                <a class="white-text" href="mailto:sjiang97@wisc.edu">Shaokang</a
                 >
               </li>
               <li>
                 <a class="white-text" href="mailto:rmittal6@wisc.edu">Ritika</a>
-              </li>
-              <li>
-                <a class="white-text" href="mailto:chokkarapu@wisc.edu">Sai</a>
-              </li>
-              <li>
-                <a class="white-text" href="mailto:pndaly@wisc.edu">Peter</a>
-              </li>
-            </ul>
-          </div>
-          <div class="col l3 s12">
-            <h5 class="white-text">Connect</h5>
-            <ul>
-              <li><a class="white-text" href="#!">Shaokang</a></li>
-              <li>
-                <a
-                  class="white-text"
-                  href="https://www.linkedin.com/in/ritika-mittal-011ab2178/"
-                  >Ritika</a
+                            </li>
+                            <li>
+                                <a class="white-text" href="mailto:chokkarapu@wisc.edu">Sai</a>
+                            </li>
+                            <li>
+                                <a class="white-text" href="mailto:pndaly@wisc.edu">Peter</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col l3 s12">
+                        <h5 class="white-text">Connect</h5>
+                        <ul>
+                            <li><a class="white-text" href="#!">Shaokang</a></li>
+                            <li>
+                                <a class="white-text" href="https://www.linkedin.com/in/ritika-mittal-011ab2178/">Ritika</a
                 >
               </li>
               <li>
