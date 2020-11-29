@@ -14,6 +14,12 @@
     <link href="../../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
     <link href="../../css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+	<script src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.1/jquery.dataTables.min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.11.1/jquery.validate.min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/flot/0.8.1/jquery.flot.min.js"></script>
+	<link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.1/css/jquery.dataTables.css" type="text/css"></link> 
     <script type="text/x-mathjax-config">
         MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
     </script>
@@ -25,6 +31,7 @@
             background-repeat: no-repeat;
             background-size: cover;
         }
+
     </style>
 </head>
 
@@ -57,15 +64,12 @@
                 <div class="card-content black-text">
                     <h5>General Introduction</h5>
                     <p>Welcome to the Retirement Calculation Tool. </p>
-                    <p>Enter the amount of money you want when you retire, as well as your monthly contribution and expected growth of investment (APY). We will then provide you with the expected timeframe of your retirement.<span id="Speed_text"></span></p>
+                    <p>This calculator provides users with insights into their trajectory for retirement. Enter your information such as salary, your monthly contribution, expected growth of investment, estimated retirement age, estimated death age, amount of money you aim to leave behind after you die, etc.<br>We will then provide you with the expected amount of money you will have at any given point.<span id="Speed_text"></span></p>
                     <!--General inro, including equation, description, usage -->
 
-                    <h5>Usage</h5>
-                    <p>This calculator provides users with insights into their trajectory for retirement.</p>
                     <h5>Method</h5>
-                    <p>We begin by depositing the initial balance into the account. At this point, we simulate waiting a month. Next, we calculate the interest gained during the period, which is represented by: Interest = Balance * (1+ $\frac{APY}{12}$)
-                    </p>
-                    <p>Finally, we add the interest earned during the period and check to see if we have reached our retirement goal. If not, we wait another month and check again. </p>
+                    <p>After obtaining your goal amount and necessary information, up until your estimated retirement age, we calculate estimated total savings using the salary growth rate and the contribution rate.</p>
+                    <p>From your set retirement age up until your estimated death age, we calculate estimated spending using the monthly expense and inflation rate.<br>This calculator computes backwards, considering the amount you wish to leave behind after your death as priority, and shows you how much short you are right now.</p>
                 </div>
             </div>
         </div>
@@ -77,36 +81,79 @@
                     <p>Please provide relevant information below</p>
                 </div>
                 <div class="card-action">
-
-                    <form id="login" name="login" method="GET" action="run.html" onsubmit="return checkForm()">
+                        <div id="tab-inputs">
+                    <form id="processForm" action = "/">
                         <div class="row">
+                            <div class="input-field col s6">
+                                <label for="age_current" style="font-size: small;">Current Age</label>
+                                <input name="age_current" id="age_current" type="number" class="validate" min="0" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d]/g,'') " required="required"/>      
+                            </div>
 
                             <div class="input-field col s6">
-                                <input disabled id="retire amount" name="retire amount" type="text" class="validate" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d]/g,'') ">
-                                <label for="retire amount">Retirement Amount ($)</label>
+                                <input id="age_retirement" name="age_retirement" type="number" class="validate" min="0" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d]/g,'') " required/>
+                                <label for="age_retirement" style="font-size: small;">Estimated Retirement Age</label>
                             </div>
+                           
                             <div class="input-field col s6">
-                                <input disabled id="monthly" name="monthly" type="text" class="validate" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d]/g,'') ">
-                                <label for="monthly">Monthly Contribution ($)</label>
+                                <input id="age_death" name="age_death" type="number" class="validate" min="0" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d]/g,'') " required/>
+                                <label for="age_death" style="font-size: small;">Estimated Death Age</label>
                             </div>
+
                             <div class="input-field col s6">
-                                <input disabled id="rate" name="rate" type="text" class="validate" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d]/g,'') ">
-                                <label for="rate">Rate of Return (%) </label>
+                                <input id="salary" name="salary" type="number" class="validate" min="0" step="0.01" onkeyup="this.value=this.value.replace(/[^\d\.]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d\.]/g,'') " required/>
+                                <label for="salary" style="font-size: small;">Salary</label>
+                            </div>
+
+                            <div class="input-field col s6">
+                                <input id="rate_salary" name="rate_salary" type="number" min="0" class="validate" step="0.01" onkeyup="this.value=this.value.replace(/[^\d\.]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d\.]/g,'') " required/>
+                                <label for="rate_salary" style="font-size: small;">Salary Growth Rate (%)</label>
+                            </div>
+
+                            <div class="input-field col s6">
+                                <input id="rate_contribution" name="rate_contribution" type="number" min="0" class="validate" step="0.01" onkeyup="this.value=this.value.replace(/[^\d\.]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d\.]/g,'') " required/>
+                                <label for="rate_contribution" style="font-size: small;">Salary Contribution Rate (%)</label>
+                            </div>
+
+                            <div class="input-field col s6">
+                                <input id="rate_inflation" name="rate_inflation" type="number" min="0" class="validate" step="0.01" onkeyup="this.value=this.value.replace(/[^\d\.]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d\.]/g,'') " required/>
+                                <label for="rate_inflation" style="font-size: small;">Inflation Rate (%)</label>
+                            </div>
+
+                            <div class="input-field col s6">
+                                <input id="rate_capital" name="rate_capital" type="number" min="0" class="validate" step="0.01" onkeyup="this.value=this.value.replace(/[^\d\.]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d\.]/g,'') " required/>
+                                <label for="rate_capital" style="font-size: small;">Capital Growth Rate (%)</label>
+                            </div>
+
+                            <div class="input-field col s6">
+                                <input id="cost_retirement_month" name="cost_retirement_month" min="0" type="number" step="0.01" class="validate" onkeyup="this.value=this.value.replace(/[^\d\.]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d\.]/g,'') " required/>
+                                <label for="cost_retirement_month" style="font-size: small;">Monthly Expense Post Retirement</label>
+                            </div>
+
+                            <div class="input-field col s6">
+                                <input id="cost_death" name="cost_death" type="number" min="0" class="validate" step="0.01" onkeyup="this.value=this.value.replace(/[^\d\.]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d\.]/g,'') " required/>
+                                <label for="cost_death" style="font-size: small;">Savings Left After Death</label>
                             </div>
 
                             <p class="col s9"></p>
 
-                            <button class="btn waves-effect waves-light col s3" type="submit" name="action">Submit
-                                    <i class="material-icons right">send</i>
+                            <button class="btn waves-effect waves-light col s3" type="submit">Submit
                                 </button>
 
                         </div>
                     </form>
+                    </div>
                 </div>
             </div>
         </div>
-
-
+    </div>
+    <div class="container">
+        <div class="card white z-depth-3">
+            <div id="tab-table">
+            </div>
+            <br><br>
+            <div id="tab-graph">
+            </div>
+        </div>
     </div>
 
     <br><br>
@@ -117,26 +164,26 @@
             <div class="row">
                 <div class="col l6 s12">
                     <h5 class="white-text">Bio</h5>
-                    <p class="grey-text text-lighten-4">Created by Shaokang Jiang, Ritika Mittal, Sai Teja Chokkarapu, and Peter Daly</p>
+                    <p class="grey-text text-lighten-4">Created by Shaokang, Ritika, Sai, and Peter</p>
 
 
                 </div>
                 <div class="col l3 s12">
                     <h5 class="white-text">Contacts</h5>
                     <ul>
-                        <li><a class="white-text" href="mailto:sjiang97@wisc.edu">Shaokang</a></li>
-                        <li><a class="white-text" href="mailto:rmittal6@wisc.edu">Ritika</a></li>
-                        <li><a class="white-text" href="mailto:chokkarapu@wisc.edu">Sai</a></li>
-                        <li><a class="white-text" href="mailto:pndaly@wisc.edu">Peter</a></li>
+                        <li><a class="white-text" href="mailto:sjiang97@wisc.edu">Shaokang Jiang</a></li>
+                        <li><a class="white-text" href="mailto:rmittal6@wisc.edu">Ritika Mittal</a></li>
+                        <li><a class="white-text" href="mailto:chokkarapu@wisc.edu">Sai Chokkarapu</a></li>
+                        <li><a class="white-text" href="mailto:pndaly@wisc.edu">Peter Daly</a></li>
                     </ul>
                 </div>
                 <div class="col l3 s12">
                     <h5 class="white-text">Connect</h5>
                     <ul>
-                        <li><a class="white-text" href="#!">Shaokang</a></li>
-                        <li><a class="white-text" href="https://www.linkedin.com/in/ritika-mittal-011ab2178/">Ritika</a></li>
-                        <li><a class="white-text" href="https://www.linkedin.com/in/chokkarapu/">Sai</a></li>
-                        <li><a class="white-text" href="https://www.linkedin.com/in/peterdaly13/">Peter</a></li>
+                        <li><a class="white-text" href="#!">Shaokang Jiang</a></li>
+                        <li><a class="white-text" href="https://www.linkedin.com/in/ritika-mittal-011ab2178/">Ritika Mittal</a></li>
+                        <li><a class="white-text" href="https://www.linkedin.com/in/chokkarapu/">Sai Chokkarapu</a></li>
+                        <li><a class="white-text" href="https://www.linkedin.com/in/peterdaly13/">Peter Daly</a></li>
                     </ul>
                 </div>
             </div>
@@ -147,54 +194,146 @@
         </div>
     </footer>
 
-
     <!--  Scripts-->
 
     <script src="../../js/materialize.js"></script>
-    <script>
-        M.AutoInit();
+    <script language="javascript">
+       // M.AutoInit();
+        function displayData(data, startYear, endYear) {
+			"use strict";
+			var year,
+			    dataTable = [],
+			    dataGraph = [];
+			for (year = startYear; year <= endYear; year += 1) {
+				dataTable[year - startYear] = [
+					year,
+					data[year].start.toFixed(2),
+					data[year].change.toFixed(2),
+					data[year].end.toFixed(2)
+				];
+				dataGraph[year] = [
+					year,
+					data[year].start
+				];
+			}
+			$("#tab-table").empty().append("<table id='outputTable'/>");
+			$("#outputTable").dataTable({
+				"aaData": dataTable,
+				"aoColumns": [
+					{ "sTitle": "Year" },
+					{ "sTitle": "Start" },
+					{ "sTitle": "Change" },
+					{ "sTitle": "End" }
+				]
+			});
+			$("#tab-graph").empty().append("<div id='outputGraph' style='width:95%;height:500px'></div>");
+			// we have to select the graph tab because canvas has to be shown to draw on it
+			// TODO: get the tab based on name
+			//$("#tabs").tabs("select", 2);
+			$.plot("#outputGraph", [ dataGraph ]);
+		}
 
-        function checkForm() {
-            location.href = "run.html";
-            window.sessionStorage.setItem('user', document.getElementById("simulation_data").files[0]);
+		function computeRetirement(data, yearCurrent, yearRetirement, yearDeath, rate_inflation, rate_capital, cost_retirement, cost_death) {
+			"use strict";
+			var year;
+			for (year = yearDeath; year >= yearRetirement; year -= 1) {
+				var total_inflation_growth = Math.pow(1.0 + rate_inflation, year - yearCurrent),
+				    yearSpending = cost_retirement * total_inflation_growth,
+				    endOfYear = year === yearDeath ? cost_death * total_inflation_growth : data[year + 1].start / (1.0 + rate_capital),
+				    startOfYear = endOfYear + yearSpending;
 
-            return true;
-        }
+				data[year] = {
+					change: -yearSpending,
+					end: endOfYear,
+					start: startOfYear
+				};
+			}
 
-        function select2() {
+			return data;
+		}
 
-            document.getElementById("loan amount").disabled = true;
-            document.getElementById("period").disabled = true;
-            document.getElementById("rate").disabled = true;
+		function computeWork(data, yearCurrent, yearRetirement, rate_salary, rate_capital, salary, salary_contribution) {
+			"use strict";
+			var year;
+			for (year = yearRetirement - 1; year >= yearCurrent; year -= 1) {
+				var total_salary_growth = Math.pow(1.0 + rate_salary, year - yearCurrent),
+				    contribution = salary * total_salary_growth * salary_contribution,
+				    endOfYear = data[year + 1].start / (1.0 + rate_capital),
+				    startOfYear = endOfYear - contribution;
 
+				data[year] = {
+					change: contribution,
+					end: endOfYear,
+					start: startOfYear
+				};
+			}
+			return data;
+		}
 
-        }
+		$(document).ready(function () {
+			"use strict";
+			
+			// TODO: not available in this version of jquery ui
+			//$("#tabs").tabs( { heightStyle: "auto" });
 
-        function select1() {
-            document.getElementById("loan amount").disabled = false;
-            document.getElementById("period").disabled = false;
-            document.getElementById("rate").disabled = false;
+			jQuery.validator.addMethod("integer", function (value, element) {
+				return this.optional(element) || /^[0-9]+$/.test(value);
+			}, "Please specify an integer value.");
 
-        }
+			$("#processForm").validate({
+				submitHandler: function (form) {
+					var ageCurrent = parseInt($("#age_current").val(), 10),
+					    ageRetirement = parseInt($("#age_retirement").val(), 10),
+					    ageDeath = parseInt($("#age_death").val(), 10);
+                        if (ageDeath < ageCurrent ||  ageDeath < ageRetirement) {
+                        alert("Estimated Death Age must be greater than Current Age and Estimated Retirement Age");
+                        }
+                        else if (ageRetirement < ageCurrent) {
+                        alert("Estimated Retirement Age must be greater than Current Age");
+                        }
+                        else{
+					   var cost_retirement = parseFloat($("#cost_retirement_month").val(), 10) * 12.0,
+					    cost_death = parseFloat($("#cost_death").val(), 10),
 
-        function load(source) {
-            var file = source;
-            if (window.FileReader) {
-                var fr = new FileReader();
-                fr.readAsText(file);
-                fr.onload = function() {
-                    console.log('onload')
-                    var html = '';
-                    html = fr.result;
-                    document.getElementById("Speed_text").innerText = html;
-                };
-                fr.onprogress = function(event) {
-                    if (event.lengthComputable) {
-                        document.getElementById("Speed_text").innerText = event.loaded + '/' + event.total;
-                    }
+					    rate_inflation = parseFloat($("#rate_inflation").val(), 10) / 100.0,
+					    rate_capital = parseFloat($("#rate_capital").val(), 10) / 100.0,
+
+					    salary = parseFloat($("#salary").val(), 10),
+					    rate_salary = parseFloat($("#rate_salary").val(), 10) / 100.0,
+					    salary_contribution = parseFloat($("#rate_contribution").val(), 10) / 100.0;
+
+					    // compute years
+					    yearCurrent = new Date().getFullYear(),
+					    yearRetirement = yearCurrent + (ageRetirement - ageCurrent),
+					    yearDeath = yearCurrent + (ageDeath - ageCurrent),
+
+					    data = [];
+
+					data = computeRetirement(
+						data,
+						yearCurrent,
+						yearRetirement,
+						yearDeath,
+						rate_inflation,
+						rate_capital,
+						cost_retirement,
+						cost_death
+					);
+					data = computeWork(
+						data,
+						yearCurrent,
+						yearRetirement,
+						rate_salary,
+						rate_capital,
+						salary,
+						salary_contribution
+					);
+
+					displayData(data, yearCurrent, yearDeath);
+				}
                 }
-            }
-        }
+			});
+		});
     </script>
 
 </body>
