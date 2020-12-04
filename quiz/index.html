@@ -65,10 +65,10 @@
             var _srcHeight = parseInt(window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight);
             var result = $("#navbar").height();
             if (request.QueryString("code") != null && request.QueryString("code") != "") {
-                document.getElementById("content").innerHTML = '<div class="container row" style="margin-top: ' + (_srcHeight * 0.2 - result) + 'px;"><div class="col s12"><div class="card white z-depth-3"><div class="card-content black-text"><span class="card-title">Quiz Code</span><p>We receive a requiest of quiz number: ' + request.QueryString("code") + '</p><p id="result"></p></div>  <div id="loading"><div class="progress" >      <div class="indeterminate"></div>  </div></div><div class="card-action"><div id="holder"></div></div></div></div></div></div>';
+                document.getElementById("content").innerHTML = '<div class="container row" style="margin-top: ' + (_srcHeight * 0.2 - result) + 'px;"><div class="col s12"><div class="card white z-depth-3"><div class="card-content black-text"><span class="card-title">Quiz Code</span><p>We received a request for quiz number: ' + request.QueryString("code") + '</p><p id="result"></p></div>  <div id="loading"><div class="progress" >      <div class="indeterminate"></div>  </div></div><div class="card-action"><div id="holder"></div></div></div></div></div></div>';
                 generateForm();
             } else {
-                document.getElementById("content").innerHTML = '<div class="container row" style="margin-top: ' + (_srcHeight * 0.4 - result) + 'px;"><div class="col s3"></div><div class="col s6"><div class="card white z-depth-3"><div class="card-content black-text"><span class="card-title">Look for a quiz?</span><p>Type in the quiz code below and click process to go to related quiz page</p><div class="input-field"><input id="quizcode" type="text" class="validate"><label for="quizcode">Quiz Code</label></div> <div class="row"><div class="col s12 m8"></div> <button class="col s12 m4 btn waves-effect waves-light" type="submit" name="action" onclick="handleExplorer()">Proceed<i class="material-icons right">send</i></button></div></div></div></div></div></div></div>';
+                document.getElementById("content").innerHTML = '<div class="container row" style="margin-top: ' + (_srcHeight * 0.4 - result) + 'px;"><div class="col s3"></div><div class="col s6"><div class="card white z-depth-3"><div class="card-content black-text"><span class="card-title">Looking for a quiz?</span><p>Enter the quiz code below and click process to go to related quiz page</p><div class="input-field"><input id="quizcode" type="text" class="validate"><label for="quizcode">Quiz Code</label></div> <div class="row"><div class="col s12 m8"></div> <button class="col s12 m4 btn waves-effect waves-light" type="submit" name="action" onclick="handleExplorer()">Proceed<i class="material-icons right">send</i></button></div></div></div></div></div></div></div>';
             }
         });
 
@@ -142,7 +142,7 @@
                 .catch(error => {
                     console.error(error)
                     document.getElementById("loading").innerHTML = '';
-                    document.getElementById("holder").innerHTML = "<font style='color: red'>Invalid code</font>"
+                    document.getElementById("holder").innerHTML = "<font style='color: red'>Invalid Code</font>"
                 })
         }
 
@@ -165,7 +165,7 @@
                     }
                 }
                 if (choice.localeCompare("") == 0) {
-                    document.getElementById("result").innerText = "Please fill all answer";
+                    document.getElementById("result").innerText = "Please attempt all questions!";
                     return false;
                 }
                 toSend.push({
@@ -189,16 +189,16 @@
 
             console.log(data);
 
-            document.getElementById("result").innerHTML = "<p>You get " + data[0].pass + " <span style='color:green'>Green means correct</span> <span style='color:red'>Red means wrong</span>. Explanation is shown below.</p>";
+            document.getElementById("result").innerHTML = "<p><span style='color:green'>Green means correct</span> <span style='color:red'>Red means wrong</span>. Explanation is shown below.</p>";
 
 
             if (data[0].pass) {
-                document.getElementById("modal1header").innerText = "Congraduate! You passed";
-                document.getElementById("hintText").innerText = "You could click the button to go next or copy and save the text below. And when you go back, just type those stuff in the home page. It will guide you to the next chapter automatically. You may also click empty (dash) area to go back and see your result as well as explanation"
+                document.getElementById("modal1header").innerText = "Congratulations! You passed";
+                document.getElementById("hintText").innerText = "You can click next or save the text below. Enter the text in the home page to be guided to the next chapter. Click empty (dash) area to go back and see your result along with the explanation."
                 document.getElementById("modalaction").innerText = "Next"
             } else {
                 document.getElementById("modal1header").innerText = "Sorry! Try again";
-                document.getElementById("hintText").innerText = "Click go back to see your result and the solution. Then try again by refreshing this page or go through the passage again. ";
+                document.getElementById("hintText").innerText = "Click go back to see your result and the solution. We recommend going through the learning passage again and giving the quiz another try OR you can refresh this page to try again!";
                 document.getElementById("modalaction").innerText = "Go Back"
             }
 
