@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+    <meta name="description" content="Online Stock Simulation">
+    <meta name="keywords" content="HTML, CSS, JavaScript, Simulation, Stock">
+    <meta name="author" content="Peter Daly">
+    <title>Retirement Calculator</title>
+
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="../../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="../../css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.11.1/jquery.validate.min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/flot/0.8.1/jquery.flot.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    <style>
+        body {
+            background-image: url("https://images.pexels.com/photos/187041/pexels-photo-187041.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+    </style>
+</head>
+
+<body>
+    <nav class="red" role="navigation">
+        <div class="nav-wrapper container">
+            <a id="logo-container" href="#" class="brand-logo white-text">Stock Simulation</a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="#" class="white-text">Navigation</a></li>
+            </ul>
+
+            <ul id="nav-mobile" class="sidenav">
+                <li><a href="#" class="white-text">Navigation</a></li>
+            </ul>
+            <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        </div>
+    </nav>
+
+
+    <br><br>
+
+
+    <div class="row">
+        <div class="col s0 m0 l1">
+        </div>
+
+
+        <div class="col s12 m12 l5">
+            <div class="card white z-depth-3">
+                <div class="card-content black-text">
+                    <h5>General Introduction</h5>
+                    <p>Welcome to the Stock Simulation Tool. </p>
+                    <p>This tool helps visualize the latest trends in the stock market. The data represented is not real time, however, the team at Capital Two updates the stock data frequently so as to represent the trends as accurately as possible.<br>This tool is currently under development!<span id="Speed_text"></span></p>
+                    <!--General inro, including equation, description, usage -->
+                </div>
+            </div>
+        </div>
+
+        <div class="col s12 m12 l5">
+            <div class="card white z-depth-3">
+                <div class="card-content black-text">
+                </div>
+                <div class="card-action">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="card white z-depth-3">
+            <div class="card-content black-text">
+                <h5>Estimated Market Trend</h5>
+            </div>
+        </div>
+    </div>
+    <br><br>
+    </div>
+
+    <footer class="page-footer blue">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">Bio</h5>
+                    <p class="grey-text text-lighten-4">Created by Shaokang, Ritika, Sai, and Peter</p>
+
+
+                </div>
+                <div class="col l3 s12">
+                    <h5 class="white-text">Contacts</h5>
+                    <ul>
+                        <li><a class="white-text" href="mailto:sjiang97@wisc.edu">Shaokang Jiang</a></li>
+                        <li><a class="white-text" href="mailto:rmittal6@wisc.edu">Ritika Mittal</a></li>
+                        <li><a class="white-text" href="mailto:chokkarapu@wisc.edu">Sai Chokkarapu</a></li>
+                        <li><a class="white-text" href="mailto:pndaly@wisc.edu">Peter Daly</a></li>
+                    </ul>
+                </div>
+                <div class="col l3 s12">
+                    <h5 class="white-text">Connect</h5>
+                    <ul>
+                        <li><a class="white-text" href="#!">Shaokang Jiang</a></li>
+                        <li><a class="white-text" href="https://www.linkedin.com/in/ritika-mittal-011ab2178/">Ritika Mittal</a></li>
+                        <li><a class="white-text" href="https://www.linkedin.com/in/chokkarapu/">Sai Chokkarapu</a></li>
+                        <li><a class="white-text" href="https://www.linkedin.com/in/peterdaly13/">Peter Daly</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+            </div>
+        </div>
+    </footer>
+
+    <!--  Scripts-->
+
+    <script src="../../js/materialize.js"></script>
+</body>
+
+</html>
