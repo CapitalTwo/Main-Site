@@ -92,7 +92,7 @@
                     <a class="btn blue" href="#">Right</a> -->
                     <p>Stock Chart of Microsoft<button id = "MSFT" style="float: right;" class="btn waves-effect waves-light col s3" onClick="reply_click(this.id)">Show
                     </button></p> 
-                    <p>Stock Chart of Texas Instruments  <button id = "TXN" style="float: right;" class="btn waves-effect waves-light col s3" onClick="reply_click(this.id)">Show
+                    <p>Stock Chart of GSPC <button id = "GSPC" style="float: right;" class="btn waves-effect waves-light col s3" onClick="reply_click(this.id)">Show
                     </button></p> 
                     <p>Stock Chart of IXIC <button id = "IXIC" style="float: right;" class="btn waves-effect waves-light col s3" onClick="stock(this.id)">Show
                     </button></p> 
@@ -172,9 +172,9 @@
         alert("You are viewing the stock chart of " + clicked_id);
         chart.dataSource.url = "https://www.amcharts.com/wp-content/uploads/assets/stock/MSFT.csv";
     }
-    else if(clicked_id === 'TXN'){
+    else if(clicked_id === 'GSPC'){
         alert("You are viewing the stock chart of " + clicked_id);
-        chart.dataSource.url = "https://www.amcharts.com/wp-content/uploads/assets/stock/TXN.csv";
+        chart.dataSource.url = "https://raw.githubusercontent.com/Fastcoderr/ss/main/GSPC.csv";
     }
     else if(clicked_id === 'IXIC'){
         alert("You are viewing the stock chart of " + clicked_id);
@@ -229,7 +229,7 @@
     series.dataFields.dateX = "Date";
     series.dataFields.valueY = "Adj Close";
     series.tooltipText = "{valueY.value}";
-    series.name = "MSFT: Value";
+    series.name = clicked_id + ": Value";
     series.defaultState.transitionDuration = 0;
     
     var valueAxis2 = chart.yAxes.push(new am4charts.ValueAxis());
@@ -254,7 +254,7 @@
     series2.dataFields.valueY = "Volume";
     series2.yAxis = valueAxis2;
     series2.tooltipText = "{valueY.value}";
-    series2.name = "MSFT: Volume";
+    series2.name = clicked_id + ": Volume";
     // volume should be summed
     series2.groupFields.valueY = "sum";
     series2.defaultState.transitionDuration = 0;

@@ -31,6 +31,7 @@
       rel="stylesheet"
       media="screen,projection"
     />
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/x-mathjax-config">
       MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
@@ -79,22 +80,9 @@
               payment and total interest accrued over the length of the
               loan.<span id="Speed_text"></span>
             </p>
-            <h5>Usage</h5>
-            <p>
-              This calculator provides the functionality to calculate car, home,
-              and business loans.
-            </p>
-            <h5>Method</h5>
-            <p>
-              We begin by calculating the total amount owed over the course of
-              the loan, given by the following formula: Total Payment = Loan
-              Amount * (1 + Rate)$^{Years}$
-            </p>
-            <p>
-              Next, we divide the total payment by the length of the loan in
-              months to determine a monthly payment: Monthly Payment =
-              $\frac{Total Payment}{12*years}$
-            </p>
+            <div class="card-action">
+              <div id="chart_div"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -128,7 +116,7 @@
                     onkeyup="this.value=this.value.replace(/[^\d]/g,'') "
                     onafterpaste="this.value=this.value.replace(/[^\d]/g,'') "
                   />
-                  <label for="period">Period (Years)</label>
+                  <label for="period" >Period (Years)</label>
                 </div>
                 <div class="input-field col s6">
                   <input
@@ -139,7 +127,7 @@
                     onkeyup="this.value=this.value.replace(/[^\d]/g,'') "
                     onafterpaste="this.value=this.value.replace(/[^\d]/g,'') "
                   />
-                  <label for="rate">Interest Rate (%) </label>
+                  <label for="rate" >Interest Rate (%) </label>
                 </div>
 
                 <p class="col s9"></p>
@@ -255,27 +243,67 @@
 
         //Compute Interest
 
-        const totalInterest = (
+        const totInterest = (
           monthly * calculatedPayments -
           principal
-        ).toFixed(2);
+        );
+        const totalInterest = totInterest.toFixed(2);
 
         //Compute Total Payment
-
-        const totalPayment = (monthly * calculatedPayments).toFixed(2);
-
+        const totPay = (monthly * calculatedPayments);
+        const totalPayment = totPay.toFixed(2);
+        
         //Show results
 
         document.getElementById("monthlyPayment").innerHTML =
           "$" + monthlyPayment;
 
         document.getElementById("totalInterest").innerHTML =
-          "%" + totalInterest;
+          "$" + totalInterest;
 
         document.getElementById("totalPayment").innerHTML = "$" + totalPayment;
 
         e.preventDefault();
+    
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+        ['Comparison','Total Amount','Principal','Monthly Payment','Total Interest'],
+        [' ',totPay, principal, monthly, totInterest]
+        ]);
+
+        var options = {
+          chart: {
+            title: 'Loan Distribution',
+            subtitle: '',
+          },
+          bars: 'vertical',
+          vAxis: {format: 'decimal'},
+          height: 350,
+          colors: ['#91d7ff','#1b9e77', '#d95f02', '#7570b3']
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('chart_div'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+
+        var btns = document.getElementById('btn-group');
+
+        btns.onclick = function (e) {
+
+          if (e.target.tagName === 'BUTTON') {
+            options.vAxis.format = e.target.id === 'none' ? '' : e.target.id;
+            chart.draw(data, google.charts.Bar.convertOptions(options));
+          }
+        }
       }
+      }
+
+      
+   
+      
     </script>
   </body>
 </html>
