@@ -90,9 +90,9 @@
                     <a class="btn blue" href="#">Right</a> -->
                     <p>Stock Chart of DJI <button id = "DJI" style="float: right;" class="btn waves-effect waves-light col s3" onClick="reply_click(this.id)">Show
                     </button></p> 
-                    <p>Stock Chart of ____ <button id = "GSPC" style="float: right;" class="btn waves-effect waves-light col s3" onClick="reply_click(this.id)">Show
+                    <p>Stock Chart of GSPC  <button id = "GSPC" style="float: right;" class="btn waves-effect waves-light col s3" onClick="reply_click(this.id)">Show
                     </button></p> 
-                    <p>Stock Chart of ____________ <button id = "IXIC" style="float: right;" class="btn waves-effect waves-light col s3" onClick="reply_click(this.id)">Show
+                    <p>Stock Chart of IXIC <button id = "IXIC" style="float: right;" class="btn waves-effect waves-light col s3" onClick="reply_click(this.id)">Show
                     </button></p> 
                     
                        
@@ -167,16 +167,16 @@
     
     // Load external data
     if(clicked_id === 'DJI'){
-        alert(clicked_id);
-        chart.dataSource.url = "#";
+        alert("You are viewing the stock chart of " + clicked_id);
+        chart.dataSource.url = "https://github.com/CapitalTwo/Main-Site/blob/master/tools/Stock/data/DJI.csv";
     }
     else if(clicked_id === 'GSPC'){
-        alert(clicked_id);
-        chart.dataSource.url = "#";
+        alert("You are viewing the stock chart of " + clicked_id);
+        chart.dataSource.url = "https://github.com/CapitalTwo/Main-Site/blob/master/tools/Stock/data/GSPC.csv";
     }
     else if(clicked_id === 'IXIC'){
-        alert(clicked_id);
-        chart.dataSource.url = "#";
+        alert("You are viewing the stock chart of " + clicked_id);
+        chart.dataSource.url = "https://github.com/CapitalTwo/Main-Site/blob/master/tools/Stock/data/IXIC.csv";
     }
     chart.dataSource.parser = new am4core.CSVParser();
     chart.dataSource.parser.options.useColumnNames = true;
