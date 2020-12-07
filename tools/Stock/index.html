@@ -28,7 +28,7 @@
     <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
     <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
     <script src="https://cdn.amcharts.com/lib/4/plugins/rangeSelector.js"></script>
-    <script src="https://cdn.amcharts.com/lib/4/themes/material.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/themes/kelly.js"></script>
     <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
 
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
@@ -90,11 +90,11 @@
                 <div class="card-action black-text">
                     <!-- <a class="btn blue" href="#">Right</a>
                     <a class="btn blue" href="#">Right</a> -->
-                    <p>Stock Chart of Microsoft<button id = "MSFT" style="float: right;" class="btn waves-effect waves-light col s3" onClick="reply_click(this.id)">Show
+                    <p>Stock Chart of Dow Jones Industrial Average<button id = "DJI" style="float: right;" class="btn waves-effect waves-light col s3" onClick="reply_click(this.id)">Show
                     </button></p> 
-                    <p>Stock Chart of GSPC <button id = "GSPC" style="float: right;" class="btn waves-effect waves-light col s3" onClick="reply_click(this.id)">Show
+                    <p>Stock Chart of S&P 500<button id = "GSPC" style="float: right;" class="btn waves-effect waves-light col s3" onClick="reply_click(this.id)">Show
                     </button></p> 
-                    <p>Stock Chart of IXIC <button id = "IXIC" style="float: right;" class="btn waves-effect waves-light col s3" onClick="stock(this.id)">Show
+                    <p>Stock Chart of Nasdaq Composite<button id = "IXIC" style="float: right;" class="btn waves-effect waves-light col s3" onClick="reply_click(this.id)">Show
                     </button></p> 
                     
                        
@@ -159,6 +159,7 @@
     clearBox('controls');
     clearBox('chartdiv');
     // Themes begin
+    am4core.useTheme(am4themes_kelly);
     am4core.useTheme(am4themes_animated);
     // Themes end
     
@@ -168,9 +169,9 @@
     
     // Load external data
     // https://www.amcharts.com/wp-content/uploads/assets/stock/MSFT.csv
-    if(clicked_id === 'MSFT'){
+    if(clicked_id === 'DJI'){
         alert("You are viewing the stock chart of " + clicked_id);
-        chart.dataSource.url = "https://www.amcharts.com/wp-content/uploads/assets/stock/MSFT.csv";
+        chart.dataSource.url = "./data/DJI.csv";
     }
     else if(clicked_id === 'GSPC'){
         alert("You are viewing the stock chart of " + clicked_id);
@@ -178,7 +179,7 @@
     }
     else if(clicked_id === 'IXIC'){
         alert("You are viewing the stock chart of " + clicked_id);
-        chart.dataSource.url = "https://github.com/CapitalTwo/Main-Site/blob/master/tools/Stock/data/IXIC.csv";
+        chart.dataSource.url = "./data/IXIC.csv";
     }
     chart.dataSource.parser = new am4core.CSVParser();
     chart.dataSource.parser.options.useColumnNames = true;
