@@ -195,15 +195,23 @@
 
             if (data[0].pass) {
                 let stage = data[data.length - 1];
-                document.getElementById("modal1header").innerText = "Congratulations! You passed";
-                document.getElementById("hintText").innerHTML = "<p>You can click next or save the stage by clicking download. Enter the text in the home page to be guided to the next chapter. Click empty (dash) area to go back and see your result along with the explanation.</p> <a class='waves-effect waves-light btn' id='downloadLearning'><i class='material-icons left'>cloud_download</i>button</a>"
-                document.getElementById('downloadLearning').addEventListener('click', function () {
-                    funDownload(btoa(JSON.stringify(stage)), 'progress.txt')
-                });
-                document.getElementById("modalaction").innerText = "Next"
-                document.getElementById("modalaction").href = "https://knowledge.capitaltwo.ga/" + stage.nextDirectory;
-                window.name = stage.token;
-                localStorage.setItem('learningStage', btoa(JSON.stringify(stage)));
+                if (!stage.success) {
+                    document.getElementById("modal1header").innerText = "Congratulations! You passed";
+                    document.getElementById("hintText").innerHTML = "<p>You can click next or save the stage by clicking download. Enter the text in the home page to be guided to the next chapter. Click empty (dash) area to go back and see your result along with the explanation.</p> <a class='waves-effect waves-light btn' id='downloadLearning'><i class='material-icons left'>cloud_download</i>button</a>"
+                    document.getElementById('downloadLearning').addEventListener('click', function () {
+                        funDownload(btoa(JSON.stringify(stage)), 'progress.txt')
+                    });//depends on the success value
+                    document.getElementById("modalaction").innerText = "Next"
+                    document.getElementById("modalaction").href = "https://knowledge.capitaltwo.ga/" + stage.nextDirectory;
+                    window.name = stage.token;
+                    localStorage.setItem('learningStage', btoa(JSON.stringify(stage)));
+                } else {
+                    document.getElementById("modal1header").innerText = "Congratulations! You finished all progress";
+                    document.getElementById("hintText").innerHTML = "<p>Share with your friends that you have finished this topic, click back to home to go back to the home page</p>"
+                    document.getElementById("modalaction").innerText = "Back to home"
+                    document.getElementById("modalaction").href = "https://capitaltwo.ga/" ;
+                    localStorage.removeItem("learningStage");
+                }
             } else {
                 document.getElementById("modal1header").innerText = "Sorry! Try again";
                 document.getElementById("hintText").innerText = "Click go back to see your result and the solution. We recommend going through the learning passage again and giving the quiz another try OR you can refresh this page to try again!";
@@ -211,8 +219,8 @@
             }
 
             $('.modal').modal('open');
-
-            for (let i = 1; i < data.length - 1; i++) {
+            let length = data[0].pass ? data.length - 1 : data.length;
+            for (let i = 1; i < length; i++) {
                 if (data[i].Correct) {
                     let ele = document.getElementsByName('group' + data[i].QNumber);
                     for (let j = 0; j < ele.length; j++) {
