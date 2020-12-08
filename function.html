@@ -502,24 +502,53 @@
     M.AutoInit();
     document.addEventListener('DOMContentLoaded', function () {
       var elems = document.querySelectorAll('.carousel');
-      if (width > 1000) {
-        var instances = M.Carousel.init(elems, { numVisible: 6, dist: -50, padding: 0.1 * width });
-        $(".carousel-item").width(0.2 * width);
+      if (localStorage.getItem("learningStage") === null) {
+        if (width > 1000) {
+          var instances = M.Carousel.init(elems, { numVisible: 6, dist: -50, padding: 0.1 * width });
+          $(".carousel-item").width(0.2 * width);
+        } else {
+          var instances = M.Carousel.init(elems);
+
+        }
+        $(".forwardImg").height($('#cardsssss').height());
+
+        anima = setInterval(function time() { $('.carousel').carousel('next'); }, 3000)
+        //anima.clear() use this to delete this snimation
+        let dropbox;
+
+        dropbox = document.getElementById("dropbox");
+        dropbox.addEventListener("dragenter", dragenter, false);
+        dropbox.addEventListener("dragleave", dragleave, false);
+        dropbox.addEventListener("dragover", dragover, false);
+        dropbox.addEventListener("drop", drop, false);
       } else {
-        var instances = M.Carousel.init(elems);
+        let content = JSON.parse(atob(localStorage.getItem("learningStage")));
+        window.name = content.token
+        document.getElementById("dropbox").classList.add("container");
+        document.getElementById("dropbox").innerHTML = `<div class="col s12">
+        <a href="https://knowledge.capitaltwo.ga`+content.nextDirectory+`" class="carousel-item" style="text-transform: none;">
+          <div class="card-panel" id="cardsssss" style="width: 100%;height: auto;    background-size: cover;
+            background-position: center;
+            background-position-x: 10px;
+            background-position-y: 0px;
+            background-repeat: no-repeat;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.3)), url(https://www.workflowmax.com/hubfs/budget%20900x400v2.png);
+        ">
+            <div class="row" style="margin-bottom: 0px;">
+              <div class="col s10"><span class="card-title"><b>Continue your study</b></span>
+                <p class="black-text" style="margin-bottom: 0px;">The next chapter is `+content.nextHead+`, click the card to continue your study
+                </p>
+              </div>
 
+              <div class="col s2 forwardImg"
+                style="display: flex;justify-content: center;align-items: center; flex-direction: column;height: 100%;">
+                <img src="./arrow.svg">
+              </div>
+
+            </div>
+          </div>
+        </div>`;
       }
-      $(".forwardImg").height($('#cardsssss').height());
-
-      anima = setInterval(function time() { $('.carousel').carousel('next'); }, 3000)
-      //anima.clear() use this to delete this snimation
-      let dropbox;
-
-      dropbox = document.getElementById("dropbox");
-      dropbox.addEventListener("dragenter", dragenter, false);
-      dropbox.addEventListener("dragleave", dragleave, false);
-      dropbox.addEventListener("dragover", dragover, false);
-      dropbox.addEventListener("drop", drop, false);
     });
 
     function dragenter(e) {
@@ -543,7 +572,7 @@
     function dragover(e) {
       e.stopPropagation();
       e.preventDefault();
-      
+
       document.getElementById("dropbox").style.backgroundColor = "lightgray"
       document.getElementById("dropbox").style.borderColor = "black"
       document.getElementById("dropbox").style.borderStyle = "solid"
@@ -574,10 +603,11 @@
         reader.onload = (function (theFile) {
           return function (e) {
             let a = JSON.parse(atob(e.target.result));
-            if(!a.success){
+            localStorage.setItem('learningStage', e.target.result);
+            if (!a.success) {
               console.log(a)
               window.name = a.token
-              window.location.href = "https://knowledge.capitaltwo.ga"+a.nextDirectory
+              window.location.href = "https://knowledge.capitaltwo.ga" + a.nextDirectory
             }
           };
         })(file);
