@@ -43,7 +43,7 @@
     </div>
   </nav>
 
-  <h2 class="header center yellow-text text-accent-2">EXPLORE TOPICS</h2>
+  <h2 class="header center yellow-text text-accent-2" id="explorehead">EXPLORE TOPICS</h2>
   <div class="row" id="dropbox">
     <div class="col s12 m12">
 
@@ -524,6 +524,7 @@
       } else {
         let content = JSON.parse(atob(localStorage.getItem("learningStage")));
         window.name = content.token
+        document.getElementById("explorehead").innerText = "Continue your study"
         document.getElementById("dropbox").classList.add("container");
         document.getElementById("dropbox").innerHTML = `<div class="col s12">
         <a href="https://knowledge.capitaltwo.ga`+content.nextDirectory+`" class="carousel-item" style="text-transform: none;">
