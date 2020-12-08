@@ -196,7 +196,10 @@
             if (data[0].pass) {
                 let stage = data[data.length - 1];
                 document.getElementById("modal1header").innerText = "Congratulations! You passed";
-                document.getElementById("hintText").innerHTML = "<p>You can click next or save the stage by clicking download. Enter the text in the home page to be guided to the next chapter. Click empty (dash) area to go back and see your result along with the explanation.</p> <a class='waves-effect waves-light btn' onclick='"+function a() {funDownload(btoa(JSON.stringify(stage))}, 'progress.txt')+"'><i class='material-icons left'>cloud_download</i>button</a>"
+                document.getElementById("hintText").innerHTML = "<p>You can click next or save the stage by clicking download. Enter the text in the home page to be guided to the next chapter. Click empty (dash) area to go back and see your result along with the explanation.</p> <a class='waves-effect waves-light btn' id='downloadLearning'><i class='material-icons left'>cloud_download</i>button</a>"
+                document.getElementById('downloadLearning').addEventListener('click', function () {
+                    funDownload(btoa(JSON.stringify(stage)), 'progress.txt')
+                });
                 document.getElementById("modalaction").innerText = "Next"
                 document.getElementById("modalaction").href = "https://knowledge.capitaltwo.ga/" + stage.nextDirectory;
                 window.name = stage.token;
@@ -250,7 +253,7 @@
             eleLink.click();
             document.body.removeChild(eleLink);
         };
-                
+
     </script>
 
 </body>
