@@ -24,7 +24,8 @@
 
 <body>
     <nav class="Maroon" id="navbar" role="navigation" style='background-color: rgba(0,0,0,0);'>
-        <div class="nav-wrapper container center"><a id="logo-container" href="#" class="brand-logo center">Capital Two - Quiz</a>
+        <div class="nav-wrapper container center"><a id="logo-container" href="#" class="brand-logo center">Capital Two
+                - Quiz</a>
         </div>
     </nav>
 
@@ -54,9 +55,9 @@
         M.AutoInit();
 
         var request;
-        $(document).ready(function() {
+        $(document).ready(function () {
             request = {
-                QueryString: function(val) {
+                QueryString: function (val) {
                     var uri = window.location.search;
                     var re = new RegExp("" + val + "=([^&?]*)", "ig");
                     return ((uri.match(re)) ? (uri.match(re)[0].substr(val.length + 1)) : null);
@@ -83,12 +84,12 @@
         function generateForm() {
 
             fetch('https://quiz.1442334619.workers.dev', {
-                    method: "POST",
-                    body: JSON.stringify({
-                        "Task": "GetPreDefinedQuizzes",
-                        "quizcode": request.QueryString("code")
-                    })
+                method: "POST",
+                body: JSON.stringify({
+                    "Task": "GetPreDefinedQuizzes",
+                    "quizcode": request.QueryString("code")
                 })
+            })
                 .then(response => response.json())
                 .then(data => {
                     // Create a form synamically 
@@ -193,9 +194,14 @@
 
 
             if (data[0].pass) {
+                let stage = data[data.length - 1];
                 document.getElementById("modal1header").innerText = "Congratulations! You passed";
-                document.getElementById("hintText").innerText = "You can click next or save the text below. Enter the text in the home page to be guided to the next chapter. Click empty (dash) area to go back and see your result along with the explanation."
+                document.getElementById("hintText").innerHTML = "<p>You can click next or save the stage by clicking download. Enter the text in the home page to be guided to the next chapter. Click empty (dash) area to go back and see your result along with the explanation.</p> <a class='waves-effect waves-light btn' onclick='"+funDownload(btoa(JSON.stringify(stage)), 'progress.txt')+"'><i class='material-icons left'>cloud_download</i>button</a>"
                 document.getElementById("modalaction").innerText = "Next"
+                document.getElementById("modalaction").href = "https://knowledge.capitaltwo.ga/" + stage.nextDirectory;
+                window.name = stage.token;
+                localStorage.setItem('learningStage', btoa(JSON.stringify(stage)));
+
             } else {
                 document.getElementById("modal1header").innerText = "Sorry! Try again";
                 document.getElementById("hintText").innerText = "Click go back to see your result and the solution. We recommend going through the learning passage again and giving the quiz another try OR you can refresh this page to try again!";
@@ -204,7 +210,7 @@
 
             $('.modal').modal('open');
 
-            for (let i = 1; i < data.length; i++) {
+            for (let i = 1; i < data.length - 1; i++) {
                 if (data[i].Correct) {
                     let ele = document.getElementsByName('group' + data[i].QNumber);
                     for (let j = 0; j < ele.length; j++) {
@@ -233,6 +239,18 @@
             document.getElementById("loading").innerHTML = '';
 
         }
+
+        var funDownload = function (content, filename) {
+            var eleLink = document.createElement('a');
+            eleLink.download = filename;
+            eleLink.style.display = 'none';
+            var blob = new Blob([content]);
+            eleLink.href = URL.createObjectURL(blob);
+            document.body.appendChild(eleLink);
+            eleLink.click();
+            document.body.removeChild(eleLink);
+        };
+                
     </script>
 
 </body>
