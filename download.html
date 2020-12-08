@@ -26,7 +26,7 @@
 <body>
     <nav class="red" role="navigation">
         <div class="nav-wrapper container">
-            <a id="logo-container" href="#" class="brand-logo white-text" aria-hidden="true">Download Page</a>
+            <a id="logo-container" href="#" class="brand-logo white-text" aria-hidden="true">Download</a>
             <ul class="right hide-on-med-and-down">
                 <li><a href="https://capitaltwo.ga" class="white-text">Home Page</a></li>
                 <li><a href="https://capitaltwo.ga/function.html" class="white-text">Function page</a></li>
@@ -39,53 +39,28 @@
                 <li><a href="https://capitaltwo.ga/legal.html">Legal info</a></li>
 
             </ul>
-            <a href="#" data-target="nav-mobile" class="sidenav-trigger" aria-hidden="true"><i class="material-icons" aria-hidden="true" >menu</i></a>
+            <a href="#" data-target="nav-mobile" class="sidenav-trigger" aria-hidden="true"><i class="material-icons"
+                    aria-hidden="true">menu</i></a>
         </div>
     </nav>
 
-    <br aria-hidden="true" /><br aria-hidden="true"/>
+    <br aria-hidden="true" /><br aria-hidden="true" />
 
     <div class="container">
         <div class="row">
             <div class="col s12 m12">
                 <div class="card white z-depth-3">
                     <div class="card-content black-text">
-                        <span class="card-title"  aria-labelledby="You can download textbook for this section" >Download Textbook</span>
+                        <span class="card-title" aria-labelledby="You can download textbook for this section">Download
+                            Textbook</span>
                     </div>
-                    <div class="card-action black-text"  >
+                    <div class="card-action black-text">
                         <p>We organized all content in one book to make them better serve for different groups people.
                             By using those books, you loss the possibility for accesing some creative, interactive
                             content, but it is good for reference and accessibility.</p>
 
                         <div class="row">
-                            <div class="col s12 l8" id="downloadarea1"
-                                style="display: flex; flex-direction: column;justify-content: space-around;">
-
-                                <div id="download1"
-                                    style="display: flex;justify-content: space-around;margin-bottom: 10px;">
-                                    <a target="_blank" href="https://knowledge.capitaltwo.ga/book.pdf#page=2"
-                                        class="waves-effect waves-light btn-large" style="text-transform: none;"  role="button"  aria-labelledby="Get access to the pdf version"><i
-                                            class="material-icons left" aria-hidden="true">file_download</i>
-                                        Download&nbsp;&nbsp;PDF</a>
-                                    <a target="_blank" href="https://knowledge.capitaltwo.ga/book.mobi"
-                                        class="waves-effect waves-light btn-large" style="text-transform: none;" role="button"  aria-labelledby="Get access to the mobi version"><i
-                                            class="material-icons left" aria-hidden="true">file_download</i>
-                                        Download&nbsp;&nbsp;Mobi</a>
-                                </div>
-                                <div id="download2"
-                                    style="display: flex;justify-content: space-around;margin-bottom: 10px;">
-                                    <a target="_blank" href="https://knowledge.capitaltwo.ga/book.epub"
-                                        class="waves-effect waves-light btn-large" style="text-transform: none;" role="button"  aria-labelledby="Get access to the epub version"><i
-                                            class="material-icons left" aria-hidden="true">file_download</i>
-                                        Download&nbsp;&nbsp;EPUB</a>
-
-                                    <a target="_blank" href="https://knowledge.capitaltwo.ga/book.docx"
-                                        class="waves-effect waves-light btn-large" style="text-transform: none;" role="button"  aria-labelledby="Get access to the word version"><i
-                                            class="material-icons left"  aria-hidden="true">file_download</i>
-                                        Download&nbsp;&nbsp;word</a>
-
-                                </div>
-                            </div>
+                            <div id="area"></div>
                             <div class="col s12 l4">
                                 <img src="./0002.jpg" aria-hidden="true" id="image" width="100%" alt="Italian Trulli">
                             </div>
@@ -107,25 +82,7 @@
 
 
                         <div class="row">
-                            <div class="col s12 l8" id="downloadarea2"
-                                style="display: flex; flex-direction: column;justify-content: space-around;">
-                                <div>
-                                    <h5><span lang="en-US">Organize your expense and income:</span></h5>
-                                    <p>I realize it is hard to input everything in one time. So I also made an app to
-                                        help you organize daily spending. This app is still in developing.
-                                </div>
-                                <div id="download3"
-                                    style="display: flex;justify-content: space-around;margin-bottom: 10px;">
-                                    <a target="_blank" href="https://github.com/CapitalTwo/CapitalTwo-Financial"
-                                        class="waves-effect waves-light btn-large" style="text-transform: none;"><i
-                                            class="material-icons left">file_download</i>
-                                        Source Code</a>
-                                    <a target="_blank" href="https://expo.io/@huangsk100/projects/CapitalTwo-Financial"
-                                        class="waves-effect waves-light btn-large" style="text-transform: none;"><i
-                                            class="material-icons left">file_download</i>
-                                        Expo</a>
-                                </div>
-                            </div>
+                            <div id="area1"></div>
                             <div class="col s12 l4">
                                 <img src="./phone.jpg" id="image1" width="100%" alt="Italian Trulli">
                             </div>
@@ -149,7 +106,7 @@
                         Created by Shaokang Jiang, Ritika Mittal, Sai Teja Chokkarapu, and Peter Daly
                     </p>
                 </div>
-                <div class="col l3 s12" >
+                <div class="col l3 s12">
                     <h5 class="white-text">Contacts</h5>
                     <ul>
                         <li>
@@ -207,11 +164,92 @@
 
         M.AutoInit();
         document.addEventListener('DOMContentLoaded', function () {
-            if (width > 600) {
+            if (width > 1050) {
+                document.getElementById("area").innerHTML = ` <div class="col s12 l8" id="downloadarea1"
+                                style="display: flex; flex-direction: column;justify-content: flex-end;">
+
+                                <div id="download1"
+                                    style="display: flex;justify-content: space-around;margin-bottom: 30px;">
+                                    <a target="_blank" href="https://knowledge.capitaltwo.ga/book.pdf#page=2"
+                                        class="waves-effect waves-light btn-large" style="text-transform: none;"  role="button"  aria-labelledby="Get access to the pdf version"><i
+                                            class="material-icons left" aria-hidden="true">file_download</i>
+                                        Download PDF</a>
+                                    <a target="_blank" href="https://knowledge.capitaltwo.ga/book.mobi"
+                                        class="waves-effect waves-light btn-large" style="text-transform: none;" role="button"  aria-labelledby="Get access to the mobi version"><i
+                                            class="material-icons left" aria-hidden="true">file_download</i>
+                                            Download Mobi</a>
+                                </div>
+                                <div id="download2"
+                                    style="display: flex;justify-content: space-around;margin-bottom: 50px;">
+                                    <a target="_blank" href="https://knowledge.capitaltwo.ga/book.epub"
+                                        class="waves-effect waves-light btn-large" style="text-transform: none;" role="button"  aria-labelledby="Get access to the epub version"><i
+                                            class="material-icons left" aria-hidden="true">file_download</i>
+                                            Download EPUB</a>
+
+                                    <a target="_blank" href="https://knowledge.capitaltwo.ga/book.docx"
+                                        class="waves-effect waves-light btn-large" style="text-transform: none;" role="button"  aria-labelledby="Get access to the word version"><i
+                                            class="material-icons left"  aria-hidden="true">file_download</i>
+                                            Download word</a>
+
+                                </div>
+                            </div>`;
+                document.getElementById("area1").innerHTML = `<div class="col s12 l8" id="downloadarea2"
+                                style="display: flex; flex-direction: column;justify-content: space-around;">
+                                <div>
+                                    <h5><span lang="en-US">Organize your expense and income:</span></h5>
+                                    <p>I realize it is hard to input everything in one time. So I also made an app to
+                                        help you organize daily spending. This app is still in developing.
+                                </div>
+                                <div id="download3"
+                                    style="display: flex;justify-content: space-around;margin-bottom: 10px;">
+                                    <a target="_blank" href="https://github.com/CapitalTwo/CapitalTwo-Financial"
+                                        class="waves-effect waves-light btn-large" style="text-transform: none;"><i
+                                            class="material-icons left">file_download</i>
+                                        Source Code</a>
+                                    <a target="_blank" href="https://expo.io/@huangsk100/projects/CapitalTwo-Financial"
+                                        class="waves-effect waves-light btn-large" style="text-transform: none;"><i
+                                            class="material-icons left">file_download</i>
+                                        Expo</a>
+                                </div>
+                            </div>`;
                 document.getElementById("downloadarea1").style.height = document.getElementById("image").height + "px";
                 document.getElementById("downloadarea2").style.height = document.getElementById("image1").height + "px";
                 //document.getElementById("download1").style.marginTop = document.getElementById("image").height/4 +"px";
                 //document.getElementById("download2").style.marginTop = document.getElementById("image").height/4 +"px";
+            } else {
+                document.getElementById("area").innerHTML = ` <div class="col s12">
+                                    <a target="_blank" href="https://knowledge.capitaltwo.ga/book.pdf#page=2"
+                                        class="waves-effect waves-light btn-large" style="text-transform: none;margin-bottom: 10px;"  role="button"  aria-labelledby="Get access to the pdf version"><i
+                                            class="material-icons left" aria-hidden="true">file_download</i>
+                                        PDF</a>
+                                    <a target="_blank" href="https://knowledge.capitaltwo.ga/book.mobi"
+                                        class="waves-effect waves-light btn-large" style="text-transform: none;margin-bottom: 10px;" role="button"  aria-labelledby="Get access to the mobi version"><i
+                                            class="material-icons left" aria-hidden="true">file_download</i>
+                                        Mobi</a>
+                                    <a target="_blank" href="https://knowledge.capitaltwo.ga/book.epub"
+                                        class="waves-effect waves-light btn-large" style="text-transform: none;margin-bottom: 10px;" role="button"  aria-labelledby="Get access to the epub version"><i
+                                            class="material-icons left" aria-hidden="true">file_download</i>
+                                        EPUB</a>
+
+                                    <a target="_blank" href="https://knowledge.capitaltwo.ga/book.docx"
+                                        class="waves-effect waves-light btn-large" style="text-transform: none;margin-bottom: 10px;" role="button"  aria-labelledby="Get access to the word version"><i
+                                            class="material-icons left"  aria-hidden="true">file_download</i>
+                                        word</a>
+                            </div>`
+
+                document.getElementById("area1").innerHTML = `<div class="col s12">
+                                    <h5><span lang="en-US">Organize your expense and income:</span></h5>
+                                    <p>I realize it is hard to input everything in one time. So I also made an app to
+                                        help you organize daily spending. This app is still in developing.
+                                <a target="_blank" href="https://github.com/CapitalTwo/CapitalTwo-Financial"
+                                        class="waves-effect waves-light btn-large" style="text-transform: none;margin-bottom: 10px;"><i
+                                            class="material-icons left">file_download</i>
+                                        Source Code</a>
+                                    <a target="_blank" href="https://expo.io/@huangsk100/projects/CapitalTwo-Financial"
+                                        class="waves-effect waves-light btn-large" style="text-transform: none;margin-bottom: 10px;"><i
+                                            class="material-icons left">file_download</i>
+                                        Expo</a>
+                            </div>`;
             }
         });
         function handleExplorer() {
