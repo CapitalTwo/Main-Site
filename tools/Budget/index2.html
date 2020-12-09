@@ -492,15 +492,21 @@
       divContainer.appendChild(table);
     }
     $(function () {
-      $("#sortable").sortable();
+      $("#sortable").sortable({
+        stop: function (){
+          updateOrder();
+        }
+      });
       $("#sortable").disableSelection();
     });
 
     function updateOrder() {
       var idsInOrder = $("#sortable").sortable("toArray");
-      console.log(idsInOrder);
+      //console.log(idsInOrder);
       categories.Expense = idsInOrder;
-      console.log(categories)
+      localStorage.setItem("budgetingCategory", JSON.stringify(categories))
+
+      //console.log(categories)
     }
 
     function removeEntry(id) {
@@ -522,6 +528,9 @@
       }
       allData = newAll;
       CreateTableFromJSON()
+
+      localStorage.setItem("budgetingData", JSON.stringify(data));
+      localStorage.setItem("budgetingAllData", JSON.stringify(allData));
     }
 
     function handleAddEntry() {
@@ -595,6 +604,9 @@
       })
       CreateTableFromJSON()
       id++;
+      
+      localStorage.setItem("budgetingData", JSON.stringify(data));
+      localStorage.setItem("budgetingAllData", JSON.stringify(allData));
     }
 
     function initialOrder() {
@@ -603,6 +615,8 @@
         tore += `<li class="ui-state-default" id="` + i + `"><i class="material-icons left">menu</i>` + i + `</li>`
       }
       document.getElementById("sortable").innerHTML = tore;
+
+      localStorage.setItem("budgetingCategory", JSON.stringify(categories))
     }
 
     function initializeIncome() {
@@ -611,6 +625,7 @@
         tore += `<li style="padding-left: 20px;">` + i + `</li>`
       }
       document.getElementById("incomeList").innerHTML = tore;
+      localStorage.setItem("budgetingCategory", JSON.stringify(categories))
     }
 
     function addCategory() {
