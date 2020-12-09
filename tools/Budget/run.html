@@ -121,10 +121,14 @@
                 document.getElementById("navbars").classList.add("container")
             }
             try {
-                if (!window.name) {
-                    alert("Invalid visit");
-                    window.history.back();
-                    return;
+                if (window.isNativeApp) {
+                    data = communicate;
+                } else {
+                    if (!window.name) {
+                        alert("Invalid visit");
+                        window.history.back();
+                        return;
+                    }
                 }
                 data = JSON.parse(window.name);
                 new Date(Object.keys(data)[0])
