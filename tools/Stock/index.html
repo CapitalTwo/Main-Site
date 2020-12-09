@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+    <meta name="description" content="Online Stock Simulation">
+    <meta name="keywords" content="HTML, CSS, JavaScript, Simulation, Stock">
+    <meta name="author" content="Ritika Mittal">
+    <title>Stock Simulation</title>
+    <style>
+        #chartdiv {
+          width: 100%;
+          max-width: 100%;
+        }
+        
+        #controls {
+          overflow: hidden;
+          padding-bottom: 3px;
+        }
+		#myPortfolio {
+		  font-family: Arial, Helvetica, sans-serif;
+		  border-collapse: collapse;
+		  width: 100%;
+		}
+		
+		#myPortfolio td, #myPortfolio th {
+		  border: 1px solid #ddd;
+		  padding: 8px;
+		}
+		
+		#myPortfolio tr:nth-child(even){background-color: #f2f2f2;}
+		
+		#myPortfolio tr:hover {background-color: #ddd;}
+		
+		#myPortfolio th {
+		  padding-top: 12px;
+		  padding-bottom: 12px;
+          text-align: left;
+		  background-color: #117474;
+		  color: white;
+        }
+        /* styling the share price */
+.price {
+  /* Text Styles */
+  color: #006400;
+}
+
+/* buy and sell buttons */
+a {
+  /* Button Styles */
+  display: block;
+  height: 25px;
+  width: 100px;
+  /* border: 2px solid #000000; */
+
+  /* Text Styles */
+  color: #ffffff !important; 
+  text-align: center;
+  line-height: 25px;
+
+  /* Link Styles */
+  text-decoration: none;
+}
+
+/* mouse over any link (buy and sell buttons) */
+a:hover {
+  background: #000000;
+}
+
+/* mouse over buy button */
+a.buy {
+  background: #399639;
+}
+
+/* mouse over sell button */
+a.sell {
+  background: #d13636;
+}
+
+        </style>
+
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="../../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="../../css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <!-- <link href="tools/Stock/stocks.css" rel="stylesheet"> -->
+    <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/plugins/rangeSelector.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/themes/kelly.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/jquery-ui.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    <style>
+        body {
+            background-image: url("https://images.pexels.com/photos/187041/pexels-photo-187041.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+    </style>
+</head>
+
+<body>
+    <nav class="red" role="navigation">
+        <div class="nav-wrapper container">
+            <a id="logo-container" href="#" class="brand-logo white-text">Stock Simulation</a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="https://capitaltwo.ga/function.html" class="white-text">Go Back</a></li>
+                <li><a href="https://capitaltwo.ga" class="white-text">Home Page</a></li>
+              </ul>
+        
+              <ul id="nav-mobile" class="sidenav">
+                <li><a href="https://capitaltwo.ga/function.html">Go Back</a></li>
+                <li><a href="https://capitaltwo.ga">Home Page</a></li>
+              </ul>
+              <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        </div>
+    </nav>
+
+
+    <br><br>
+
+
+    <div class="row">
+        <div class="col s0 m0 l1">
+        </div>
+        <div class="col s12 m12 l4">
+            <div class="card white z-depth-3">
+                <div class="card-content black-text">
+                   <h5>Companies</h5>
+                   <p>Take a look at the following companies' market trend</p>
+                </div>
+                <div class="card-action black-text">
+                    <!-- <a class="btn blue" href="#">Right</a>
+                    <a class="btn blue" href="#">Right</a> -->
+                    <p>Stock Chart of DJI<button id = "DJI" style="float: right;" class="btn waves-effect waves-light col s3" onClick="reply_click(this.id)">Show
+                    </button></p> 
+                    <p>Stock Chart of GSPC<button id = "GSPC" style="float: right;" class="btn waves-effect waves-light col s3" onClick="reply_click(this.id)">Show
+                    </button></p> 
+                    <p>Stock Chart of IXIC<button id = "IXIC" style="float: right;" class="btn waves-effect waves-light col s3" onClick="reply_click(this.id)">Show
+                    </button></p> 
+                </div>  
+                </div>
+            </div>
+            <div class="col s12 m12 l7">
+                <div class="card white z-depth-3">
+                    <div class="card-content black-text">
+                        <h5>Estimated Market Trend</h5>
+                        <div id="controls"></div>
+                        <div id="chartdiv"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="card white z-depth-3">
+                <div class="card-content black-text">
+                    <h5>Stock Simulation Game</h5>
+                    <p style = "line-height: 1.4;">You start out with $1000 and 5 stocks available for buying. The stock price for each company changes every second and gets updated on the page in real-time. Once you start buying and selling stocks, you can see how your portfolio value, your cash flow, and your total net worth get affected in real-time too. <br><br></p>
+                
+                        <div class="row">
+                            <div class="span10">
+                                
+                                <table class="table" id="myPortfolio">
+                                    <thead>
+                                    <tr> 
+                                        <td> Stock Name </td>
+                                        <td> Symbol </td>
+                                        <td> Price </td>
+                                        <td> Shares You Own </td>
+                                        <td> Buy </td>
+                                        <td> Sell </td> 
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                
+                                </table>
+                
+                            </div>
+                        </div>
+                
+                        <div class="row">
+                            <div class="span10">
+                                <h6>Your Cash Flow: <span id="cashflow">1000</span></h6>
+                                <h6>Your Portfolio Value: <span id="portfolio">0</span></h6>
+                                <h6>Total Cash Flow and Portfolio Value: <span id="netWorth">1000</span></h6>
+                
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="page-footer blue">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">Bio</h5>
+                    <p class="grey-text text-lighten-4">Created by Shaokang, Ritika, Sai, and Peter</p>
+
+
+                </div>
+                <div class="col l3 s12">
+                    <h5 class="white-text">Contacts</h5>
+                    <ul>
+                        <li><a class="white-text" href="mailto:sjiang97@wisc.edu">Shaokang Jiang</a></li>
+                        <li><a class="white-text" href="mailto:rmittal6@wisc.edu">Ritika Mittal</a></li>
+                        <li><a class="white-text" href="mailto:chokkarapu@wisc.edu">Sai Chokkarapu</a></li>
+                        <li><a class="white-text" href="mailto:pndaly@wisc.edu">Peter Daly</a></li>
+                    </ul>
+                </div>
+                <div class="col l3 s12">
+                    <h5 class="white-text">Connect</h5>
+                    <ul>
+                        <li><a class="white-text" href="#!">Shaokang Jiang</a></li>
+                        <li><a class="white-text" href="https://www.linkedin.com/in/ritika-mittal-011ab2178/">Ritika Mittal</a></li>
+                        <li><a class="white-text" href="https://www.linkedin.com/in/chokkarapu/">Sai Chokkarapu</a></li>
+                        <li><a class="white-text" href="https://www.linkedin.com/in/peterdaly13/">Peter Daly</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+            </div>
+        </div>
+    </footer>
+
+    <!--  Scripts-->
+
+    <script src="../../js/materialize.js"></script>
+    <script>
+  function reply_click(clicked_id){
+    clearBox('controls');
+    clearBox('chartdiv');
+    // Themes begin
+    am4core.useTheme(am4themes_kelly);
+    am4core.useTheme(am4themes_animated);
+    // Themes end
+    
+    // Create chart
+    var chart = am4core.create("chartdiv", am4charts.XYChart);
+    chart.padding(0, 15, 0, 15);
+    chart.background.fill = '#0f0'
+    chart.background.opacity = 0.5
+    
+    // Load external data
+    // https://www.amcharts.com/wp-content/uploads/assets/stock/MSFT.csv
+    if(clicked_id === 'DJI'){
+        alert("You are viewing the stock chart of " + clicked_id);
+        chart.dataSource.url = "./data/DJI.csv";
+    }
+    else if(clicked_id === 'GSPC'){
+        alert("You are viewing the stock chart of " + clicked_id);
+        chart.dataSource.url = "./data/GSPC.csv";
+    }
+    else if(clicked_id === 'IXIC'){
+        alert("You are viewing the stock chart of " + clicked_id);
+        chart.dataSource.url = "./data/IXIC.csv";
+    }
+    chart.dataSource.parser = new am4core.CSVParser();
+    chart.dataSource.parser.options.useColumnNames = true;
+    chart.dataSource.parser.options.reverse = true;
+    
+    // the following line makes value axes to be arranged vertically.
+    chart.leftAxesContainer.layout = "vertical";
+    
+    // uncomment this line if you want to change order of axes
+    //chart.bottomAxesContainer.reverseOrder = true;
+    
+    var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+    dateAxis.renderer.grid.template.location = 0;
+    dateAxis.renderer.ticks.template.length = 8;
+    dateAxis.renderer.ticks.template.strokeOpacity = 0.1;
+    dateAxis.renderer.grid.template.disabled = true;
+    dateAxis.renderer.ticks.template.disabled = false;
+    dateAxis.renderer.ticks.template.strokeOpacity = 0.2;
+    dateAxis.renderer.minLabelPosition = 0.01;
+    dateAxis.renderer.maxLabelPosition = 0.99;
+    dateAxis.keepSelection = true;
+    dateAxis.minHeight = 30;
+    
+    dateAxis.groupData = true;
+    dateAxis.minZoomCount = 5;
+    
+    // these two lines makes the axis to be initially zoomed-in
+    // dateAxis.start = 0.7;
+    // dateAxis.keepSelection = true;
+    
+    var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+    valueAxis.tooltip.disabled = true;
+    valueAxis.zIndex = 1;
+    valueAxis.renderer.baseGrid.disabled = true;
+    // height of axis
+    valueAxis.height = am4core.percent(65);
+    
+    valueAxis.renderer.gridContainer.background.fill = am4core.color("#000000");
+    valueAxis.renderer.gridContainer.background.fillOpacity = 0.05;
+    valueAxis.renderer.inside = true;
+    valueAxis.renderer.labels.template.verticalCenter = "bottom";
+    valueAxis.renderer.labels.template.padding(2, 2, 2, 2);
+    
+    //valueAxis.renderer.maxLabelPosition = 0.95;
+    valueAxis.renderer.fontSize = "0.8em"
+    
+    var series = chart.series.push(new am4charts.LineSeries());
+    series.dataFields.dateX = "Date";
+    series.dataFields.valueY = "Adj Close";
+    series.tooltipText = "{valueY.value}";
+    series.name = clicked_id + ": Value";
+    series.defaultState.transitionDuration = 0;
+    
+    var valueAxis2 = chart.yAxes.push(new am4charts.ValueAxis());
+    valueAxis2.tooltip.disabled = true;
+    // height of axis
+    valueAxis2.height = am4core.percent(35);
+    valueAxis2.zIndex = 3
+    // this makes gap between panels
+    valueAxis2.marginTop = 30;
+    valueAxis2.renderer.baseGrid.disabled = true;
+    valueAxis2.renderer.inside = true;
+    valueAxis2.renderer.labels.template.verticalCenter = "bottom";
+    valueAxis2.renderer.labels.template.padding(2, 2, 2, 2);
+    //valueAxis.renderer.maxLabelPosition = 0.95;
+    valueAxis2.renderer.fontSize = "0.8em"
+    
+    valueAxis2.renderer.gridContainer.background.fill = am4core.color("#000000");
+    valueAxis2.renderer.gridContainer.background.fillOpacity = 0.05;
+    
+    var series2 = chart.series.push(new am4charts.ColumnSeries());
+    series2.dataFields.dateX = "Date";
+    series2.dataFields.valueY = "Volume";
+    series2.yAxis = valueAxis2;
+    series2.tooltipText = "{valueY.value}";
+    series2.name = clicked_id + ": Volume";
+    // volume should be summed
+    series2.groupFields.valueY = "sum";
+    series2.defaultState.transitionDuration = 0;
+    
+    chart.cursor = new am4charts.XYCursor();
+    
+    var scrollbarX = new am4charts.XYChartScrollbar();
+    scrollbarX.series.push(series);
+    scrollbarX.marginBottom = 20;
+    scrollbarX.scrollbarChart.xAxes.getIndex(0).minHeight = undefined;
+    chart.scrollbarX = scrollbarX;
+    
+    
+    // Add range selector
+    var selector = new am4plugins_rangeSelector.DateAxisRangeSelector();
+    selector.container = document.getElementById("controls");
+    selector.axis = dateAxis;
+
+    
+    } // end am4core.ready()
+    function clearBox(elementID)
+{
+    document.getElementById(elementID).innerHTML = "";
+}
+
+// stock simulation game start
+$(function() {
+
+//stock data
+    companies = [
+  {
+      name : 'Apple'
+    , symbol : 'AAPL'
+    , price : '577'
+    , shares : '0'
+  },
+  
+  {
+      name: 'Google'
+    , symbol : 'GOOG'
+    , price : '650'
+    , shares : '0'
+  },
+  
+  {
+      name : 'Amazon'
+    , symbol : 'AMZN'
+    , price : '95.67'
+    , shares : '0'
+  },
+  
+  {
+      name : 'Microsoft'
+    , symbol : 'MSFT'
+    , price : '42.3'
+    , shares : '0'
+  },
+  
+  {
+      name : 'Facebook'
+    , symbol : 'FB'
+    , price : '27'
+    , shares : '0'
+  }
+    ];
+
+//your cash flow
+var cashflow = 1000;
+
+/*
+- your portfolio value
+- calculates based on 
+current price of stocks
+and shares owned
+*/
+var portfolioValue = function(){
+
+    var total = 0;
+
+    for (var key in companies) {
+        var obj = companies[key];
+
+        var symbol = '';
+        var sharesOwned = 0;
+
+        for (var prop in obj) {
+
+            /*
+            - grab the symbol value 
+            - to use to make unique ids for tds
+            */
+            if (prop === 'symbol') {
+                symbol = obj[prop]; 
+            }
+
+            if (prop === 'price') {
+                //typecast string to float
+                var priceOfThisStock = parseFloat(obj[prop]);
+            }
+
+            if (prop === 'shares') {
+                //typecast string to float
+                var sharesOwned = parseFloat(obj[prop]);
+                total += priceOfThisStock * sharesOwned;
+            }
+
+        }
+    }
+
+    return total; 
+}
+
+
+var changePrice = function(price) {
+
+    //generate random number -1 or 1
+    chance = Math.round(Math.random()) * 2 - 1;
+
+    //adds chance/10 to price
+    price += chance/10; 
+
+    return price;
+}
+
+//build the table
+for (var key in companies) {
+   var obj = companies[key];
+   var symbol = '';
+   var html = "<tr>";
+   for (var prop in obj) {
+
+        /*
+        - grab the symbol value 
+        - to use to make unique ids for tds
+        */
+        if (prop === 'symbol') {
+            symbol = obj[prop]; 
+        }
+
+        //this will build the table dimensions
+        if (prop !== 'price') {
+            html += "<td id='" + prop + symbol + "'>"; 
+            html += obj[prop]; 
+            html += "</td>";
+        }else {
+            html += "<td id='" + prop + symbol + "'>"; 
+            html += "<span class='price'>" + obj[prop] + "</span>"; 
+            html += "</td>";	
+        }
+
+        /*
+        - if the td is price then add 
+          the tds for Shares You own, 
+          Buy and Sell buttons
+          to the table row
+        - manipulate the ids to be unique      
+        */
+        if (prop === 'shares') {
+            html += "<td> <a href='#' class='buy' id='" + symbol + "Buy" + "'>buy 1 share</a> </td> <td> <a href='#' class='sell' id='" + symbol + "Sell" + "'>sell 1 share</a> </td>";
+        }
+    }
+    html += "</tr>";
+    $("#myPortfolio tbody").append(html);
+}
+
+//every second do this
+setInterval(function() {
+
+    /*
+        - iterate through the stock data
+        - change the price to a float
+        - run the price through changePrice()
+        - replace the new price into the stock data
+        - replace the new price of the stock into the table
+    */
+    for (var key in companies) {
+        var obj = companies[key];
+
+        var symbol = '';
+
+        for (var prop in obj) {
+
+            /*
+            - grab the symbol value 
+            - to use to make unique ids for tds
+            */
+            if (prop === 'symbol') {
+                symbol = obj[prop]; 
+            }
+
+            if (prop === 'price') {
+                var priceOfThisStock = parseFloat(obj[prop]);
+                obj[prop] = changePrice(priceOfThisStock); 
+                
+
+                var roundedPrice = (obj[prop]).toFixed(2);
+                $('#'+prop+symbol).html("<span class='price'>" + roundedPrice + "</span>");
+            }
+        }
+    }
+
+}, 1000 /* every second */ );
+
+
+//every second do this
+setInterval(function() {
+
+    /*
+        - run cash flow, portfolio value, total worth functions
+          and then put them in the dom
+        - decide whether buy/sell buttons should appear 
+          and then put them or remove them from the dom
+    */
+    for (var key in companies) {
+        var obj = companies[key];
+
+        //initialize 
+        var symbol = '';
+        var price = 0;
+        var p = 0;
+        var t = 0;
+
+        for (var prop in obj) {
+
+            /*
+            - grab the symbol value 
+            - to use to make unique ids for tds
+            */
+            if (prop === 'symbol') {
+                symbol = obj[prop]; 
+            }
+
+            p = portfolioValue();
+            t = cashflow + p; 
+            $('#cashflow').html(cashflow);
+            $('#portfolio').html(p);
+            $('#netWorth').html(t);
+
+            //hide all buy buttons if cashflow is 0
+            if (cashflow === 0) {
+                $('a').each(function() {
+                    //grab the id of this link and typecast it to a string
+                      var id = String($(this).attr('id'));
+
+                      //if it contains buy hide it
+                      if (id.indexOf('Buy') > 0) {
+                          $(this).hide();
+                      }
+                });
+            }
+
+            //hide buy button if cashflow can't buy a share
+            //show buy button if cashflow can buy a share
+            if (prop === 'price') {
+                price = parseFloat(obj[prop]); 
+                if (cashflow < price) {
+                    $('#' + symbol + 'Buy').hide();
+                }else {
+                    $('#' + symbol + 'Buy').show();
+                }
+
+            }
+
+            //hide sell button if share isn't owned
+            //show sell button if share isn't owned
+            if (prop === 'shares') {
+                var sharesOwned = parseFloat(obj[prop]);
+            
+                if (sharesOwned > 0) {
+                    $('#' + symbol + 'Sell').show();
+                }else {
+                    $('#' + symbol + 'Sell').hide();
+                }
+            }
+        }
+    }
+   
+}, 1000 /* every 1000 mili seconds */ );
+
+
+//happens live
+$(document).on('click', "a", function(){
+
+    //grab the id of this link and typecast it to a string
+    var id = String($(this).attr('id'));
+
+    //if this is a buy button
+    if (id.indexOf('Buy') > 0) {
+        //extract the symbol of the stock this is for
+        symbol = id.substr(0, id.indexOf('Buy')); 
+
+        //only do if cash flow is greater than share price 
+        //add a share 
+        //subtract share amount from cashflow
+
+        //initialize
+        var thisObj = 0; //specific object in companies 
+
+        for (var key in companies) {
+            var obj = companies[key];
+
+            for (var prop in obj) {
+            
+                if (prop === 'symbol') {
+                    if (obj[prop] === symbol) { 
+                        
+                        thisObj = key; 
+                    }
+                }
+
+                if (prop === 'price') {
+                    if (key === thisObj) {
+                        var PriceForThisStock = parseFloat(obj[prop]);
+
+                        if ( cashflow > PriceForThisStock ) {
+                            var subtractPrice = true;
+
+                            //since you bought a share we should 
+                            //subtract the price of the share
+                            //from your cashflow
+                            cashflow = cashflow - PriceForThisStock;
+
+                        }
+                    }
+                    
+                }
+
+                if (prop === 'shares') {
+                    if (key === thisObj) {
+
+                        //if cash flow is greater than share price
+                        if (subtractPrice) {
+                            var sharesForThisStock = parseFloat(obj[prop]);
+
+                            //add 1 to the shares owned for this stock
+                            sharesForThisStock += 1;
+                            
+                            //and update the shares inside the companies array
+                            obj[prop] = sharesForThisStock; 
+
+                            //and update the dom
+                            $('#' + 'shares' + symbol).html(sharesForThisStock);
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
+    //if this is a sell button
+    if (id.indexOf('Sell') > 0) {
+
+        //extract the symbol of the stock this is for
+        symbol = id.substr(0, id.indexOf('Sell')); 
+
+        //only do if share of this stock is owned
+        //subtract a share
+        //add share amount to cash flow
+
+        //initialize
+        var thisObj = 0; //specific object in companies 
+
+        for (var key in companies) {
+            var obj = companies[key];
+
+            for (var prop in obj) {
+            
+                if (prop === 'symbol') {
+                    if (obj[prop] === symbol) { 
+
+                        thisObj = key; 
+                    }
+                }
+
+                if (prop === 'price') {
+                    if (key === thisObj) {
+                        var PriceForThisStock = parseFloat(obj[prop]);
+                    }
+                    
+                }
+
+                if (prop === 'shares') {
+                    if (key === thisObj) {
+
+                        var sharesForThisStock = parseFloat(obj[prop]);
+
+                        //if you own shares for this stock
+                        if (sharesForThisStock) {
+
+                            //since you sold a share we should 
+                            //add the price of the share
+                            //to your cashflow
+                            cashflow = cashflow + PriceForThisStock;
+
+                            //minus 1 to the shares owned for this stock
+                            sharesForThisStock -= 1;
+                            
+                            //and update the shares inside the companies array
+                            obj[prop] = sharesForThisStock; 
+
+                            //and update the dom
+                            $('#' + 'shares' + symbol).html(sharesForThisStock);
+                        }
+                    }
+                }
+
+            }
+        }
+    } 
+
+    //act like a button not a link
+    return false;
+   
+});
+
+}); // game end
+
+</script>
+</body>
+
+</html>
