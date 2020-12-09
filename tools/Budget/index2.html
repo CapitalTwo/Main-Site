@@ -338,7 +338,9 @@
         alert("Add some content before continue");
         return;
       }
-      window.name = JSON.stringify(data);
+      localStorage.setItem("budgetingData", JSON.stringify(data));
+      localStorage.setItem("budgetingAllData", JSON.stringify(allData));
+      localStorage.setItem("budgetingCategory", JSON.stringify(categories))
       window.location.href = "./run.html"
     }
     const width = window.innerWidth || document.documentElement.clientWidth ||
@@ -347,65 +349,81 @@
       document.body.clientHeight;
     document.addEventListener('DOMContentLoaded', function () {
 
-      if (width > 992) { 
-        document.getElementById("navbars").classList.add("container") 
-      }else{
+      if (width > 992) {
+        document.getElementById("navbars").classList.add("container")
+      } else {
         document.getElementById("datashownotifi").innerHTML = "<p>Horizontal scroll to see more</p>"
       }
+      if (localStorage.getItem("budgetingData") && localStorage.getItem("budgetingCategory") && localStorage.getItem("budgetingAllData")) {
+        data = JSON.parse(localStorage.getItem("budgetingData"));
+        allData = JSON.parse(localStorage.getItem("budgetingAllData"));
+        categories = JSON.parse(localStorage.getItem("budgetingCategory"))
 
-      initialOrder();
-      updateSelection()
-      initializeIncome();
-      id = 4
-      data[time] = [
-        {
+        initialOrder();
+        updateSelection()
+        initializeIncome();
+        id = 0
+        for (let i of allData) {
+          if (i.id > i) id = i.id;
+        }
+        id++;
+        CreateTableFromJSON()
+
+      } else {
+        initialOrder();
+        updateSelection()
+        initializeIncome();
+        id = 4
+        data[time] = [
+          {
+            "id": 1,
+            "Amount": 0,
+            "Income": true,
+            "Category": "Salary",
+            "Title": "Initial Salary"
+          },
+          {
+            "id": 2,
+            "Amount": 0,
+            "Income": false,
+            "Category": "Normal",
+            "Title": "Initial Expense"
+          },
+          {
+            "id": 3,
+            "Amount": 0,
+            "Income": false,
+            "Category": "Emergent",
+            "Title": "Initial Expense Emergent"
+          }
+        ]
+        allData = [{
           "id": 1,
           "Amount": 0,
           "Income": true,
           "Category": "Salary",
-          "Title": "Initial Salary"
+          "Title": "Initial Salary",
+          "Date": time
         },
         {
           "id": 2,
           "Amount": 0,
           "Income": false,
           "Category": "Normal",
-          "Title": "Initial Expense"
+          "Title": "Initial Expense",
+          "Date": time
         },
         {
           "id": 3,
           "Amount": 0,
           "Income": false,
           "Category": "Emergent",
-          "Title": "Initial Expense Emergent"
-        }
-      ]
-      allData = [{
-        "id": 1,
-        "Amount": 0,
-        "Income": true,
-        "Category": "Salary",
-        "Title": "Initial Salary",
-        "Date": time
-      },
-      {
-        "id": 2,
-        "Amount": 0,
-        "Income": false,
-        "Category": "Normal",
-        "Title": "Initial Expense",
-        "Date": time
-      },
-      {
-        "id": 3,
-        "Amount": 0,
-        "Income": false,
-        "Category": "Emergent",
-        "Title": "Initial Expense Emergent",
-        "Date": time
-      }]
+          "Title": "Initial Expense Emergent",
+          "Date": time
+        }]
 
-      CreateTableFromJSON()
+        CreateTableFromJSON()
+      }
     })
 
     //console.log(data, allData)

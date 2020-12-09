@@ -121,21 +121,18 @@
                 document.getElementById("navbars").classList.add("container")
             }
             try {
-                if (window.isNativeApp) {
-                    data = communicate;
-                } else {
-                    if (!window.name) {
-                        alert("Invalid visit");
-                        window.history.back();
-                        return;
-                    }
+                if (!localStorage.getItem("budgetingData")) {
+                    alert("Invalid visit");
+                    window.history.back();
+                    return;
                 }
-                data = JSON.parse(window.name);
+                data = JSON.parse(localStorage.getItem("budgetingData"));
+                alert(Object.keys(data)[0])
                 new Date(Object.keys(data)[0])
                 document.getElementById("newData").innerText = JSON.stringify(data);//TODO: If all 0, need go back as well, need more data error
             } catch (err) {
-                console.log(err);
-                alert("Invalid visit");
+                //alert(err);
+                //alert("Invalid Data");
                 window.history.back();
                 return;
             }
