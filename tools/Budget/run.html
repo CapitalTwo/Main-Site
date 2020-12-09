@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+    <meta name="description" content="Online Budgeting Tool">
+    <meta name="keywords" content="HTML, CSS, JavaScript, Calculator, Budget">
+    <meta name="author" content="Peter Daly">
+    <title>Budget Calculator</title>
+
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="../../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="../../css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    <style>
+        body {
+            background-image: url(https://www.workflowmax.com/hubfs/budget%20900x400v2.png);
+        }
+    </style>
+
+</head>
+
+<body>
+    <nav class="red" role="navigation">
+        <div class="nav-wrapper" id="navbars">
+            <a id="logo-container" href="#" class="brand-logo white-text">Year Budget</a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="https://capitaltwo.ga" class="white-text">Home page</a></li>
+                <li><a href="https://capitaltwo.ga/function.html" class="white-text">Function Page</a></li>
+            </ul>
+
+            <ul id="nav-mobile" class="sidenav">
+                <li><a href="https://capitaltwo.ga" class="white-text">Home page</a></li>
+                <li><a href="https://capitaltwo.ga/function.html" class="white-text">Function Page</a></li>
+            </ul>
+            <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        </div>
+    </nav>
+
+
+    <br><br>
+
+
+    <div class="container row">
+
+        <div class="col s12 m12 l12">
+            <div class="card white z-depth-3">
+                <div class="card-content black-text">
+                    <h5>Data</h5>
+                    <p>Received the following data </p>
+
+                    <p id="newData"></p>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br><br>
+
+
+    <footer class="page-footer blue">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">Bio</h5>
+                    <p class="grey-text text-lighten-4">Created by Shaokang Jiang, Ritika Mittal, Sai Teja Chokkarapu,
+                        and Peter Daly</p>
+
+
+                </div>
+                <div class="col l3 s12">
+                    <h5 class="white-text">Contacts</h5>
+                    <ul>
+                        <li><a class="white-text" href="mailto:sjiang97@wisc.edu">Shaokang</a></li>
+                        <li><a class="white-text" href="mailto:rmittal6@wisc.edu">Ritika</a></li>
+                        <li><a class="white-text" href="mailto:chokkarapu@wisc.edu">Sai</a></li>
+                        <li><a class="white-text" href="mailto:pndaly@wisc.edu">Peter</a></li>
+                    </ul>
+                </div>
+                <div class="col l3 s12">
+                    <h5 class="white-text">Connect</h5>
+                    <ul>
+                        <li><a class="white-text" href="#!">Shaokang</a></li>
+                        <li><a class="white-text" href="https://www.linkedin.com/in/ritika-mittal-011ab2178/">Ritika</a>
+                        </li>
+                        <li><a class="white-text" href="https://www.linkedin.com/in/chokkarapu/">Sai</a></li>
+                        <li><a class="white-text" href="https://www.linkedin.com/in/peterdaly13/">Peter</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+                Made by <a class="red-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+            </div>
+        </div>
+    </footer>
+
+
+    <!--  Scripts-->
+
+    <script src="../../js/materialize.js"></script>
+    <script>
+        M.AutoInit();
+        var data;
+        const width = window.innerWidth || document.documentElement.clientWidth ||
+            document.body.clientWidth;
+        const height = window.innerHeight || document.documentElement.clientHeight ||
+            document.body.clientHeight;
+        document.addEventListener('DOMContentLoaded', function () {
+
+            if (width > 992) {
+                document.getElementById("navbars").classList.add("container")
+            }
+            try {
+                if (!window.name) {
+                    alert("Invalid visit");
+                    window.history.back();
+                    return;
+                }
+                data = JSON.parse(window.name);
+                new Date(Object.keys(data)[0])
+                document.getElementById("newData").innerText = JSON.stringify(data);//TODO: If all 0, need go back as well, need more data error
+            } catch (err) {
+                console.log(err);
+                alert("Invalid visit");
+                window.history.back();
+                return;
+            }
+        })
+    </script>
+</body>
+
+
+
+</html>
