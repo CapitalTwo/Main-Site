@@ -52,11 +52,13 @@
     <div class="nav-wrapper container">
       <a id="logo-container" href="#" class="brand-logo white-text">Budget Calculator</a>
       <ul class="right hide-on-med-and-down">
-        <li><a href="#" class="white-text">Navigation</a></li>
+        <li><a href="https://capitaltwo.ga" class="white-text">Home page</a></li>
+        <li><a href="https://capitaltwo.ga/function.html" class="white-text">Function Page</a></li>
       </ul>
 
       <ul id="nav-mobile" class="sidenav">
-        <li><a href="#" class="white-text">Navigation</a></li>
+        <li><a href="https://capitaltwo.ga" class="white-text">Home page</a></li>
+        <li><a href="https://capitaltwo.ga/function.html" class="white-text">Function Page</a></li>
       </ul>
       <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     </div>
@@ -164,7 +166,7 @@
           "Title": "Initial Salary" -->
           <h6>Add Entry</h6>
           <div class="row">
-            <div class="col s12 m6">
+            <div class="col s12 m5">
               <div class="input-field">
                 <input type="text" id="addEntryTitle">
                 <label for="addEntryTitle">Title</label>
@@ -179,7 +181,7 @@
               </div>
             </div>
 
-            <div class="col s12 m3">
+            <div class="col s12 m4">
               <div class="input-field">
                 <input id="addEntryTime" type="text" class="datepicker">
                 <label for="Time">Time</label>
@@ -356,14 +358,6 @@
     //console.log(data, allData)
 
     function updateSelection() {
-      // <optgroup label="team 1">
-      //               <option value="1">Option 1</option>
-      //               <option value="2">Option 2</option>
-      //             </optgroup>
-      //             <optgroup label="team 2">
-      //               <option value="3">Option 3</option>
-      //               <option value="4">Option 4</option>
-      //             </optgroup>
       let toRe = '<optgroup label="Income">'
       for (let i of categories.Income) {
         toRe += '<option value="Income-' + i + '">' + i + '</option>'
@@ -380,7 +374,6 @@
       const myBooks = allData;
 
       // EXTRACT VALUE FOR HTML HEADER. 
-      // ('Book ID', 'Book Name', 'Category' and 'Price')
       var col = [];
       for (var i = 0; i < myBooks.length; i++) {
         for (var key in myBooks[i]) {
@@ -403,6 +396,9 @@
         th.innerHTML = col[i];
         tr.appendChild(th);
       }
+      var th = document.createElement("th");      // TABLE HEADER.
+        th.innerHTML = "Remove";
+        tr.appendChild(th);
 
       // ADD JSON DATA TO THE TABLE AS ROWS.
       for (var i = 0; i < myBooks.length; i++) {
@@ -413,6 +409,8 @@
           var tabCell = tr.insertCell(-1);
           tabCell.innerHTML = myBooks[i][col[j]];
         }
+        var tabCell = tr.insertCell(-1);
+        tabCell.innerHTML = `<a class="waves-effect waves-light btn" onclick="removeEntry(`+myBooks[i].id+`)"><i class="material-icons left">delete_forever</i>Remove</a>`;
       }
 
       // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
@@ -440,7 +438,7 @@
           if (k.id !== id)
             tmpOne.push(k)
         }
-        if (k.length !== 0) {
+        if (tmpOne.length !== 0) {
           tmpData[i] = tmpOne;
         }
       }
@@ -484,10 +482,10 @@
         document.getElementById("notification").innerHTML = "<font color='red'>Fill any missing field before continue.</font>"
         return;
       } else {
-        console.log(time)
-        console.log(amount)
-        console.log(select)
-        console.log(title)
+        // console.log(time)
+        // console.log(amount)
+        // console.log(select)
+        // console.log(title)
         addEntry(amount, select[0].localeCompare("Income") === 0 ? true : false, select[1], title, time)
       }
     }
@@ -501,7 +499,7 @@
      */
     function addEntry(amount, income, category, title, date) {
       document.getElementById("notification").innerHTML = ""
-      if (!amount || !income || !category || !title || !date) {
+      if (!amount || !category || !title || !date) {
         document.getElementById("notification").innerHTML = "<font color='red'>Fill any missing field before continue.</font>"
         return;
       }
