@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+  <meta name="description" content="Online Budgeting Tool" />
+  <meta name="keywords" content="HTML, CSS, JavaScript, Calculator, Budget" />
+  <meta name="author" content="Peter Daly" />
+  <title>Budget Calculator</title>
+
+  <!-- CSS  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link href="../../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <link href="../../css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+  <script type="text/javascript"
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <style>
+    body {
+      background-image: url(https://www.workflowmax.com/hubfs/budget%20900x400v2.png);
+    }
+
+    #sortable {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+    }
+
+    #sortable li {
+      margin: 0 3px 3px 3px;
+      padding: 0.4em;
+      padding-left: 1.5em;
+    }
+
+    #sortable li span {
+      position: absolute;
+      margin-left: -1.3em;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="red" role="navigation">
+    <div class="nav-wrapper container">
+      <a id="logo-container" href="#" class="brand-logo white-text">Budget Calculator</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="#" class="white-text">Navigation</a></li>
+      </ul>
+
+      <ul id="nav-mobile" class="sidenav">
+        <li><a href="#" class="white-text">Navigation</a></li>
+      </ul>
+      <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+
+  <br /><br />
+
+  <div class="row">
+    <div class="col s0 m0 l1"></div>
+
+    <div class="col s12 m12 l5">
+      <div class="card white z-depth-3" id="super">
+        <div class="card-content black-text">
+          <h5>General Introduction</h5>
+          <p>Welcome to the Yearly Budget Calculation Tool.</p>
+          <p><span id="Speed_text"></span></p>
+          <!--General inro, including equation, description, usage -->
+
+
+          <h5>App</h5>
+          <p>
+            By understanding this tool is hard to use and user gets to input too many data manually, you may also organize data and enjoy more feature 
+            by usiing our financial organization App, download below: </p>
+
+            <a class="waves-effect waves-light btn"><i class="material-icons left">android</i>Download Apk for android</a>
+            <a class="waves-effect waves-light btn"><i class="left" style="height: 100%;"><img src="./apple.svg" height="100%" alt="apple sign"/></i>Download for ios</a>
+
+
+          <h5>Usage</h5>
+          <p>
+            This calculator provides users with insights into how much money
+            they should be spending in assorted categories.
+          </p>
+
+
+          <h5>Description</h5>
+          <p>
+            This tool will generate result and give your guidance to your future spending based on your. It is using
+            each month on your local machine. Anything for the current month will be treated as whatever you have spent.
+          </p>
+
+          <h5>Categories</h5>
+          <h6>Income</h6>
+
+          <div id="incomeList">
+
+          </div>
+          <h6>Expense<span>(Drag and drop to order)</span></h6>
+
+          <ul id="sortable">
+
+          </ul>
+
+        </div>
+
+
+
+      </div>
+    </div>
+
+    <div class=" col s12 m12 l5">
+      <div class="card white z-depth-3">
+        <div class="card-content black-text">
+          <h5>Items</h5>
+
+          <li style="padding-left: 20px;"><b>Time:</b> Select past date for your spent or income, and select the future
+            date for the stuff you planned. Expense and Income in a future date consider as whatever you plan to do or
+            have,
+            in a past date will be considered as whatever you have done. If an expense or income have a high occurence
+            ratio, like exist >50%,
+            future income and expense will be calculated based on this. So, do not add recurring expense or income in a
+            future date as they will be
+            considered as extra income/plan to buy(like wishlist). And the order of expense category will be used to
+            fulfill this wishlist in order. </li>
+          <li style="padding-left: 20px;"><b>Categories:</b> Expense is orderable, order is the importancec level,
+            Income are all important</li>
+          <h5>Control</h5>
+          <p>Please provide relevant information below</p>
+          <span id="notification"></span>
+        </div>
+        <div class="card-action black-text">
+          <h6>Add Category</h6>
+          <div class="row">
+            <div class="col s12 m4">
+              <div class="input-field">
+                <input type="text" id="addCategoryName">
+                <label for="name">Name</label>
+              </div>
+            </div>
+            <div class="col s12 m4" style="padding-top: 10px;">
+              <p>
+                <label>
+                  <input type="checkbox" id="addCategoryIncome" />
+                  <span>Income</span>
+                </label>
+              </p>
+            </div>
+            <div class="col s12 m4" style="padding-top: 20px;"><a class="waves-effect waves-light btn"
+                onclick="addCategory()"><i class="material-icons right">add</i>Add</a>
+            </div>
+          </div>
+          <!-- "Amount": 0,
+          "Income": true,
+          "Category": "Salary",
+          "Title": "Initial Salary" -->
+          <h6>Add Entry</h6>
+          <div class="row">
+            <div class="col s12 m6">
+              <div class="input-field">
+                <input type="text" id="addEntryTitle">
+                <label for="addEntryTitle">Title</label>
+              </div>
+            </div>
+            <div class="col s12 m3">
+              <div class="input-field">
+                <input id="addEntryAmount" type="number"
+                  onkeyup="this.value=this.value.match(/\d+(\.\d{0,2})?/) ? this.value.match(/\d+(\.\d{0,2})?/)[0] : ''"
+                  onafterpaste="this.value= this.value.match(/\d+(\.\d{0,2})?/) ? this.value.match(/\d+(\.\d{0,2})?/)[0] : ''" />
+                <label for="addEntryAmount">Amount</label>
+              </div>
+            </div>
+
+            <div class="col s12 m3">
+              <div class="input-field">
+                <input id="addEntryTime" type="text" class="datepicker">
+                <label for="Time">Time</label>
+              </div>
+            </div>
+
+
+          </div>
+
+          <div class="row">
+            <div class="col s12 m5">
+              <div class="input-field">
+                <select id="selection">
+
+                </select>
+                <label for="selection">Category</label>
+              </div>
+            </div>
+            <div style="padding-top: 20px; float: right;"><a class="waves-effect waves-light btn"
+                onclick="handleAddEntry()"><i class="material-icons right">add</i>Add</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+    <br /><br />
+  </div>
+
+  <div class="row">
+    <div class="col s0 m0 l1">
+    </div>
+
+    <div class="col s12 m12 l10">
+      <div class="card white z-depth-3">
+        <div class="card-content black-text">
+          <h5>Data</h5>
+        </div>
+        <div class="card-action">
+          <div id="showData"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="page-footer blue">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">Bio</h5>
+          <p class="grey-text text-lighten-4">
+            Created by Shaokang Jiang, Ritika Mittal, Sai Teja Chokkarapu, and
+            Peter Daly
+          </p>
+        </div>
+        <div class="col l3 s12">
+          <h5 class="white-text">Contacts</h5>
+          <ul>
+            <li>
+              <a class="white-text" href="mailto:sjiang97@wisc.edu">Shaokang</a>
+            </li>
+            <li>
+              <a class="white-text" href="mailto:rmittal6@wisc.edu">Ritika</a>
+            </li>
+            <li>
+              <a class="white-text" href="mailto:chokkarapu@wisc.edu">Sai</a>
+            </li>
+            <li>
+              <a class="white-text" href="mailto:pndaly@wisc.edu">Peter</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col l3 s12">
+          <h5 class="white-text">Connect</h5>
+          <ul>
+            <li><a class="white-text" href="#!">Shaokang</a></li>
+            <li>
+              <a class="white-text" href="https://www.linkedin.com/in/ritika-mittal-011ab2178/">Ritika</a>
+            </li>
+            <li>
+              <a class="white-text" href="https://www.linkedin.com/in/chokkarapu/">Sai</a>
+            </li>
+            <li>
+              <a class="white-text" href="https://www.linkedin.com/in/peterdaly13/">Peter</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+        Made by
+        <a class="red-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+      </div>
+    </div>
+  </footer>
+
+  <!--  Scripts-->
+  <script src="../../js/materialize.js"></script>
+  <script src="./hammer.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+    function getValueSelection(selectBox) {
+      var op = selectBox.options[selectBox.selectedIndex];
+      var optgroup = op.parentNode;
+      return [optgroup.label, op.text]
+    }
+    M.AutoInit();
+    let time = new Date().toLocaleDateString();
+    let data = {};
+    let allData;
+    let categories = {
+      "Income": ["Salary"],
+      "Expense": ["Normal", "Emergent"]
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+      initialOrder();
+      updateSelection()
+      initializeIncome();
+      id = 4
+      data[time] = [
+        {
+          "id": 1,
+          "Amount": 0,
+          "Income": true,
+          "Category": "Salary",
+          "Title": "Initial Salary"
+        },
+        {
+          "id": 2,
+          "Amount": 0,
+          "Income": false,
+          "Category": "Normal",
+          "Title": "Initial Expense"
+        },
+        {
+          "id": 3,
+          "Amount": 0,
+          "Income": false,
+          "Category": "Emergent",
+          "Title": "Initial Expense Emergent"
+        }
+      ]
+      allData = [{
+        "id": 1,
+        "Amount": 0,
+        "Income": true,
+        "Category": "Salary",
+        "Title": "Initial Salary",
+        "Date": time
+      },
+      {
+        "id": 2,
+        "Amount": 0,
+        "Income": false,
+        "Category": "Normal",
+        "Title": "Initial Expense",
+        "Date": time
+      },
+      {
+        "id": 3,
+        "Amount": 0,
+        "Income": false,
+        "Category": "Emergent",
+        "Title": "Initial Expense Emergent",
+        "Date": time
+      }]
+
+      CreateTableFromJSON()
+    })
+
+    //console.log(data, allData)
+
+    function updateSelection() {
+      // <optgroup label="team 1">
+      //               <option value="1">Option 1</option>
+      //               <option value="2">Option 2</option>
+      //             </optgroup>
+      //             <optgroup label="team 2">
+      //               <option value="3">Option 3</option>
+      //               <option value="4">Option 4</option>
+      //             </optgroup>
+      let toRe = '<optgroup label="Income">'
+      for (let i of categories.Income) {
+        toRe += '<option value="Income-' + i + '">' + i + '</option>'
+      }
+      toRe += '</optgroup><optgroup label="Expense">'
+      for (let i of categories.Expense) {
+        toRe += '<option value="Expense-' + i + '">' + i + '</option>'
+      }
+      document.getElementById("selection").innerHTML = toRe + "</option>";
+      M.AutoInit();
+    }
+
+    function CreateTableFromJSON() {
+      const myBooks = allData;
+
+      // EXTRACT VALUE FOR HTML HEADER. 
+      // ('Book ID', 'Book Name', 'Category' and 'Price')
+      var col = [];
+      for (var i = 0; i < myBooks.length; i++) {
+        for (var key in myBooks[i]) {
+          if (col.indexOf(key) === -1) {
+            col.push(key);
+          }
+        }
+      }
+
+      // CREATE DYNAMIC TABLE.
+      var table = document.createElement("table");
+      table.classList.add("highlight")
+
+      // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
+
+      var tr = table.insertRow(-1);                   // TABLE ROW.
+
+      for (var i = 0; i < col.length; i++) {
+        var th = document.createElement("th");      // TABLE HEADER.
+        th.innerHTML = col[i];
+        tr.appendChild(th);
+      }
+
+      // ADD JSON DATA TO THE TABLE AS ROWS.
+      for (var i = 0; i < myBooks.length; i++) {
+
+        tr = table.insertRow(-1);
+
+        for (var j = 0; j < col.length; j++) {
+          var tabCell = tr.insertCell(-1);
+          tabCell.innerHTML = myBooks[i][col[j]];
+        }
+      }
+
+      // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
+      var divContainer = document.getElementById("showData");
+      divContainer.innerHTML = "";
+      divContainer.appendChild(table);
+    }
+    $(function () {
+      $("#sortable").sortable();
+      $("#sortable").disableSelection();
+    });
+
+    function updateOrder() {
+      var idsInOrder = $("#sortable").sortable("toArray");
+      console.log(idsInOrder);
+      categories.Expense = idsInOrder;
+      console.log(categories)
+    }
+
+    function removeEntry(id) {
+      let tmpData = {}
+      for (let i of Object.keys(data)) {
+        let tmpOne = []
+        for (let k of data[i]) {
+          if (k.id !== id)
+            tmpOne.push(k)
+        }
+        if (k.length !== 0) {
+          tmpData[i] = tmpOne;
+        }
+      }
+      data = tmpData;
+      let newAll = [];
+      for (let i of allData) {
+        if (i.id !== id) newAll.push(i);
+      }
+      allData = newAll;
+      CreateTableFromJSON()
+    }
+
+    function handleAddEntry() {
+      //get value and add
+      document.getElementById("notification").innerHTML = ""
+      let a = false;
+      let time, amount, select, title;
+      if (document.getElementById("addEntryAmount").value == "") {
+        a = true;
+        document.getElementById("addEntryAmount").className = 'invalid';
+      } else {
+        document.getElementById("addEntryAmount").className = '';
+        amount = parseFloat(document.getElementById("addEntryAmount").value).toFixed(2);
+      }
+      if (document.getElementById("addEntryTime").value == "") {
+        a = true;
+        document.getElementById("addEntryTime").className = 'invalid';
+      } else {
+        document.getElementById("addEntryTime").className = '';
+        time = new Date(document.getElementById("addEntryTime").value);
+      }
+      if (document.getElementById("addEntryTitle").value == "") {
+        a = true;
+        document.getElementById("addEntryTitle").className = 'invalid';
+      } else {
+        document.getElementById("addEntryTitle").className = '';
+        title = document.getElementById("addEntryTitle").value;
+      }
+      select = getValueSelection(document.getElementById("selection"));
+      if (a) {
+        document.getElementById("notification").innerHTML = "<font color='red'>Fill any missing field before continue.</font>"
+        return;
+      } else {
+        console.log(time)
+        console.log(amount)
+        console.log(select)
+        console.log(title)
+        addEntry(amount, select[0].localeCompare("Income") === 0 ? true : false, select[1], title, time)
+      }
+    }
+    /**
+     * 
+     * @param {number} amount 
+     * @param {boolean} income 
+     * @param {string} category 
+     * @param {string} title 
+     * @param {Date object} date 
+     */
+    function addEntry(amount, income, category, title, date) {
+      document.getElementById("notification").innerHTML = ""
+      if (!amount || !income || !category || !title || !date) {
+        document.getElementById("notification").innerHTML = "<font color='red'>Fill any missing field before continue.</font>"
+        return;
+      }
+      if (!data.hasOwnProperty(date.toLocaleDateString()))
+        data[date.toLocaleDateString()] = [];
+      data[date.toLocaleDateString()].push({
+        "id": id,
+        "Amount": amount,
+        "Income": income,
+        "Category": category,
+        "Title": title
+      })
+      allData.push({
+        "id": id,
+        "Amount": amount,
+        "Income": income,
+        "Category": category,
+        "Title": title,
+        "Date": date.toLocaleDateString()
+      })
+      CreateTableFromJSON()
+      id++;
+    }
+
+    function initialOrder() {
+      let tore = "";
+      for (let i of categories.Expense) {
+        tore += `<li class="ui-state-default" id="` + i + `"><i class="material-icons left">menu</i>` + i + `</li>`
+      }
+      document.getElementById("sortable").innerHTML = tore;
+    }
+
+    function initializeIncome() {
+      let tore = "";
+      for (let i of categories.Income) {
+        tore += `<li style="padding-left: 20px;">` + i + `</li>`
+      }
+      document.getElementById("incomeList").innerHTML = tore;
+    }
+
+    function addCategory() {
+      document.getElementById("notification").innerHTML = ""
+      document.getElementById("addCategoryName").className = '';
+      updateOrder()
+      let name = document.getElementById("addCategoryName").value;
+      let income = document.getElementById("addCategoryIncome").checked;
+      //console.log(income);
+      //console.log(name);
+      if (!name) {
+        document.getElementById("notification").innerHTML = "<font color='red'>Fill any missing field before continue.</font>"
+        document.getElementById("addCategoryName").className = 'invalid';
+        return;
+      }
+      if (income) {
+        categories.Income.push(name);
+        initializeIncome();
+      } else {
+        categories.Expense.push(name);
+        initialOrder();
+      }
+      updateSelection()
+    }
+
+  </script>
+</body>
+
+</html>
