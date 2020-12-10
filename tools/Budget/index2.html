@@ -567,7 +567,7 @@
         // console.log(amount)
         // console.log(select)
         // console.log(title)
-        addEntry(amount, select[0].localeCompare("Income") === 0 ? true : false, select[1], title, time)
+        addEntry(parseFloat(amount), select[0].localeCompare("Income") === 0 ? true : false, select[1], title, time)
       }
     }
     /**
