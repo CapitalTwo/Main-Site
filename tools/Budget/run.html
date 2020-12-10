@@ -162,7 +162,6 @@
         var expectedMonthlyExpense = 0;
         var totalMonths = 1;
 
-
         const width = window.innerWidth || document.documentElement.clientWidth ||
             document.body.clientWidth;
         const height = window.innerHeight || document.documentElement.clientHeight ||
@@ -200,8 +199,8 @@
 
         function calculateHistory() {
             monthlyIncomeExpense();
-            monthlyExpectedIncomeExpense();
-            categoryCumulative();
+            monthlyExpectedIncomeExpense(); //TODO: add filter to filter date before today
+            categoryCumulative(); //TODO: add filter to filter date before today
         }
 
         function categoryCumulative() {
