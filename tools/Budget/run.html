@@ -598,6 +598,10 @@
                     temp.push(k);
                 }
             }
+            if(temp.length === 0) {
+                document.getElementById("datashownotifi").innerHTML = "<p>Nothing is here. No stuff planned ahead. </p>"
+                return;
+            } 
             const myBooks = temp;
 
             // EXTRACT VALUE FOR HTML HEADER. 
