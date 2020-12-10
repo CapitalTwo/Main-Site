@@ -28,6 +28,8 @@
 </head>
 
 <body>
+
+    <div id="nav">
     <nav class="red" role="navigation">
         <div class="nav-wrapper" id="navbars">
             <a id="logo-container" href="#" class="brand-logo white-text">Year Budget</a>
@@ -43,6 +45,7 @@
             <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         </div>
     </nav>
+    </div>
 
 
     <br><br>
@@ -118,8 +121,9 @@
             document.body.clientHeight;
         document.addEventListener('DOMContentLoaded', function () {
 
+            if(window.isNativeApp) document.getElementById("nav").innerHTML = "";
             if (width > 992) {
-                document.getElementById("navbars").classList.add("container")
+               document.getElementById("navbars").classList.add("container")
             }
             try {
                 if (!localStorage.getItem("budgetingData")) {
