@@ -111,6 +111,7 @@
     <script>
         M.AutoInit();
         var data;
+        var category;
         const width = window.innerWidth || document.documentElement.clientWidth ||
             document.body.clientWidth;
         const height = window.innerHeight || document.documentElement.clientHeight ||
@@ -127,9 +128,10 @@
                     return;
                 }
                 data = JSON.parse(localStorage.getItem("budgetingData"));
+                category = JSON.parse(localStorage.getItem("budgetingCategory"));
                 alert(Object.keys(data)[0])
                 new Date(Object.keys(data)[0])
-                document.getElementById("newData").innerText = JSON.stringify(data) + localStorage.getItem("budgetingCategory");//TODO: If all 0, need go back as well, need more data error
+                //document.getElementById("newData").innerText = JSON.stringify(data) + localStorage.getItem("budgetingCategory");//TODO: If all 0, need go back as well, need more data error
             } catch (err) {
                 //alert(err);
                 //alert("Invalid Data");
