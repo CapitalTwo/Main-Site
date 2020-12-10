@@ -19,9 +19,28 @@
     </script>
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
     </script>
+    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
     <style>
         body {
             background-image: url(https://www.workflowmax.com/hubfs/budget%20900x400v2.png);
+        }
+        
+        .example {
+            overflow-x: scroll;
+            /* Add the ability to scroll */
+        }
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        
+        .example::-webkit-scrollbar {
+            display: none;
+        }
+        /* Hide scrollbar for IE, Edge and Firefox */
+        
+        .example {
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
         }
     </style>
 
@@ -30,21 +49,21 @@
 <body>
 
     <div id="nav">
-    <nav class="red" role="navigation">
-        <div class="nav-wrapper" id="navbars">
-            <a id="logo-container" href="#" class="brand-logo white-text">Year Budget</a>
-            <ul class="right hide-on-med-and-down">
-                <li><a href="https://capitaltwo.ga" class="white-text">Home page</a></li>
-                <li><a href="https://capitaltwo.ga/function.html" class="white-text">Function Page</a></li>
-            </ul>
+        <nav class="red" role="navigation">
+            <div class="nav-wrapper" id="navbars">
+                <a id="logo-container" href="#" class="brand-logo white-text">Year Budget</a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="https://capitaltwo.ga" class="white-text">Home page</a></li>
+                    <li><a href="https://capitaltwo.ga/function.html" class="white-text">Function Page</a></li>
+                </ul>
 
-            <ul id="nav-mobile" class="sidenav">
-                <li><a href="https://capitaltwo.ga" class="white-text">Home page</a></li>
-                <li><a href="https://capitaltwo.ga/function.html" class="white-text">Function Page</a></li>
-            </ul>
-            <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-        </div>
-    </nav>
+                <ul id="nav-mobile" class="sidenav">
+                    <li><a href="https://capitaltwo.ga" class="white-text">Home page</a></li>
+                    <li><a href="https://capitaltwo.ga/function.html" class="white-text">Function Page</a></li>
+                </ul>
+                <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            </div>
+        </nav>
     </div>
 
 
@@ -56,11 +75,20 @@
         <div class="col s12 m12 l12">
             <div class="card white z-depth-3">
                 <div class="card-content black-text">
-                    <h5>Data</h5>
-                    <p>Received the following data </p>
+                    <h5>Glance of History</h5>
+                    <p>Your accumulated history spending structure, including the current month. </p>
 
-                    <p id="newData"></p>
-                    <p></p>
+                    <div class="row">
+                        <div class="col s12 m4" id="incomeExpense">
+
+                        </div>
+                        <div class="col s12 m4" id="incomeCategory">
+
+                        </div>
+                        <div class="col s12 m4" id="expenseCategory">
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -68,14 +96,25 @@
 
     <br><br>
 
+    <div class="container row col s12 m12 l12">
+        <div class="card white z-depth-3">
+            <div class="card-content black-text">
+                <h5>Data</h5>
+                <span id="datashownotifi"></span>
+            </div>
+            <div class="card-action">
+                <div id="showData" class="example"></div>
+            </div>
+        </div>
+    </div>
+
 
     <footer class="page-footer blue">
         <div class="container">
             <div class="row">
                 <div class="col l6 s12">
                     <h5 class="white-text">Bio</h5>
-                    <p class="grey-text text-lighten-4">Created by Shaokang Jiang, Ritika Mittal, Sai Teja Chokkarapu,
-                        and Peter Daly</p>
+                    <p class="grey-text text-lighten-4">Created by Shaokang Jiang, Ritika Mittal, Sai Teja Chokkarapu, and Peter Daly</p>
 
 
                 </div>
@@ -115,15 +154,24 @@
         M.AutoInit();
         var data;
         var category;
+        //for past items
+        var monthlyData = {}; //{"index": {"income": xx, "expense": xx}}
+        var incomes = {};
+        var expenses = {};
+        var expectedMonthlyIncome = 0; //use array to record then count/array.length
+        var expectedMonthlyExpense = 0;
+        var totalMonths = 1;
+
+
         const width = window.innerWidth || document.documentElement.clientWidth ||
             document.body.clientWidth;
         const height = window.innerHeight || document.documentElement.clientHeight ||
             document.body.clientHeight;
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
 
-            if(window.isNativeApp) document.getElementById("nav").innerHTML = "";
+            if (window.isNativeApp) document.getElementById("nav").innerHTML = "";
             if (width > 992) {
-               document.getElementById("navbars").classList.add("container")
+                document.getElementById("navbars").classList.add("container")
             }
             try {
                 if (!localStorage.getItem("budgetingData")) {
@@ -133,9 +181,15 @@
                 }
                 data = JSON.parse(localStorage.getItem("budgetingData"));
                 category = JSON.parse(localStorage.getItem("budgetingCategory"));
-                alert(Object.keys(data)[0])
+                //alert(Object.keys(data)[0])
                 new Date(Object.keys(data)[0])
-                //document.getElementById("newData").innerText = JSON.stringify(data) + localStorage.getItem("budgetingCategory");//TODO: If all 0, need go back as well, need more data error
+                for (let i of category.Income) {
+                    incomes[i] = 0;
+                }
+                for (let i of category.Expense) {
+                    expenses[i] = 0;
+                }
+                calculateHistory()
             } catch (err) {
                 //alert(err);
                 //alert("Invalid Data");
@@ -143,6 +197,160 @@
                 return;
             }
         })
+
+        function calculateHistory() {
+            monthlyIncomeExpense();
+            monthlyExpectedIncomeExpense();
+            categoryCumulative();
+        }
+
+        function categoryCumulative() {
+            for (let i of Object.keys(data)) {
+                for (let k of data[i]) {
+                    if (k.Income) {
+                        incomes[k.Category] += k.Amount;
+                    } else {
+                        expenses[k.Category] += k.Amount;
+                    }
+                }
+            }
+        }
+
+        function monthlyExpectedIncomeExpense() {
+            let kIncomeAmount = {}; //"title": count, "total": count
+            let kIncome = {}; //"title": count, "total": count
+            let kIncomeTotal = 0;
+            let kExpenseAmount = {}; //"title": count, "total": count
+            let kExpenseTotal = 0;
+            let kExpense = {}; //"title": count, "total": count
+            for (let i of Object.keys(data)) {
+                for (let k of data[i]) {
+                    if (k.Income) {
+                        if (kIncome.hasOwnProperty(k.Title)) {
+                            kIncome[k.Title] += 1;
+                            kIncomeAmount[k.Title] += k.Amount;
+                        } else {
+                            kIncome[k.Title] = 1;
+                            kIncomeAmount[k.Title] = k.Amount;
+                        }
+                        kIncomeTotal += 1;
+                    } else {
+                        if (kExpense.hasOwnProperty(k.Title)) {
+                            kExpense[k.Title] += 1;
+                            kExpenseAmount[k.Title] += k.Amount;
+                        } else {
+                            kExpense[k.Title] = 1;
+                            kExpenseAmount[k.Title] = k.Amount;
+                        }
+                        kExpenseTotal += 1;
+                    }
+                }
+            }
+
+            for (let i of Object.keys(kIncome)) {
+                if (kIncome[i] / totalMonths >= 0.5) {
+                    expectedMonthlyIncome += (kIncomeAmount[i] / kIncome[i]) * (kIncome[i] / totalMonths); //single income * number of income per month
+                }
+            }
+
+
+            for (let i of Object.keys(kExpense)) {
+                if (kExpense[i] / totalMonths >= 0.6) {
+                    expectedMonthlyExpense += (kExpenseAmount[i] / kExpense[i]) * (kExpense[i] / totalMonths); //single income * number of income per month
+                }
+            }
+
+        }
+
+        function monthlyIncomeExpense() {
+            for (let i of Object.keys(data)) {
+                if (!Object.keys(monthlyData).hasOwnProperty(convert2Month(i))) {
+                    monthlyData[convert2Month(i)] = filterMonthlyData(convert2Month(i));
+                    totalMonths += 1;
+                }
+            }
+        }
+
+        function filterMonthlyData(date) {
+            let toRe = {
+                "income": 0,
+                "expense": 0
+            }
+
+            for (let i of Object.keys(data)) {
+                if (convert2Month(i).localeCompare(date) === 0) {
+                    for (let k of data[i])
+                        k.Income ? toRe.income += k.Amount : toRe.expense += k.Amount;
+                }
+            }
+
+            return toRe;
+        }
+
+
+
+        function convert2Month(data) {
+            let a = new Date(data);
+            const month = [];
+            month[0] = "January";
+            month[1] = "February";
+            month[2] = "March";
+            month[3] = "April";
+            month[4] = "May";
+            month[5] = "June";
+            month[6] = "July";
+            month[7] = "August";
+            month[8] = "September";
+            month[9] = "October";
+            month[10] = "November";
+            month[11] = "December";
+            return month[a.getMonth()] + ", " + a.getFullYear();
+        }
+
+        function CreateTableFromJSON() {
+            return;
+            const myBooks = [];
+
+            // EXTRACT VALUE FOR HTML HEADER. 
+            var col = [];
+            for (var i = 0; i < myBooks.length; i++) {
+                for (var key in myBooks[i]) {
+                    if (col.indexOf(key) === -1) {
+                        col.push(key);
+                    }
+                }
+            }
+
+            // CREATE DYNAMIC TABLE.
+            var table = document.createElement("table");
+            table.classList.add("highlight")
+
+            // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
+
+            var tr = table.insertRow(-1); // TABLE ROW.
+
+            for (var i = 0; i < col.length; i++) {
+                var th = document.createElement("th"); // TABLE HEADER.
+                th.innerHTML = col[i];
+                tr.appendChild(th);
+            }
+
+            // ADD JSON DATA TO THE TABLE AS ROWS.
+            for (var i = 0; i < myBooks.length; i++) {
+
+                tr = table.insertRow(-1);
+
+                for (var j = 0; j < col.length; j++) {
+                    var tabCell = tr.insertCell(-1);
+                    tabCell.innerHTML = myBooks[i][col[j]];
+                }
+            }
+
+            // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
+            var divContainer = document.getElementById("showData");
+            divContainer.innerHTML = "";
+            divContainer.appendChild(table);
+        }
     </script>
 </body>
 
