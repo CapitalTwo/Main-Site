@@ -24,18 +24,20 @@
         body {
             background-image: url(https://www.workflowmax.com/hubfs/budget%20900x400v2.png);
         }
-        
+
         .example {
             overflow-x: scroll;
             /* Add the ability to scroll */
         }
+
         /* Hide scrollbar for Chrome, Safari and Opera */
-        
+
         .example::-webkit-scrollbar {
             display: none;
         }
+
         /* Hide scrollbar for IE, Edge and Firefox */
-        
+
         .example {
             -ms-overflow-style: none;
             /* IE and Edge */
@@ -114,7 +116,8 @@
             <div class="row">
                 <div class="col l6 s12">
                     <h5 class="white-text">Bio</h5>
-                    <p class="grey-text text-lighten-4">Created by Shaokang Jiang, Ritika Mittal, Sai Teja Chokkarapu, and Peter Daly</p>
+                    <p class="grey-text text-lighten-4">Created by Shaokang Jiang, Ritika Mittal, Sai Teja Chokkarapu,
+                        and Peter Daly</p>
 
 
                 </div>
@@ -162,11 +165,15 @@
         var expectedMonthlyExpense = 0;
         var totalMonths = 1;
 
+        var futureExpense = {};
+        var futureIncome = {};
+        var plans = {}
+
         const width = window.innerWidth || document.documentElement.clientWidth ||
             document.body.clientWidth;
         const height = window.innerHeight || document.documentElement.clientHeight ||
             document.body.clientHeight;
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
 
             if (window.isNativeApp) document.getElementById("nav").innerHTML = "";
             if (width > 992) {
@@ -187,8 +194,29 @@
                 }
                 for (let i of category.Expense) {
                     expenses[i] = 0;
+                    futureExpense[i] = [];
+
+                }
+                let a = false;
+                for (let i of Object.keys(data)) {
+                    for (let k of data[i]) {
+                        if (k.Amount !== 0) a = true;
+                    }
+                }
+                if (!a) {
+                    alert("Invalid visit");
+                    window.history.back();
+                    return;
                 }
                 calculateHistory()
+                console.log("futureExpense", futureExpense)
+                console.log("futureIncome", futureIncome)
+                console.log("incomes" , incomes)
+                console.log("monthlyData" , monthlyData)
+                console.log("expenses" , expenses)
+                console.log("incomes" , incomes)
+                planFuture();
+                console.log(plans);
             } catch (err) {
                 //alert(err);
                 //alert("Invalid Data");
@@ -203,13 +231,65 @@
             categoryCumulative(); //TODO: add filter to filter date before today
         }
 
+        function planFuture() {
+            plans//date as index
+            loopLimits = 0;
+            var date = new Date();
+            var newDate = new Date(date.setMonth(date.getMonth() + 1));
+            var pure = expectedMonthlyIncome - expectedMonthlyExpense;
+            while (!futureExpenseIsEmpty()){
+                futureIncome[convert2Month(newDate)] += pure;
+                plans[convert2Month(newDate)] = [];
+                let remaining = selectExpense(futureIncome[convert2Month(newDate)], plans[convert2Month(newDate)])
+                newDate = new Date(newDate.setMonth(newDate.getMonth() + 1));
+                futureIncome[convert2Month(newDate)] += remaining;
+                loopLimits += 1;
+                if(loopLimits > 200) break;
+            }
+        }
+
+        function selectExpense(limits, source){
+            for(let i of category.Expense){
+                let tmp = [];
+                for(let k of futureExpense[i]){
+                    if((k.Amount < limits)){
+                        source.push(k);
+                        limits -= k.Amount;
+                    }
+                    else tmp.push(k)
+                }
+                futureExpense[i] = tmp;
+            }
+            return limits; 
+        }
+
+        function futureExpenseIsEmpty() {
+            for (let i of Object.keys(futureExpense)) {
+                for (let k of futureExpense[i]) if (k.length !== 0) return false;
+            }
+            return true;
+        }
+
         function categoryCumulative() {
             for (let i of Object.keys(data)) {
-                for (let k of data[i]) {
-                    if (k.Income) {
-                        incomes[k.Category] += k.Amount;
-                    } else {
-                        expenses[k.Category] += k.Amount;
+                if (aPriorCurrent(new Date(i))) {
+                    for (let k of data[i]) {
+                        if (k.Income) {
+                            incomes[k.Category] += k.Amount;
+                        } else {
+                            expenses[k.Category] += k.Amount;
+                        }
+                    }
+                } else {
+                    for (let k of data[i]) {
+                        if (!Object.keys(futureIncome).hasOwnProperty(convert2Month(i))) {
+                            futureIncome[convert2Month(i)] = 0;
+                        }
+                        if (k.Income) {
+                            futureIncome[convert2Month(i)] += k.Amount;
+                        } else {
+                            futureExpense[k.Category].push(k);
+                        }
                     }
                 }
             }
@@ -223,25 +303,27 @@
             let kExpenseTotal = 0;
             let kExpense = {}; //"title": count, "total": count
             for (let i of Object.keys(data)) {
-                for (let k of data[i]) {
-                    if (k.Income) {
-                        if (kIncome.hasOwnProperty(k.Title)) {
-                            kIncome[k.Title] += 1;
-                            kIncomeAmount[k.Title] += k.Amount;
+                if (aPriorCurrent(new Date(i))) {
+                    for (let k of data[i]) {
+                        if (k.Income) {
+                            if (kIncome.hasOwnProperty(k.Title)) {
+                                kIncome[k.Title] += 1;
+                                kIncomeAmount[k.Title] += k.Amount;
+                            } else {
+                                kIncome[k.Title] = 1;
+                                kIncomeAmount[k.Title] = k.Amount;
+                            }
+                            kIncomeTotal += 1;
                         } else {
-                            kIncome[k.Title] = 1;
-                            kIncomeAmount[k.Title] = k.Amount;
+                            if (kExpense.hasOwnProperty(k.Title)) {
+                                kExpense[k.Title] += 1;
+                                kExpenseAmount[k.Title] += k.Amount;
+                            } else {
+                                kExpense[k.Title] = 1;
+                                kExpenseAmount[k.Title] = k.Amount;
+                            }
+                            kExpenseTotal += 1;
                         }
-                        kIncomeTotal += 1;
-                    } else {
-                        if (kExpense.hasOwnProperty(k.Title)) {
-                            kExpense[k.Title] += 1;
-                            kExpenseAmount[k.Title] += k.Amount;
-                        } else {
-                            kExpense[k.Title] = 1;
-                            kExpenseAmount[k.Title] = k.Amount;
-                        }
-                        kExpenseTotal += 1;
                     }
                 }
             }
@@ -258,14 +340,19 @@
                     expectedMonthlyExpense += (kExpenseAmount[i] / kExpense[i]) * (kExpense[i] / totalMonths); //single income * number of income per month
                 }
             }
+        }
 
+        function aPriorCurrent(a) {
+            return new Date(convert2Month(a)).getTime() < new Date(convert2Month(new Date())).getTime();
         }
 
         function monthlyIncomeExpense() {
             for (let i of Object.keys(data)) {
-                if (!Object.keys(monthlyData).hasOwnProperty(convert2Month(i))) {
-                    monthlyData[convert2Month(i)] = filterMonthlyData(convert2Month(i));
-                    totalMonths += 1;
+                if (aPriorCurrent(new Date(i))) {
+                    if (!Object.keys(monthlyData).hasOwnProperty(convert2Month(i))) {
+                        monthlyData[convert2Month(i)] = filterMonthlyData(convert2Month(i));
+                        totalMonths += 1;
+                    }
                 }
             }
         }
@@ -285,8 +372,6 @@
 
             return toRe;
         }
-
-
 
         function convert2Month(data) {
             let a = new Date(data);
