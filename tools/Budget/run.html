@@ -81,13 +81,15 @@
                     <p>Your accumulated history spending structure, including the current month. </p>
 
                     <div class="row">
-                        <div class="col s12 m4" id="incomeExpense">
+                        <div class="col m12 l12">
+                            <div id="incomeExpense" style="width: 100%;height: 300px;"></div>
+                        </div>
+                        <div class="col m12 l6">
+                            <div id="incomeCategory" style="width: 100%;height: 300px;"></div>
 
                         </div>
-                        <div class="col s12 m4" id="incomeCategory">
-
-                        </div>
-                        <div class="col s12 m4" id="expenseCategory">
+                        <div class="col m12 l6">
+                            <div id="expenseCategory" style="width: 100%;height: 300px;"></div>
 
                         </div>
                     </div>
@@ -101,7 +103,7 @@
     <div class="container row col s12 m12 l12">
         <div class="card white z-depth-3">
             <div class="card-content black-text">
-                <h5>Data</h5>
+                <h5>Plan for the future</h5>
                 <span id="datashownotifi"></span>
             </div>
             <div class="card-action">
@@ -217,10 +219,12 @@
                 console.log("incomes", incomes)
                 planFuture();
                 console.log(plans);
+                CreateTableFromJSON()
             } catch (err) {
-                //alert(err);
+                alert(err);
+                console.log(err);
                 //alert("Invalid Data");
-                window.history.back();
+                //window.history.back();
                 return;
             }
         })
@@ -229,7 +233,199 @@
             monthlyIncomeExpense();
             monthlyExpectedIncomeExpense(); //TODO: add filter to filter date before today
             categoryCumulative(); //TODO: add filter to filter date before today
+            incomeCategoryPlot();
+            expenseCategoryPlot();
+            incomeExpensePlot();
         }
+
+        function incomeCategoryPlot() {
+            var myChart1 = echarts.init(document.getElementById('incomeCategory'));
+            let k = [];
+            for (let i of Object.keys(incomes)) {
+                k.push({
+                    value: incomes[i],
+                    name: i
+                })
+            }
+            var options1 = {
+                title: {
+                    text: 'Income',
+                    subtext: 'Distribution',
+                    left: 'center'
+                },
+                toolbox: {
+                    show: true,
+                    feature: {
+                        saveAsImage: { show: true, title: 'Save asa image' }
+                    }
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: '{a} <br/>{b} : {c} ({d}%)'
+                },
+                legend: {
+                    orient: 'vertical',
+                    left: 'left',
+                    data: category.Income
+                },
+                series: [
+                    {
+                        name: 'source',
+                        type: 'pie',
+                        radius: '55%',
+                        center: ['50%', '60%'],
+                        data: k,
+                        emphasis: {
+                            itemStyle: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }
+                ]
+            };
+
+            myChart1.setOption(options1);
+        }
+
+        function expenseCategoryPlot() {
+            var myChart = echarts.init(document.getElementById('expenseCategory'));
+            let k = [];
+            for (let i of Object.keys(expenses)) {
+                k.push({
+                    value: expenses[i],
+                    name: i
+                })
+            }
+            console.log(k);
+            var options = {
+                title: {
+                    text: 'Expenses',
+                    subtext: 'Distribution',
+                    left: 'center'
+                },
+                toolbox: {
+                    show: true,
+                    feature: {
+                        saveAsImage: { show: true, title: 'Save asa image' }
+                    }
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: '{a} <br/>{b} : {c} ({d}%)'
+                },
+                legend: {
+                    orient: 'vertical',
+                    left: 'left',
+                    data: category.Expense
+                },
+                series: [
+                    {
+                        name: 'source',
+                        type: 'pie',
+                        radius: '55%',
+                        center: ['50%', '60%'],
+                        data: k,
+                        emphasis: {
+                            itemStyle: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }
+                ]
+            };
+
+            myChart.setOption(options);
+        }
+
+
+        function incomeExpensePlot() {
+            var myChart = echarts.init(document.getElementById('incomeExpense'));
+            let income = [];
+            let expense = [];
+            for (let i of Object.keys(monthlyData)) {
+                income.push(monthlyData[i].income)
+                expense.push(monthlyData[i].expense)
+            }
+            var options = {
+                title: {
+                    text: 'Income and Expense',
+                    subtext: 'last data area'
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data: Object.keys(category)
+                },
+                toolbox: {
+                    show: true,
+                    feature: {
+                        magicType: {
+                            show: true, type: ['line', 'bar'], title: {
+                                bar: 'for bar charts',
+                                line: 'for line charts'
+                            }
+                        },
+                        restore: { show: true, title: 'restore' },
+                        saveAsImage: { show: true, title: 'Save asa image' }
+                    }
+                },
+                calculable: true,
+                xAxis: [
+                    {
+                        type: 'category',
+                        data: Object.keys(monthlyData)
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: 'value'
+                    }
+                ],
+                series: [
+                    {
+                        name: 'Income',
+                        type: 'bar',
+                        data: income,
+                        markPoint: {
+                            data: [
+                                { type: 'max', name: 'Max' },
+                                { type: 'min', name: 'Min' }
+                            ]
+                        },
+                        markLine: {
+                            data: [
+                                { type: 'average', name: 'Average' }
+                            ]
+                        }
+                    },
+                    {
+                        name: 'Expense',
+                        type: 'bar',
+                        data: expense,
+                        markPoint: {
+                            data: [
+                                { type: 'max', name: 'Max' },
+                                { type: 'min', name: 'Min' }
+                            ]
+                        },
+                        markLine: {
+                            data: [
+                                { type: 'average', name: 'average' }
+                            ]
+                        }
+                    }
+                ]
+            };
+
+
+            myChart.setOption(options);
+        }
+
 
         function planFuture() {
             plans//date as index
@@ -395,8 +591,14 @@
         }
 
         function CreateTableFromJSON() {
-            return;
-            const myBooks = [];
+            let temp = [];
+            for(let i of Object.keys(plans)){
+                for(let k of plans[i]){
+                    k["Time"] = i
+                    temp.push(k);
+                }
+            }
+            const myBooks = temp;
 
             // EXTRACT VALUE FOR HTML HEADER. 
             var col = [];
