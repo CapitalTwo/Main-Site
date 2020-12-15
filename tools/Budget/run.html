@@ -178,12 +178,12 @@
         document.addEventListener('DOMContentLoaded', function () {
 
             if (window.isNativeApp) document.getElementById("nav").innerHTML = "";
-            if (width > 992) {
+            else if (width > 992) {
                 document.getElementById("navbars").classList.add("container")
             }
             try {
                 if (!localStorage.getItem("budgetingData")) {
-                    alert("Invalid visit");
+                    alert("Invalid visit, no data found");
                     window.history.back();
                     return;
                 }
@@ -206,19 +206,19 @@
                     }
                 }
                 if (!a) {
-                    alert("Invalid visit");
+                    alert("Invalid visit, some data get to be non-zero");
                     window.history.back();
                     return;
                 }
                 calculateHistory()
-                console.log("futureExpense", futureExpense)
-                console.log("futureIncome", futureIncome)
-                console.log("incomes", incomes)
-                console.log("monthlyData", monthlyData)
-                console.log("expenses", expenses)
-                console.log("incomes", incomes)
+                //console.log("futureExpense", futureExpense)
+                //console.log("futureIncome", futureIncome)
+                //console.log("incomes", incomes)
+                //console.log("monthlyData", monthlyData)
+                //console.log("expenses", expenses)
+                //console.log("incomes", incomes)
                 planFuture();
-                console.log(plans);
+                //console.log(plans);
                 CreateTableFromJSON()
             } catch (err) {
                 alert(err);
