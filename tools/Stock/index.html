@@ -85,7 +85,6 @@ a.sell {
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="../../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
     <link href="../../css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
-    <!-- <link href="tools/Stock/stocks.css" rel="stylesheet"> -->
     <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
     <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
     <script src="https://cdn.amcharts.com/lib/4/plugins/rangeSelector.js"></script>
@@ -137,17 +136,15 @@ a.sell {
                    <p>Take a look at the following companies' market trend</p>
                 </div>
                 <div class="card-action black-text">
-                    <!-- <a class="btn blue" href="#">Right</a>
-                    <a class="btn blue" href="#">Right</a> -->
                     <p>Stock Chart of DJI<button id = "DJI" style="float: right;" class="btn waves-effect waves-light col s3" onClick="reply_click(this.id)">Show
                     </button></p> 
                     <p>Stock Chart of GSPC<button id = "GSPC" style="float: right;" class="btn waves-effect waves-light col s3" onClick="reply_click(this.id)">Show
                     </button></p> 
                     <p>Stock Chart of IXIC<button id = "IXIC" style="float: right;" class="btn waves-effect waves-light col s3" onClick="reply_click(this.id)">Show
                     </button></p> 
-                    <p>Stock Chart of IXIC<button id = "IXIC" style="float: right;" class="btn waves-effect waves-light col s3" onClick="reply_click(this.id)">Show
+                    <p>Stock Chart of AAPL<button id = "AAPL" style="float: right;" class="btn waves-effect waves-light col s3" onClick="reply_click(this.id)">Show
                     </button></p> 
-                    <p>Stock Chart of IXIC<button id = "IXIC" style="float: right;" class="btn waves-effect waves-light col s3" onClick="reply_click(this.id)">Show
+                    <p>Stock Chart of GOOG<button id = "GOOG" style="float: right;" class="btn waves-effect waves-light col s3" onClick="reply_click(this.id)">Show
                     </button></p> 
                 </div>  
                 </div>
@@ -194,7 +191,7 @@ a.sell {
                             <div class="span10">
                                 <h6>Your Cash Flow: <span id="cashflow">1000</span></h6>
                                 <h6>Your Portfolio Value: <span id="portfolio">0</span></h6>
-                                <h6>Total Cash Flow and Portfolio Value: <span id="netWorth">1000</span></h6>
+                                <h6>Your Networth: <span id="netWorth">1000</span></h6>
                 
                             </div>
                         </div>
@@ -271,16 +268,20 @@ a.sell {
         alert("You are viewing the stock chart of " + clicked_id);
         chart.dataSource.url = "./data/IXIC.csv";
     }
+    else if(clicked_id === 'AAPL'){
+        alert("You are viewing the stock chart of " + clicked_id);
+        chart.dataSource.url = "./data/AAPL.csv";
+    }
+    else if(clicked_id === 'GOOG'){
+        alert("You are viewing the stock chart of " + clicked_id);
+        chart.dataSource.url = "./data/GOOG.csv";
+    }
     chart.dataSource.parser = new am4core.CSVParser();
     chart.dataSource.parser.options.useColumnNames = true;
     chart.dataSource.parser.options.reverse = true;
     
-    // the following line makes value axes to be arranged vertically.
+    
     chart.leftAxesContainer.layout = "vertical";
-    
-    // uncomment this line if you want to change order of axes
-    //chart.bottomAxesContainer.reverseOrder = true;
-    
     var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
     dateAxis.renderer.grid.template.location = 0;
     dateAxis.renderer.ticks.template.length = 8;
@@ -292,13 +293,8 @@ a.sell {
     dateAxis.renderer.maxLabelPosition = 0.99;
     dateAxis.keepSelection = true;
     dateAxis.minHeight = 30;
-    
     dateAxis.groupData = true;
     dateAxis.minZoomCount = 5;
-    
-    // these two lines makes the axis to be initially zoomed-in
-    // dateAxis.start = 0.7;
-    // dateAxis.keepSelection = true;
     
     var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.tooltip.disabled = true;
@@ -312,8 +308,6 @@ a.sell {
     valueAxis.renderer.inside = true;
     valueAxis.renderer.labels.template.verticalCenter = "bottom";
     valueAxis.renderer.labels.template.padding(2, 2, 2, 2);
-    
-    //valueAxis.renderer.maxLabelPosition = 0.95;
     valueAxis.renderer.fontSize = "0.8em"
     
     var series = chart.series.push(new am4charts.LineSeries());
@@ -374,7 +368,7 @@ a.sell {
 // stock simulation game start
 $(function() {
 
-//stock data
+//sample stock data
     companies = [
   {
       name : 'Apple'
