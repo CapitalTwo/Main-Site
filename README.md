@@ -6,8 +6,8 @@ The best way is to visit https://capitaltwo.ga/, you may use `http-server` if yo
 
 ```bash
 npm install http-server # install http-server
-git clone https://github.com/CapitalTwo/Capstone-Wiki.git
-cd Capstone-Wiki
+git clone https://github.com/CapitalTwo/Main-Site.git
+cd Main-Site
 http-server
 ```
 
